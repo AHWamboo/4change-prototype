@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Outsourcing HR — 4change</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/sass.js@0.11.1/dist/sass.sync.js"></script>
+
+<style>
+  html, body { margin: 0; background: #fff; font-family: 'Inter', system-ui, sans-serif; }
+  .scss-loading { padding: 80px 20px; text-align: center; color: #999; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+
+  .pay-intro { padding: 96px 4vw 20px; max-width: 1480px; margin: 0 auto; }
+  .pay-intro .columns { align-items: center; }
+  .pay-intro h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: clamp(2rem, 4vw, 3.2rem); color: #111; line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 22px; text-wrap: balance; }
+  .pay-intro p { font-size: 1.06rem; line-height: 1.7; color: #555; margin: 0 0 16px; }
+  .pay-cost-card { background: #111; border-radius: 18px; padding: 44px 42px; color: #fff; position: relative; overflow: hidden; }
+  .pay-cost-card::before { content: ""; position: absolute; top: -60px; right: -50px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(66,196,65,0.18) 0%, transparent 70%); }
+  .pay-cost-card .pcc-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #42c441; margin: 0 0 18px; }
+  .pay-cost-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.55rem; color: #fff; line-height: 1.25; margin: 0 0 24px; position: relative; }
+  .pay-cost-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; position: relative; }
+  .pay-cost-list li { display: flex; gap: 13px; align-items: flex-start; font-size: 0.96rem; line-height: 1.5; color: rgba(255,255,255,0.72); }
+  .pay-cost-list svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; color: #42c441; }
+
+  .oh-areas { padding: 20px 4vw 90px; max-width: 1480px; margin: 0 auto; }
+  .oh-areas-head { max-width: 720px; margin-bottom: 12px; }
+  .oh-areas-head h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); color: #111; line-height: 1.1; letter-spacing: -0.02em; margin: 12px 0 0; }
+  .oh-areas-sub { font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: #888; margin: 14px 0 36px; letter-spacing: 0.02em; }
+  .oh-areas-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .oh-area { border: 1px solid #e4e4e0; border-radius: 16px; padding: 26px 24px; display: flex; gap: 14px; align-items: flex-start; background: #fff; }
+  .oh-area .oa-num { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: 1.3rem; color: #42c441; flex-shrink: 0; width: 30px; }
+  .oh-area p { font-size: 0.96rem; color: #222; margin: 0; line-height: 1.4; padding-top: 4px; }
+
+  .oh-models { padding: 20px 4vw 90px; max-width: 1480px; margin: 0 auto; }
+  .oh-models-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+
+  .oh-gains { padding: 20px 4vw 90px; max-width: 1480px; margin: 0 auto; }
+  .oh-gains-head { max-width: 720px; margin-bottom: 36px; }
+  .oh-gains-head h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); color: #111; line-height: 1.1; letter-spacing: -0.02em; margin: 12px 0 0; }
+  .oh-gains-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px 40px; }
+  .oh-gain { display: flex; gap: 14px; align-items: flex-start; padding: 18px 0; border-top: 1px solid #ececec; }
+  .oh-gain .gi { width: 26px; height: 26px; flex-shrink: 0; color: #42c441; margin-top: 2px; }
+  .oh-gain .gi svg { width: 100%; height: 100%; }
+  .oh-gain p { margin: 0; font-size: 0.98rem; line-height: 1.55; color: #444; }
+  .oh-gain strong { color: #111; }
+  .oh-gains-photo { margin-top: 40px; border-radius: 18px; overflow: hidden; height: 320px; }
+  .oh-gains-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (max-width: 900px) { .oh-gains-grid { grid-template-columns: 1fr; } .oh-gains-photo { display: none; } }
+  .oh-model { border-radius: 18px; padding: 36px 34px; }
+  .oh-model.oh-partial { background: #f4f8f0; border: 1px solid #d8ead0; }
+  .oh-model.oh-full { background: #111; color: #fff; }
+  .oh-model .om-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #42c441; margin: 0 0 14px; display:flex; align-items:center; gap:8px; }
+  .oh-model .om-tag svg { width: 30px; height: 30px; flex-shrink: 0; }
+  .oh-model h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.35rem; margin: 0 0 12px; }
+  .oh-model.oh-partial h3 { color: #111; }
+  .oh-model.oh-full h3 { color: #fff; }
+  .oh-model p { font-size: 0.96rem; line-height: 1.62; margin: 0; }
+  .oh-model.oh-partial p { color: #444; }
+  .oh-model.oh-full p { color: rgba(255,255,255,0.72); }
+
+  @media (max-width: 1100px) { .oh-areas-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) { .oh-areas-grid { grid-template-columns: 1fr; } .oh-models-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div id="scss-status" class="scss-loading">Kompiluję SCSS…</div>
+
+<!-- ============ TOP NAV ============ -->
+<header class="top-bar">
+  <div class="pill">
+    <button class="burger" id="mobile-burger" aria-label="Menu"><span></span></button>
+    <a href="index.html" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+  </div>
+
+  <nav class="nav-pill" id="top-nav" aria-label="Główna nawigacja">
+    <div class="nav-item">
+      <a href="zespol.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span>O nas</span>
+      </a>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link is-active-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Rozwiązania dla firm</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="strategia-rozwoju-organizacji.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h7v7"/></svg>Strategia rozwoju organizacji</a>
+        <a href="outsourcing-hr.html" style="color:#42c441; background:#e8f7e0;"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 14L21 3"/><path d="M21 3v6h-6"/><path d="M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h5"/></svg>Outsourcing HR</a>
+        <a href="system-wynagrodzen.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Systemy wynagrodzeń</a>
+        <a href="struktura-organizacyjna.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M12 12H6v4M12 12h6v4"/></svg>Struktura organizacyjna i zakresy zadań</a>
+        <a href="audyt-sprzedazy.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Audyt działu sprzedaży</a>
+        <a href="audyt-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l2 3h2a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h2l2-3z"/><path d="M9 13l2 2 4-4"/></svg>Audyt działu HR</a>
+      </div>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+        <span>Rozwój właścicieli i zarządów</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Mentoring dla C-level</a>
+        <a href="mentoring-managerski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 11l2 2 4-4"/><circle cx="9" cy="7" r="4"/><path d="M3 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Mentoring dla managerów</a>
+        <a href="mentoring-wlascicielski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l3-5 3 4 3-6 3 6 3-4 3 5v8a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>Mentoring dla właścicieli</a>
+        <a href="coaching.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Coaching</a>
+      </div>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v16h13a3 3 0 003-3V7a3 3 0 00-3-3H4z"/><path d="M4 4v16"/><path d="M8 9h8M8 13h6"/></svg>
+        <span>Wiedza</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="blog.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3l7 7-11 11H3v-7L14 3z"/></svg>Blog</a>
+        <a href="case-studies.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>Case studies</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <a href="kontakt.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <span>Kontakt</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="pill right-pill">
+    <button class="icon-btn" aria-label="Szukaj">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    </button>
+    <a href="#">Zaloguj</a>
+  </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <button class="mobile-close" id="mobile-close" aria-label="Zamknij">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="mm-inner">
+    <section class="mm-col">
+      <h4>O nas</h4>
+      <a href="zespol.html">O nas</a>
+    </section>
+    <section class="mm-col">
+      <h4>Rozwiązania dla firm</h4>
+      <a href="strategia-rozwoju-organizacji.html">Strategia rozwoju organizacji</a>
+      <a href="outsourcing-hr.html">Outsourcing HR</a>
+      <a href="system-wynagrodzen.html">Systemy wynagrodzeń</a>
+      <a href="struktura-organizacyjna.html">Struktura organizacyjna i zakresy zadań</a>
+      <a href="audyt-sprzedazy.html">Audyt działu sprzedaży</a>
+      <a href="audyt-hr.html">Audyt działu HR</a>
+    </section>
+    <section class="mm-col">
+      <h4>Rozwój właścicieli i zarządów</h4>
+      
+      <a href="mentoring-c-level.html">Mentoring dla C-level</a>
+      <a href="mentoring-managerski.html">Mentoring dla managerów</a>
+      <a href="mentoring-wlascicielski.html">Mentoring dla właścicieli</a>
+      <a href="coaching.html">Coaching</a>
+    </section>
+    <section class="mm-col">
+      <h4>Wiedza</h4>
+      <a href="blog.html">Blog</a>
+      <a href="case-studies.html">Case studies</a>
+      <h4 style="margin-top: 28px;">Kontakt</h4>
+      <a href="mailto:kontakt@4change.pl">kontakt@4change.pl</a>
+    </section>
+  </div>
+</aside>
+
+<!-- ============ HERO ============ -->
+<section class="strategy-hero">
+  <div class="container">
+    <p class="eyebrow muted mb-4">Rozwiązania dla firm</p>
+    <h1 class="display strategy-hero-title">
+      Firma rośnie, a&nbsp;koszt rekrutacji<br/>rośnie szybciej niż jej efekty
+    </h1>
+    <p class="strategy-hero-sub">
+      W miarę wzrostu organizacji koszty zewnętrznych rekrutacji i&nbsp;prowadzenia HR
+      potrafią przerosnąć realną wartość, jaką to przynosi biznesowi. Zbuduj HR razem
+      z&nbsp;nami — od podstaw albo krok po kroku — i&nbsp;zdecyduj, co zostaje u&nbsp;Ciebie,
+      a&nbsp;co oddajesz nam.
+    </p>
+  </div>
+</section>
+
+<!-- ============ SERVICE TABS ============ -->
+<div class="service-tabs">
+  <a href="#buduj" class="stab is-active">Zbuduj HR z&nbsp;nami</a>
+  <a href="#obszary" class="stab">Obszary wsparcia</a>
+  <a href="#modele" class="stab">Modele współpracy</a>
+  <a href="#kontakt-cta" class="stab">Porozmawiajmy</a>
+</div>
+
+<!-- ============ INTRO / PROBLEM ============ -->
+<section id="buduj" class="pay-intro">
+  <div class="columns is-variable is-8">
+    <div class="column is-6">
+      <p class="eyebrow muted">Zbuduj swój HR z&nbsp;nami</p>
+      <h2>Nie musisz wybierać między własnym działem a&nbsp;chaosem</h2>
+      <p>
+        Wielu właścicieli rosnących firm staje przed tym samym dylematem: zatrudnić własny
+        zespół HR, czy dalej zlecać rekrutacje na zewnątrz. Tymczasem koszty agencji rosną
+        wraz ze skalą, a&nbsp;efekty biznesowe nie rosną proporcjonalnie.
+      </p>
+      <p>
+        Proponujemy trzecią drogę — budujemy funkcję HR razem z&nbsp;Tobą. Funkcje zarządcze
+        (strategię, standardy, decyzje personalne) możesz zostawić u&nbsp;siebie, a&nbsp;bieżące
+        wykonanie oddać nam. Albo oddać nam całość i&nbsp;odzyskać czas na prowadzenie biznesu.
+      </p>
+    </div>
+    <div class="column is-6">
+      <div class="pay-cost-card">
+        <p class="pcc-eyebrow">Kiedy warto o&nbsp;tym pomyśleć</p>
+        <h3>Po czym poznasz, że HR nie nadąża za wzrostem?</h3>
+        <ul class="pay-cost-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Koszty rekrutacji zewnętrznych rosną szybciej niż efekty, jakie przynoszą</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Nie masz czasu ani zasobów, żeby budować dział HR od zera</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Chcesz zachować kontrolę nad decyzjami, ale oddać wykonanie</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Potrzebujesz elastyczności — wsparcia stacjonarnego u&nbsp;Ciebie lub zdalnego</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OBSZARY WSPARCIA ============ -->
+<section id="obszary" class="oh-areas">
+  <div class="oh-areas-head">
+    <p class="eyebrow muted">Obszary wsparcia</p>
+    <h2>Możliwe obszary wsparcia w&nbsp;funkcji HR</h2>
+  </div>
+  <p class="oh-areas-sub">REALIZOWANE STACJONARNIE (U&nbsp;CIEBIE) LUB ONLINE — DOBIERAMY FORMĘ DO&nbsp;TWOICH POTRZEB</p>
+  <div class="oh-areas-grid">
+    <div class="oh-area"><span class="oa-num">01</span><p>Rekrutacja i&nbsp;employer branding</p></div>
+    <div class="oh-area"><span class="oa-num">02</span><p>Onboarding i&nbsp;offboarding</p></div>
+    <div class="oh-area"><span class="oa-num">03</span><p>Struktura organizacyjna i&nbsp;ścieżki kariery</p></div>
+    <div class="oh-area"><span class="oa-num">04</span><p>Oceny okresowe pracowników i&nbsp;efektywność pracy</p></div>
+    <div class="oh-area"><span class="oa-num">05</span><p>Zarządzanie talentami</p></div>
+    <div class="oh-area"><span class="oa-num">06</span><p>Szkolenia i&nbsp;procesy rozwojowe</p></div>
+    <div class="oh-area"><span class="oa-num">07</span><p>Polityka i&nbsp;systemy wynagrodzeń</p></div>
+    <div class="oh-area"><span class="oa-num">08</span><p>Analityka HR</p></div>
+  </div>
+  <p style="margin-top:18px;font-size:0.92rem;color:#777;">Nie musisz korzystać z&nbsp;całości — możesz współpracować z&nbsp;nami w&nbsp;zakresie tylko jednego obszaru.</p>
+</section>
+
+<!-- ============ ZDJĘCIE ============ -->
+<section style="padding:0 4vw 90px;max-width:1480px;margin:0 auto;">
+  <div class="oh-gains-photo">
+    <img src="images/team-notes-discussion.jpg" alt="Warsztat zespołu nad notatkami" />
+  </div>
+</section>
+
+<!-- ============ NA JAKIE PYTANIA POMAGAMY ODPOWIEDZIEĆ ============ -->
+<section class="oh-areas" style="padding-top:0;">
+  <div class="oh-areas-head">
+    <p class="eyebrow muted">W praktyce</p>
+    <h2>Jakie pytania najczęściej zadają nam nasi klienci</h2>
+  </div>
+  <div class="oh-areas-grid">
+    <div class="oh-area"><span class="oa-num">01</span><p>Jak zaplanować i&nbsp;poukładać komunikację w&nbsp;firmie — spotkania z&nbsp;zespołem, 1:1, komunikację z&nbsp;kierownikami, newslettery HR, badania zaangażowania?</p></div>
+    <div class="oh-area"><span class="oa-num">02</span><p>Jak przygotować managerów do&nbsp;zarządzania zespołem w&nbsp;sposób budujący morale i&nbsp;zaangażowanie — jakie konkretne narzędzia HR im dać?</p></div>
+    <div class="oh-area"><span class="oa-num">03</span><p>Jak zbudować powtarzalny plan onboardingu pracownika i&nbsp;kierownika, żeby nie zależał od pamięci jednej osoby?</p></div>
+    <div class="oh-area"><span class="oa-num">04</span><p>Jak zaplanować ścieżkę rozwoju umiejętności pracy z&nbsp;klientem i&nbsp;sprzedaży — dla pracowników i&nbsp;dla managerów?</p></div>
+    <div class="oh-area"><span class="oa-num">05</span><p>Z kim skonsultować się ad&nbsp;hoc, gdy pojawia się konflikt, skarga albo trzeba zaplanować spotkanie czy projekt?</p></div>
+    <div class="oh-area"><span class="oa-num">06</span><p>Jakie narzędzie do&nbsp;oceny okresowej pracowników wybrać i&nbsp;jak je wdrożyć?</p></div>
+    <div class="oh-area"><span class="oa-num">07</span><p>Jak zdiagnozować realne potrzeby szkoleniowe i&nbsp;zaplanować harmonogram oraz kosztorys działań rozwojowych?</p></div>
+    <div class="oh-area"><span class="oa-num">08</span><p>Jak zaprojektować politykę i&nbsp;system wynagrodzeń, który wspiera cele firmy, a&nbsp;nie tylko koszty?</p></div>
+  </div>
+</section>
+
+<!-- ============ MODELE WSPÓŁPRACY ============ -->
+<section id="modele" class="oh-models">
+  <div class="oh-areas-head">
+    <p class="eyebrow muted">Ty decydujesz, ile oddajesz</p>
+    <h2>Trzy modele — dopasuj do etapu, na&nbsp;którym jesteś</h2>
+  </div>
+  <div class="oh-models-grid">
+    <div class="oh-model oh-partial">
+      <p class="om-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 4 5v6c0 5.2 3.4 9.4 8 11 4.6-1.6 8-5.8 8-11V5z"/></svg>Model 1</p>
+      <h3>Pełny outsourcing HR</h3>
+      <p>
+        Spotykamy się z&nbsp;osobami decyzyjnymi i&nbsp;ustalamy cele. Cała reszta jest po naszej
+        stronie — Ty nie budujesz żadnego zespołu, my prowadzimy funkcję HR od&nbsp;A do&nbsp;Z.
+      </p>
+    </div>
+    <div class="oh-model oh-full">
+      <p class="om-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8.5 3a2.5 2.5 0 000 5H10v2H6a2 2 0 000 4h1.5a2.5 2.5 0 105 0V13H16a2 2 0 100-4h-1.5V8H16a2.5 2.5 0 10-2.5-2.5V7h-2V5A2 2 0 008.5 3z"/></svg>Model 2</p>
+      <h3>Zarządzamy HR, Ty masz zespół na&nbsp;miejscu</h3>
+      <p>
+        My określamy strategiczne zadania i&nbsp;pracujemy z&nbsp;zarządem, przekładając strategię
+        na konkretny, operacyjny zestaw zadań. Realizuje go Twój kilkuosobowy zespół na&nbsp;miejscu.
+      </p>
+    </div>
+    <div class="oh-model oh-partial">
+      <p class="om-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22V12M12 12C12 9 10 7 6 6.5c-.3 3 1 5 6 5.5zM12 12c0-3 2-5 6-5.5.3 3-1 5-6 5.5z"/><path d="M12 12c0-4-2-7-5-9 0 4 1 7 5 9z"/></svg>Model 3</p>
+      <h3>Budujemy Twój zespół HR — i&nbsp;oddajemy Ci kontrolę</h3>
+      <p>
+        Budujemy dla Ciebie zespół HR od&nbsp;podstaw i&nbsp;oddajemy nad nim pełną kontrolę.
+        Możemy też zaudytować zespół HR, który już działa w&nbsp;Twojej firmie.
+      </p>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ CO ZYSKUJESZ ============ -->
+<section class="oh-gains">
+  <div class="oh-gains-head">
+    <p class="eyebrow muted">Dlaczego warto skorzystać z&nbsp;4change</p>
+    <h2>Co zyskujesz ze&nbsp;współpracy z&nbsp;nami</h2>
+  </div>
+  <div class="oh-gains-grid">
+    <div class="oh-gain"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div><p><strong>Niższy koszt niż własny dział HR</strong> — płacisz za realny efekt, nie za utrzymanie etatów i&nbsp;narzędzi.</p></div>
+    <div class="oh-gain"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg></div><p><strong>Doświadczenie z&nbsp;wielu branż</strong> — wiemy, co działa, bo wdrażaliśmy to już w&nbsp;innych firmach.</p></div>
+    <div class="oh-gain"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M14.5 15.5c1.5-1 3.5-1 5.5 0"/></svg></div><p><strong>Zespół, nie jedna osoba</strong> — w razie choroby czy urlopu HR nie staje w&nbsp;miejscu.</p></div>
+    <div class="oh-gain"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div><p><strong>Ty decydujesz o&nbsp;zakresie</strong> — od pełnego outsourcingu po budowę i&nbsp;audyt własnego zespołu.</p></div>
+    <div class="oh-gain"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 3 14h8l-1 8 10-12h-8z"/></svg></div><p><strong>Szybszy start</strong> — nie musisz rekrutować, wdrażać i&nbsp;szkolić własnego działu HR od&nbsp;zera.</p></div>
+    <div class="oh-gain"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><p><strong>Strategia przełożona na&nbsp;działanie</strong> — łączymy pracę z&nbsp;zarządem z&nbsp;konkretnym, operacyjnym planem.</p></div>
+    <div class="oh-gain"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21c-4-3-8-6-8-11a5 5 0 0110-1.5A5 5 0 0120 10c0 5-4 8-8 11z"/></svg></div><p><strong>Osoby skoncentrowane na&nbsp;dobrostanie zespołu</strong> — dbamy o&nbsp;komfort psychiczny w&nbsp;pracy, nie tylko o&nbsp;wskaźniki.</p></div>
+    <div class="oh-gain"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><p><strong>Spojrzenie z&nbsp;zewnątrz bez uwikłania</strong> — nie jesteśmy strukturalnie ani emocjonalnie powiązani z&nbsp;nikim w&nbsp;firmie, co pozwala ścierać różne perspektywy i&nbsp;podejmować decyzje dopasowane do wszystkich stron.</p></div>
+    <div class="oh-gain"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-4"/></svg></div><p><strong>Dostęp do&nbsp;sprawdzonych danych rynkowych</strong> — benchmarki wynagrodzeń, efektywności i&nbsp;standardów pracy, bez konieczności zbierania ich samodzielnie.</p></div>
+    <div class="oh-gain"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 9h16M9 4v16"/></svg></div><p><strong>Skalowalność współpracy</strong> — przy nowych projektach szybko zwiększamy liczbę zaangażowanych konsultantów.</p></div>
+  </div>
+</section>
+
+<!-- ============ ONBOARDING I PREBOARDING ============ -->
+<section class="pay-intro">
+  <div class="columns is-variable is-8">
+    <div class="column is-6">
+      <p class="eyebrow muted">Dodatkowa usługa</p>
+      <h2>Preboarding i&nbsp;onboarding — pierwsze miesiące decydują</h2>
+      <p>
+        W zależności od poziomu skomplikowania stanowiska nowo zatrudniony kandydat potrzebuje
+        od&nbsp;1 do&nbsp;3&nbsp;miesięcy, żeby wdrożyć się do&nbsp;pracy i&nbsp;zacząć przynosić firmie zysk.
+        Całkowity koszt wdrożenia wynosi nawet 7-krotność przeciętnego wynagrodzenia — dlatego tak
+        istotne jest zaprojektowanie przemyślanych procesów preboardingu i&nbsp;onboardingu, które
+        zapobiegają dodatkowym kosztom, frustracji pracowników i&nbsp;wpływają pozytywnie na wizerunek firmy.
+      </p>
+      <p>
+        Zaplanujemy harmonogram wdrożenia nowego pracownika i&nbsp;dostarczymy komplet narzędzi:
+      </p>
+      <ul style="list-style:none;margin:0 0 16px;padding:0;display:flex;flex-direction:column;gap:10px;">
+        <li style="display:flex;gap:10px;font-size:0.98rem;color:#444;"><span style="color:#42c441;font-weight:700;">→</span>Plan preboardingu — działania na etapie oczekiwania na kandydata</li>
+        <li style="display:flex;gap:10px;font-size:0.98rem;color:#444;"><span style="color:#42c441;font-weight:700;">→</span>Plan onboardingu — zakres wiedzy i&nbsp;umiejętności do&nbsp;wdrożenia</li>
+        <li style="display:flex;gap:10px;font-size:0.98rem;color:#444;"><span style="color:#42c441;font-weight:700;">→</span>Harmonogram czasowy wdrożenia nowego pracownika</li>
+        <li style="display:flex;gap:10px;font-size:0.98rem;color:#444;"><span style="color:#42c441;font-weight:700;">→</span>Checklisty i&nbsp;dziennik onboardingu do&nbsp;codziennej refleksji</li>
+        <li style="display:flex;gap:10px;font-size:0.98rem;color:#444;"><span style="color:#42c441;font-weight:700;">→</span>Quizy, testy i&nbsp;ćwiczenia wspierające wdrożenie</li>
+        <li style="display:flex;gap:10px;font-size:0.98rem;color:#444;"><span style="color:#42c441;font-weight:700;">→</span>Ankiety oceniające proces i&nbsp;raport podsumowujący</li>
+      </ul>
+    </div>
+    <div class="column is-6">
+      <div style="border-radius:18px;overflow:hidden;height:100%;min-height:340px;">
+        <img src="uploads/office-1209640_1920.jpg" alt="Wdrażanie nowego pracownika do zespołu" style="width:100%;height:100%;object-fit:cover;display:block;" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER — DO AUDYTU ============ -->
+<section>
+  <div class="impact-banner" id="kontakt-cta">
+    <div class="columns is-vcentered is-variable is-8">
+      <div class="column is-7">
+        <h2 class="display">Nie wiesz, od czego zacząć? Zacznijmy od audytu</h2>
+      </div>
+      <div class="column is-5">
+        <p class="mb-5">
+          Zacznijmy od rozmowy — jakich efektów się spodziewasz. Audyt działu HR pokaże
+          Ci realny stan i&nbsp;konkretne rekomendacje na start.
+        </p>
+        <a href="audyt-hr.html" class="btn-accent">
+          Zobacz audyt działu HR
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="news-strip">
+  <div class="columns is-vcentered is-variable is-6">
+    <div class="column is-5">
+      <h3>Co kwartał jeden konkretny materiał o&nbsp;porządkowaniu rosnącej firmy.</h3>
+    </div>
+    <div class="column is-7">
+      <form class="news-form" onsubmit="event.preventDefault(); alert('Zapisano: ' + this.email.value);">
+        <input type="email" name="email" placeholder="Twój e-mail" required />
+        <button type="submit">Zapisz się</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="columns is-variable is-8">
+    <div class="column is-4">
+      <h4>Projektujemy zmianę dla tych, którzy chcą zmieniać świat.</h4>
+    </div>
+    <div class="column is-2">
+      <a href="zespol.html" class="footer-link">O nas</a>
+      <a href="strategia-rozwoju-organizacji.html" class="footer-link">Rozwiązania</a>
+      <a href="mentoring-c-level.html" class="footer-link">Rozwój</a>
+    </div>
+    <div class="column is-2">
+      <a href="blog.html" class="footer-link">Wiedza</a>
+      <a href="kontakt.html" class="footer-link">Kontakt</a>
+    </div>
+    <div class="column is-4 footer-help">
+      <h5>Jak możemy Ci pomóc?</h5>
+      <p>Cenimy każdą rozmowę. Napisz do nas — odpowiemy w 24h, a doświadczony konsultant zaproponuje pierwszy krok.</p>
+      <a href="kontakt.html" class="btn-accent">Skontaktuj się
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-meta">
+    <div style="display:flex; align-items:center; gap:18px;">
+      <a href="index.html" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+      <span style="color:#6b6b6b; font-size:0.8rem;">Transformation &amp; Strategy</span>
+    </div>
+    <div class="links">
+      <a href="#">Polityka prywatności</a>
+      <a href="#">Regulamin</a>
+      <a href="#">Sitemap</a>
+      <a href="#">Cookies</a>
+    </div>
+    <div class="socials" aria-label="Obserwuj nas">
+      <a href="#" aria-label="LinkedIn">in</a>
+      <a href="#" aria-label="Facebook">fb</a>
+      <a href="#" aria-label="Instagram">ig</a>
+    </div>
+  </div>
+
+  <p class="legal">
+    4change Sp. z o.o. jest pracodawcą równych szans. Wszyscy aplikujący kandydaci są rozpatrywani bez względu na płeć,
+    wiek, religię, orientację seksualną, tożsamość lub ekspresję płciową, pochodzenie narodowe ani inne cechy chronione
+    prawem krajowym.
+  </p>
+</footer>
+
+<!-- ============ SCSS ============ -->
+<script>
+(async function compileScss() {
+  const status = document.getElementById('scss-status');
+  const partials = ['_variables.scss','_mixins.scss','_layout.scss','_components.scss','main.scss'];
+  try {
+    const sources = {};
+    for (const name of partials) {
+      const res = await fetch('styles/' + name);
+      if (!res.ok) throw new Error('Nie udało się wczytać ' + name);
+      sources[name] = await res.text();
+    }
+    for (const [name, content] of Object.entries(sources)) Sass.writeFile(name, content);
+    Sass.compile(sources['main.scss'], function (result) {
+      if (result.status === 0) {
+        const style = document.createElement('style');
+        style.id = 'compiled-scss';
+        style.textContent = result.text;
+        document.head.appendChild(style);
+        status.remove();
+      } else {
+        status.style.color = '#c62828';
+        status.textContent = 'Błąd SCSS: ' + (result.formatted || result.message);
+      }
+    });
+  } catch (err) {
+    status.style.color = '#c62828';
+    status.textContent = 'Błąd ładowania SCSS: ' + err.message;
+  }
+})();
+
+const mobileBurger = document.getElementById('mobile-burger');
+const mobileMenu   = document.getElementById('mobile-menu');
+const mobileClose  = document.getElementById('mobile-close');
+function openMM()  { mobileMenu.classList.add('is-open'); mobileMenu.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+function closeMM() { mobileMenu.classList.remove('is-open'); mobileMenu.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+mobileBurger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMM() : openMM());
+mobileClose.addEventListener('click', closeMM);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMM(); });
+
+document.querySelectorAll('.stab[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      const y = target.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+<script src="contact-widget.js"></script>
+<script src="diagnosis-popup.js"></script>
+</body>
+</html>

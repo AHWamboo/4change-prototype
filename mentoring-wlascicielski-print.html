@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mentoring właścicielski — 4change</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/sass.js@0.11.1/dist/sass.sync.js"></script>
+
+<style>
+  html, body { margin: 0; background: #fff; font-family: 'Inter', system-ui, sans-serif; }
+  .scss-loading { padding: 80px 20px; text-align: center; color: #999; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+
+  .pay-intro { padding: 96px 4vw 20px; max-width: 1480px; margin: 0 auto; }
+  .pay-intro .columns { align-items: center; }
+  .pay-intro .eyebrow { margin-bottom: 16px; }
+  .pay-intro h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: clamp(2rem, 4vw, 3.2rem); color: #111; line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 22px; text-wrap: balance; }
+  .pay-intro p { font-size: 1.06rem; line-height: 1.7; color: #555; margin: 0 0 16px; }
+  .pay-cost-card { background: #111; border-radius: 18px; padding: 44px 42px; color: #fff; position: relative; overflow: hidden; }
+  .pay-cost-card::before { content: ""; position: absolute; top: -60px; right: -50px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(66,196,65,0.18) 0%, transparent 70%); }
+  .pay-cost-card .pcc-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #42c441; margin: 0 0 18px; }
+  .pay-cost-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.55rem; color: #fff; line-height: 1.25; margin: 0 0 24px; position: relative; }
+  .pay-cost-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; position: relative; }
+  .pay-cost-list li { display: flex; gap: 13px; align-items: flex-start; font-size: 0.96rem; line-height: 1.5; color: rgba(255,255,255,0.72); }
+  .pay-cost-list svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; color: #42c441; }
+
+  .pay-models { padding: 80px 4vw; max-width: 1480px; margin: 0 auto; }
+  .pay-models-head { max-width: 680px; margin-bottom: 48px; }
+  .pay-models-head h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: clamp(2rem, 4vw, 3.2rem); color: #111; line-height: 1.08; letter-spacing: -0.02em; margin: 14px 0 0; }
+  .pay-models-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .pay-model { border: 1px solid #e4e4e0; border-radius: 16px; padding: 34px 30px; background: #fff; transition: transform 200ms, box-shadow 200ms, border-color 200ms; }
+  .pay-model:hover { transform: translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.08); border-color: transparent; }
+  .pay-model .pm-icon { width: 50px; height: 50px; border-radius: 12px; background: #e8f7e0; display: flex; align-items: center; justify-content: center; color: #2a7a0c; margin-bottom: 20px; }
+  .pay-model .pm-icon svg { width: 26px; height: 26px; }
+  .pay-model h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.3rem; color: #111; margin: 0 0 12px; line-height: 1.25; }
+  .pay-model p { font-size: 0.94rem; line-height: 1.62; color: #666; margin: 0; }
+
+  @media (max-width: 900px) { .pay-models-grid { grid-template-columns: 1fr; } }
+</style>
+
+<style id="print-rules">
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  @page { size: A4; margin: 0; }
+  @media print {
+    body { padding: 0.5in 0.55in !important; }
+    /* hide all interactive / fixed chrome */
+    .top-bar, .mobile-menu, .service-tabs,
+    .cw-wrap, .cw-trigger, .cw-trigger-tl, .cw-panel,
+    .scss-loading, #scss-status { display: none !important; }
+    /* fixed nav no longer there -> reclaim hero top space */
+    .hero-section, .strategy-hero { padding-top: 24px !important; }
+    /* carousel strip: let it wrap instead of horizontal scroll/clip */
+    .strip { overflow: visible !important; flex-wrap: wrap !important; height: auto !important; }
+    /* keep visual units whole */
+    .overview-item, .pay-model, .fin-card, .scen-card, .gain-item,
+    .pay-cost-card, .fac-visual, .impact-banner, .strip-card, figure {
+      break-inside: avoid !important;
+    }
+    h1, h2, h3, .overview-title, .display { break-after: avoid !important; }
+    p { orphans: 3; widows: 3; }
+    .news-strip .news-form { display: none !important; }
+    /* freeze any entrance animations at end-state */
+    *, *::before, *::after {
+      animation-delay: -99s !important; animation-duration: .001s !important;
+      animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+      animation-play-state: running !important; transition-duration: 0s !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="scss-status" class="scss-loading">Kompiluję SCSS…</div>
+
+<!-- ============ TOP NAV ============ -->
+<header class="top-bar">
+  <div class="pill">
+    <button class="burger" id="mobile-burger" aria-label="Menu"><span></span></button>
+    <a href="index.html" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+  </div>
+
+  <nav class="nav-pill" id="top-nav" aria-label="Główna nawigacja">
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span>O nas</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="#"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v.01M11 12h1v5h1"/></svg>Kim jesteśmy</a>
+        <a href="zespol.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M14.5 15.5c1.5-1 3.5-1 5.5 0"/></svg>Zespół</a>
+      </div>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Rozwiązania dla firm</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="strategia-rozwoju-organizacji.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h7v7"/></svg>Strategia rozwoju organizacji</a>
+        <a href="audyt-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 14L21 3"/><path d="M21 3v6h-6"/><path d="M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h5"/></svg>Outsourcing HR</a>
+        <a href="system-wynagrodzen.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Systemy wynagrodzeń</a>
+        <a href="struktura-organizacyjna.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M12 12H6v4M12 12h6v4"/></svg>Struktura organizacyjna i zakresy zadań</a>
+        <a href="audyt-sprzedazy.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Audyt działu sprzedaży</a>
+        <a href="audyt-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l2 3h2a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h2l2-3z"/><path d="M9 13l2 2 4-4"/></svg>Audyt działu HR</a>
+      </div>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link is-active-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+        <span>Rozwój właścicieli i zarządów</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Mentoring dla C-level</a>
+        <a href="mentoring-managerski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 11l2 2 4-4"/><circle cx="9" cy="7" r="4"/><path d="M3 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Mentoring dla managerów</a>
+        <a href="mentoring-wlascicielski.html" style="color:#42c441; background:#e8f7e0;"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l3-5 3 4 3-6 3 6 3-4 3 5v8a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>Mentoring dla właścicieli</a>
+        <a href="coaching.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Coaching</a>
+      </div>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v16h13a3 3 0 003-3V7a3 3 0 00-3-3H4z"/><path d="M4 4v16"/><path d="M8 9h8M8 13h6"/></svg>
+        <span>Wiedza</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="#"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3l7 7-11 11H3v-7L14 3z"/></svg>Blog</a>
+        <a href="case-studies.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>Case studies</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <a href="kontakt.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <span>Kontakt</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="pill right-pill">
+    <button class="icon-btn" aria-label="Szukaj">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    </button>
+    <a href="#">Zaloguj</a>
+  </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <button class="mobile-close" id="mobile-close" aria-label="Zamknij">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="mm-inner">
+    <section class="mm-col">
+      <h4>O nas</h4>
+      <a href="#">Kim jesteśmy</a>
+      <a href="zespol.html">Zespół</a>
+    </section>
+    <section class="mm-col">
+      <h4>Rozwiązania dla firm</h4>
+      <a href="strategia-rozwoju-organizacji.html">Strategia rozwoju organizacji</a>
+      
+      <a href="audyt-hr.html">Outsourcing HR</a>
+      <a href="system-wynagrodzen.html">Systemy wynagrodzeń</a>
+      <a href="struktura-organizacyjna.html">Struktura organizacyjna i zakresy zadań</a>
+      <a href="audyt-sprzedazy.html">Audyt działu sprzedaży</a>
+      <a href="audyt-hr.html">Audyt działu HR</a>
+    </section>
+    <section class="mm-col">
+      <h4>Rozwój właścicieli i zarządów</h4>
+      
+      <a href="mentoring-c-level.html">Mentoring dla C-level</a>
+      <a href="mentoring-managerski.html">Mentoring dla managerów</a>
+      <a href="mentoring-wlascicielski.html" style="color:#42c441; background:#e8f7e0;">Mentoring dla właścicieli</a>
+      <a href="coaching.html">Coaching</a>
+    </section>
+    <section class="mm-col">
+      <h4>Wiedza</h4>
+      <a href="#">Blog</a>
+      <a href="case-studies.html">Case studies</a>
+      <h4 style="margin-top: 28px;">Kontakt</h4>
+      <a href="mailto:kontakt@4change.pl">kontakt@4change.pl</a>
+    </section>
+  </div>
+</aside>
+
+<!-- ============ HERO ============ -->
+<section class="strategy-hero">
+  <div class="container">
+    <p class="eyebrow muted mb-4">Szkolenia i warsztaty — dla właścicieli i zarządów</p>
+    <h1 class="display strategy-hero-title">Na górze bywa samotno —<br/>potrzebujesz kogoś do rozmowy jak równy z&nbsp;równym</h1>
+    <p class="strategy-hero-sub">Im wyżej jesteś, tym mniej osób powie Ci szczerze, co myśli. Mentoring właścicielski to stały sparingpartner — ktoś, z&nbsp;kim przetestujesz pomysł, zanim zaangażujesz weń firmę, i&nbsp;kto powie wprost to, czego zespół nie odważy się powiedzieć.</p>
+  </div>
+</section>
+
+<!-- ============ SERVICE TABS ============ -->
+<div class="service-tabs">
+  <a href="#intro" class="stab is-active">Dla kogo</a>
+  <a href="#przebieg" class="stab">Jak to działa</a>
+  <a href="#zakres" class="stab">Tematy rozmów</a>
+  <a href="#kontakt-cta" class="stab">Umów rozmowę</a>
+</div>
+
+<!-- ============ INTRO ============ -->
+<section id="intro" class="pay-intro">
+  <div class="columns is-variable is-8">
+    <div class="column is-6">
+      <p class="eyebrow muted">Rola sparingpartnera</p>
+      <h2>Nie doradca, który mówi „zrób tak". Partner, z&nbsp;którym myślisz na głos.</h2>
+      <p>Jako właściciel większość decyzji nosisz sam. Mentoring daje Ci zaufaną osobę spoza firmy — bez agendy, układów i&nbsp;interesu w&nbsp;wyniku — z&nbsp;którą możesz bezpiecznie przemyśleć każdy ruch.</p>
+      <p>To przestrzeń do wymiany pomysłów: rzucasz koncepcję, my ją kwestionujemy, rozkładamy na czynniki i&nbsp;sprawdzamy z&nbsp;różnych stron. Wychodzisz z&nbsp;decyzją, której jesteś pewny — nie z&nbsp;gotową receptą, tylko z&nbsp;własnym, lepiej przemyślanym wyborem.</p>
+    </div>
+    <div class="column is-6">
+      <div class="pay-cost-card">
+        <p class="pcc-eyebrow">Sygnały, że to dla Ciebie</p>
+        <h3>Mentoring właścicielski jest dla Ciebie, jeśli…</h3>
+        <ul class="pay-cost-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>Nie masz z&nbsp;kim szczerze przegadać kluczowych decyzji</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>Chcesz przetestować pomysł, zanim wciągniesz w&nbsp;niego firmę</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>Czujesz, że zespół mówi Ci to, co chcesz usłyszeć</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6L6 18M6 6l12 12"/></svg>Stoisz przed dużą zmianą: sukcesja, sprzedaż, ekspansja</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRZEBIEG ============ -->
+<section id="przebieg" class="strategy-overview" style="padding-top:80px;">
+  <div class="strategy-overview-inner" style="padding-left:4vw; padding-right:4vw;">
+    <p class="eyebrow muted" style="margin-bottom:14px;">Jak to działa</p>
+    <h2 class="display overview-title">Stała współpraca, nie jednorazowa konsultacja</h2>
+    <div class="overview-grid">
+      <div class="overview-item">
+        <div class="oi-num">01</div>
+        <h3 class="oi-title">Poznanie kontekstu</h3>
+        <p class="oi-body">Zaczynamy od Twojej sytuacji, firmy i&nbsp;celów. Ustalamy, na czym naprawdę Ci zależy i&nbsp;czego oczekujesz od współpracy.</p>
+      </div>
+      <div class="overview-item">
+        <div class="oi-num">02</div>
+        <h3 class="oi-title">Regularne sesje</h3>
+        <p class="oi-body">Spotykamy się cyklicznie — to stały punkt w&nbsp;kalendarzu, w&nbsp;którym przegadujemy bieżące decyzje, dylematy i&nbsp;pomysły na spokojnie.</p>
+      </div>
+      <div class="overview-item">
+        <div class="oi-num">03</div>
+        <h3 class="oi-title">Sparing i&nbsp;wymiana</h3>
+        <p class="oi-body">Kwestionujemy założenia, podsuwamy inne perspektywy i&nbsp;testujemy scenariusze. Bezpiecznie — zanim zmierzysz się z&nbsp;nimi w&nbsp;firmie.</p>
+      </div>
+      <div class="overview-item">
+        <div class="oi-num">04</div>
+        <h3 class="oi-title">Decyzje i&nbsp;kierunek</h3>
+        <p class="oi-body">Każda sesja kończy się jasnością: co dalej, dlaczego i&nbsp;jakim krokiem zaczynasz. Decyzja zostaje Twoja — tylko lepiej przemyślana.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ZAKRES / MODELE ============ -->
+<section id="zakres" class="pay-models">
+  <div class="pay-models-head">
+    <p class="eyebrow muted">Tematy rozmów</p>
+    <h2>O&nbsp;czym najczęściej rozmawiamy</h2>
+  </div>
+  <div class="pay-models-grid">
+    <div class="pay-model">
+      <div class="pm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4L3 8l4 4M3 8h13M17 20l4-4-4-4M21 16H8"/></svg></div>
+      <h3>Strategiczne dylematy</h3>
+      <p>Ekspansja, nowy segment, akwizycja, sprzedaż firmy — duże ruchy, których nie chcesz podejmować w&nbsp;pojedynkę ani na intuicję.</p>
+    </div>
+    <div class="pay-model">
+      <div class="pm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M14.5 15.5c1.5-1 3.5-1 5.5 0"/></svg></div>
+      <h3>Ludzie i&nbsp;zarząd</h3>
+      <p>Trudne rozmowy, obsadzanie kluczowych ról, relacje w&nbsp;zarządzie i&nbsp;uniezależnianie firmy od Ciebie.</p>
+    </div>
+    <div class="pay-model">
+      <div class="pm-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></svg></div>
+      <h3>Pomysły i&nbsp;wizja</h3>
+      <p>Miejsce, w&nbsp;którym rzucasz pomysł i&nbsp;dostajesz uczciwą informację zwrotną — zanim zaczniesz go wdrażać.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section>
+  <div class="impact-banner" id="kontakt-cta">
+    <div class="columns is-vcentered is-variable is-8">
+      <div class="column is-7">
+        <h2 class="display">Znajdźmy Ci kogoś do rozmowy jak równy z&nbsp;równym</h2>
+      </div>
+      <div class="column is-5">
+        <p class="mb-5">Umów niezobowiązującą rozmowę. Poznamy Twoją sytuację i&nbsp;sprawdzimy, czy mentoring właścicielski to dobry format dla Ciebie.</p>
+        <a href="kontakt.html" class="btn-accent">Umów rozmowę
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="news-strip">
+  <div class="columns is-vcentered is-variable is-6">
+    <div class="column is-5">
+      <h3>Co kwartał jeden konkretny materiał o&nbsp;porządkowaniu rosnącej firmy.</h3>
+    </div>
+    <div class="column is-7">
+      <form class="news-form" onsubmit="event.preventDefault(); alert('Zapisano: ' + this.email.value);">
+        <input type="email" name="email" placeholder="Twój e-mail" required />
+        <button type="submit">Zapisz się</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="columns is-variable is-8">
+    <div class="column is-4">
+      <h4>Projektujemy zmianę dla tych, którzy chcą zmieniać świat.</h4>
+    </div>
+    <div class="column is-2">
+      <a href="zespol.html" class="footer-link">O nas</a>
+      <a href="strategia-rozwoju-organizacji.html" class="footer-link">Rozwiązania</a>
+      <a href="mentoring-c-level.html" class="footer-link">Rozwój</a>
+    </div>
+    <div class="column is-2">
+      <a href="blog.html" class="footer-link">Wiedza</a>
+      <a href="kontakt.html" class="footer-link">Kontakt</a>
+    </div>
+    <div class="column is-4 footer-help">
+      <h5>Jak możemy Ci pomóc?</h5>
+      <p>Cenimy każdą rozmowę. Napisz do nas — odpowiemy w 24h, a doświadczony konsultant zaproponuje pierwszy krok.</p>
+      <a href="kontakt.html" class="btn-accent">Skontaktuj się
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-meta">
+    <div style="display:flex; align-items:center; gap:18px;">
+      <a href="index.html" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+      <span style="color:#6b6b6b; font-size:0.8rem;">Transformation &amp; Strategy</span>
+    </div>
+    <div class="links">
+      <a href="#">Polityka prywatności</a>
+      <a href="#">Regulamin</a>
+      <a href="#">Sitemap</a>
+      <a href="#">Cookies</a>
+    </div>
+    <div class="socials" aria-label="Obserwuj nas">
+      <a href="#" aria-label="LinkedIn">in</a>
+      <a href="#" aria-label="Facebook">fb</a>
+      <a href="#" aria-label="Instagram">ig</a>
+    </div>
+  </div>
+
+  <p class="legal">
+    4change Sp. z o.o. jest pracodawcą równych szans. Wszyscy aplikujący kandydaci są rozpatrywani bez względu na płeć,
+    wiek, religię, orientację seksualną, tożsamość lub ekspresję płciową, pochodzenie narodowe ani inne cechy chronione
+    prawem krajowym.
+  </p>
+</footer>
+
+<!-- ============ SCSS ============ -->
+<script>
+(async function compileScss() {
+  const status = document.getElementById('scss-status');
+  const partials = ['_variables.scss','_mixins.scss','_layout.scss','_components.scss','main.scss'];
+  try {
+    const sources = {};
+    for (const name of partials) {
+      const res = await fetch('styles/' + name);
+      if (!res.ok) throw new Error('Nie udało się wczytać ' + name);
+      sources[name] = await res.text();
+    }
+    for (const [name, content] of Object.entries(sources)) Sass.writeFile(name, content);
+    Sass.compile(sources['main.scss'], function (result) {
+      if (result.status === 0) {
+        const style = document.createElement('style');
+        style.id = 'compiled-scss';
+        style.textContent = result.text;
+        document.head.appendChild(style);
+        status.remove();
+      } else {
+        status.style.color = '#c62828';
+        status.textContent = 'Błąd SCSS: ' + (result.formatted || result.message);
+      }
+    });
+  } catch (err) {
+    status.style.color = '#c62828';
+    status.textContent = 'Błąd ładowania SCSS: ' + err.message;
+  }
+})();
+
+/* Mobile menu */
+const mobileBurger = document.getElementById('mobile-burger');
+const mobileMenu   = document.getElementById('mobile-menu');
+const mobileClose  = document.getElementById('mobile-close');
+function openMM()  { mobileMenu.classList.add('is-open'); mobileMenu.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+function closeMM() { mobileMenu.classList.remove('is-open'); mobileMenu.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+mobileBurger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMM() : openMM());
+mobileClose.addEventListener('click', closeMM);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMM(); });
+
+/* Smooth scroll for tab anchors */
+document.querySelectorAll('.stab[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      const y = target.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+<script src="contact-widget.js"></script>
+
+<script>
+addEventListener('load', () => {
+  (async () => {
+    // wait for runtime SCSS compile to inject its stylesheet
+    const waitScss = new Promise((res) => {
+      if (document.getElementById('compiled-scss')) return res();
+      const t0 = Date.now();
+      const iv = setInterval(() => {
+        if (document.getElementById('compiled-scss') || Date.now() - t0 > 8000) {
+          clearInterval(iv); res();
+        }
+      }, 100);
+    });
+    await waitScss;
+    try { await document.fonts.ready; } catch (e) {}
+    const imgs = Array.from(document.images).filter((i) => !i.complete);
+    await Promise.race([
+      Promise.allSettled(imgs.map((i) => i.decode().catch(() => {}))),
+      new Promise((r) => setTimeout(r, 8000)),
+    ]);
+    setTimeout(() => window.print(), 600);
+  })();
+});
+</script>
+</body>
+</html>

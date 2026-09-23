@@ -1,0 +1,322 @@
+@import 'variables';
+@import 'mixins';
+
+// =========================================
+// 4change — Layout primitives
+// =========================================
+
+html, body {
+  background: #ffffff;
+  color: $brand-ink;
+  font-family: $font-sans;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+}
+
+body, .button, .input, .title, .subtitle {
+  font-family: $font-sans;
+}
+
+.serif   { font-family: $font-serif; font-weight: 600; letter-spacing: -0.01em; }
+.display { @include display-serif; }
+
+.eyebrow {
+  @include eyebrow();
+  &.on-dark { color: #fff; }
+  &.muted   { color: $brand-muted; }
+}
+
+// =========================================
+// Floating top nav (3 pills)
+// =========================================
+.top-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 60;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 24px;
+  pointer-events: none;
+
+  > * { pointer-events: auto; }
+}
+
+.pill {
+  background: $brand-cream;
+  border-radius: $radius-pill;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  gap: 12px;
+  @include card-shadow(sm);
+
+  .burger {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+
+    span {
+      display: block;
+      width: 16px; height: 2px;
+      background: #111;
+      position: relative;
+
+      &::before, &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 16px; height: 2px;
+        background: #111;
+      }
+      &::before { top: -5px; }
+      &::after  { top:  5px; }
+    }
+
+    // Hide on desktop — desktop uses the full pill nav
+    @media (min-width: 1100px) { display: none; }
+  }
+}
+
+.brand-mark {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  padding: 0 6px;
+  height: 30px;
+  aspect-ratio: 550 / 263;
+  background: url('images/logo-4change.png') left center / contain no-repeat;
+
+  .num, .word { display: none; }
+
+  // Narrow / mobile headers (≤760px): show the compact "4!" mark
+  @media (max-width: 760px) {
+    width: 30px;
+    aspect-ratio: 1 / 1;
+    background-image: url('images/logo-4change-mark.png');
+    background-size: contain;
+    background-position: center;
+  }
+}
+
+// =========================================
+// Center pill: horizontal nav with icons + dropdowns
+// =========================================
+.nav-pill {
+  background: #fff;
+  border-radius: 999px;
+  padding: 6px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  @include card-shadow(sm);
+
+  .nav-item {
+    position: relative;
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #1f1f1f;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      transition: color 140ms ease, background 140ms ease;
+      white-space: nowrap;
+
+      .nav-icon {
+        width: 18px; height: 18px;
+        stroke: #444;
+        transition: stroke 140ms ease;
+        flex-shrink: 0;
+      }
+      .caret {
+        width: 10px; height: 10px;
+        margin-left: 2px;
+        transition: transform 200ms ease;
+      }
+    }
+
+    &:hover .nav-link,
+    &:focus-within .nav-link {
+      color: $brand-green;
+      background: $brand-soft;
+      .nav-icon { stroke: $brand-green; }
+    }
+
+    &.has-dropdown:hover .nav-link .caret,
+    &.has-dropdown:focus-within .nav-link .caret {
+      transform: rotate(180deg);
+    }
+  }
+
+  // ----- Dropdown panel -----
+  .nav-dropdown {
+    position: absolute;
+    top: calc(100% + 14px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    min-width: 280px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px;
+    @include card-shadow(lg);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 160ms ease, transform 180ms ease, visibility 180ms;
+    z-index: 70;
+
+    // bridge so hover survives the gap between trigger and panel
+    &::before {
+      content: "";
+      position: absolute;
+      top: -16px; left: 0; right: 0; height: 18px;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0;
+      text-transform: none;
+      color: #1a1a1a;
+      text-decoration: none;
+      border-radius: 8px;
+      white-space: nowrap;
+      transition: background 140ms ease, color 140ms ease;
+
+      .di {
+        width: 18px; height: 18px;
+        stroke: #888;
+        flex-shrink: 0;
+        transition: stroke 140ms ease, transform 140ms ease;
+      }
+
+      &:hover {
+        background: $brand-soft;
+        color: $brand-green;
+        .di { stroke: $brand-green; transform: scale(1.08); }
+      }
+    }
+  }
+
+  .has-dropdown:hover .nav-dropdown,
+  .has-dropdown:focus-within .nav-dropdown {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  // Hide center pill below ~1100px — burger menu takes over
+  @media (max-width: 1099px) { display: none; }
+}
+
+.right-pill {
+  gap: 18px;
+  padding: 10px 18px;
+
+  .icon-btn {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  a {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #111;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
+
+// =========================================
+// Mobile / overview fullscreen menu (opened by burger)
+// =========================================
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition: opacity 220ms ease, transform 220ms ease, visibility 220ms;
+  overflow-y: auto;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .mobile-close {
+    position: absolute;
+    top: 24px;
+    right: 28px;
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: $brand-cream;
+    border: none;
+    cursor: pointer;
+    color: #111;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 120ms ease, color 120ms ease;
+    &:hover { background: $brand-soft; color: $brand-green; }
+  }
+
+  .mm-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 90px 28px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .mm-col {
+    h4 {
+      font-family: $font-serif;
+      font-weight: 600;
+      font-size: 1.35rem;
+      color: $brand-green;
+      margin: 0 0 16px;
+      letter-spacing: -0.01em;
+    }
+    a {
+      display: block;
+      padding: 8px 0;
+      font-size: 1rem;
+      color: $brand-deep;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid #eee;
+      transition: color 120ms ease, padding-left 160ms ease;
+      &:hover { color: $brand-green; padding-left: 8px; }
+    }
+  }
+}

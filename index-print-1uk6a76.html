@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<style data-omelette-print-defaults>
+@media print {
+  @page { margin: 0.5in; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid; }
+  figure, table, pre, blockquote, img, svg, tr, [class~="card" i] { break-inside: avoid; }
+  img, svg { max-width: 100%; }
+  p { orphans: 3; widows: 3; }
+}
+</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>4change — Transformation, AI & Strategy</title>
+
+<!-- Bulma: nowoczesny CSS framework (Flexbox + Grid, bez JS) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+
+<!-- Web fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+
+<!-- Sass.js (runtime SCSS compiler) -->
+<script src="https://cdn.jsdelivr.net/npm/sass.js@0.11.1/dist/sass.sync.js"></script>
+
+<!-- Minimalny fallback styling, żeby uniknąć FOUC -->
+<style>
+  html, body { margin: 0; background: #fff; font-family: 'Inter', system-ui, sans-serif; }
+  .scss-loading { padding: 80px 20px; text-align: center; color: #999; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+  .hero-lede {
+    max-width: 620px;
+    margin-top: 28px;
+    font-size: 1.18rem;
+    line-height: 1.65;
+    color: #555;
+    text-wrap: pretty;
+  }
+</style>
+</head>
+<body>
+
+<div id="scss-status" class="scss-loading">Kompiluję SCSS…</div>
+
+<!-- ============ TOP NAV ============ -->
+<header class="top-bar">
+  <div class="pill">
+    <button class="burger" id="mobile-burger" aria-label="Menu"><span></span></button>
+    <a href="#" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+  </div>
+
+  <nav class="nav-pill" id="top-nav" aria-label="Główna nawigacja">
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span>O nas</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v.01M11 12h1v5h1"/></svg>Kim jesteśmy</a>
+        <a href="zespol.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M14.5 15.5c1.5-1 3.5-1 5.5 0"/></svg>Zespół</a>
+      </div>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Rozwiązania dla firm</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="strategia-rozwoju-organizacji.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h7v7"/></svg>Strategia rozwoju organizacji</a>
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 14L21 3"/><path d="M21 3v6h-6"/><path d="M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h5"/></svg>Outsourcing HR</a>
+        <a href="system-wynagrodzen.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Systemy wynagrodzeń</a>
+        <a href="struktura-organizacyjna.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M12 12H6v4M12 12h6v4"/></svg>Struktura organizacyjna i zakresy zadań</a>
+        <a href="audyt-sprzedazy.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Audyt działu sprzedaży</a>
+        <a href="audyt-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l2 3h2a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h2l2-3z"/><path d="M9 13l2 2 4-4"/></svg>Audyt działu HR</a>
+      </div>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+        <span>Rozwój właścicieli i zarządów</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="strategia-rozwoju-organizacji.html#facylitacja"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.4 8.4 0 01-1 4 8.5 8.5 0 01-7.6 4.5 8.4 8.4 0 01-4-1L3 21l2-5.4a8.4 8.4 0 01-1-4 8.5 8.5 0 014.5-7.6 8.4 8.4 0 014-1h.5a8.5 8.5 0 018 8v.5z"/></svg>Facylitacja</a>
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Mentoring dla C-level</a>
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 11l2 2 4-4"/><circle cx="9" cy="7" r="4"/><path d="M3 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Mentoring dla managerów</a>
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l3-5 3 4 3-6 3 6 3-4 3 5v8a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>Mentoring dla właścicieli</a>
+        <a href="coaching.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Coaching</a>
+      </div>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v16h13a3 3 0 003-3V7a3 3 0 00-3-3H4z"/><path d="M4 4v16"/><path d="M8 9h8M8 13h6"/></svg>
+        <span>Wiedza</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3l7 7-11 11H3v-7L14 3z"/></svg>Blog</a>
+        <a href="case-studies.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>Case studies</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <a href="kontakt.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <span>Kontakt</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="pill right-pill">
+    <button class="icon-btn" aria-label="Szukaj">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <circle cx="11" cy="11" r="7"/>
+        <path d="m20 20-3.5-3.5"/>
+      </svg>
+    </button>
+    <a href="mentoring-c-level.html">Zaloguj</a>
+  </div>
+</header>
+
+<!-- ============ MOBILE FULLSCREEN MENU ============ -->
+<aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <button class="mobile-close" id="mobile-close" aria-label="Zamknij">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="mm-inner">
+    <section class="mm-col">
+      <h4>O nas</h4>
+      <a href="mentoring-c-level.html">Kim jesteśmy</a>
+      <a href="mentoring-c-level.html">Zespół</a>
+    </section>
+    <section class="mm-col">
+      <h4>Rozwiązania dla firm</h4>
+      <a href="mentoring-c-level.html">Strategia rozwoju organizacji</a>
+      
+      <a href="mentoring-c-level.html">Outsourcing HR</a>
+      <a href="system-wynagrodzen.html">Systemy wynagrodzeń</a>
+      <a href="struktura-organizacyjna.html">Struktura organizacyjna i zakresy zadań</a>
+      <a href="audyt-sprzedazy.html">Audyt działu sprzedaży</a>
+      <a href="audyt-hr.html">Audyt działu HR</a>
+    </section>
+    <section class="mm-col">
+      <h4>Rozwój właścicieli i zarządów</h4>
+      <a href="strategia-rozwoju-organizacji.html#facylitacja">Facylitacja</a>
+      <a href="mentoring-c-level.html">Mentoring dla C-level</a>
+      <a href="mentoring-managerski.html">Mentoring dla managerów</a>
+      <a href="mentoring-wlascicielski.html">Mentoring dla właścicieli</a>
+      <a href="coaching.html">Coaching</a>
+    </section>
+    <section class="mm-col">
+      <h4>Wiedza</h4>
+      <a href="#">Blog</a>
+      <a href="case-studies.html">Case studies</a>
+      <h4 style="margin-top: 28px;">Kontakt</h4>
+      <a href="mailto:hello@4change.pl">hello@4change.pl</a>
+    </section>
+  </div>
+</aside>
+
+<!-- ============ HERO ============ -->
+<section class="hero-section">
+  <div class="container is-max-desktop">
+    <p class="eyebrow muted mb-4">Dla właścicieli i zarządów firm 60+ osób</p>
+    <h1 class="display hero-title">
+      Twoja firma rośnie szybciej<br/>niż jej&nbsp;organizacja
+    </h1>
+    <p class="hero-lede">
+      Więcej ludzi, więcej zleceń, więcej przychodu — i&nbsp;coraz więcej spraw,
+      które przechodzą przez Ciebie. Procesy, które działały przy 30 osobach,
+      przy 80 zaczynają się sypać. Porządkujemy organizację tak, żeby rosła
+      bez chaosu i&nbsp;bez Ciebie w&nbsp;każdej decyzji.
+    </p>
+  </div>
+</section>
+
+<!-- carousel strip -->
+<div class="strip" id="strip">
+  <div class="strip-card size-s">
+    <img src="images/carousel-1-whiteboard.png" alt="Warsztat strategiczny" />
+  </div>
+  <div class="strip-card size-m">
+    <img src="images/carousel-2-orgchart.png" alt="Analiza struktury organizacyjnej" />
+  </div>
+  <div class="strip-card size-l">
+    <span class="badge">Sektor finansowy</span>
+    <img src="images/carousel-3-boardroom.png" alt="Prezentacja zarządowi" />
+    <div class="card-meta">
+      <span class="kicker">Case study</span><span class="date">14 maja 2026</span>
+      <p class="title">Jak bank regionalny skrócił czas wdrożenia produktu o&nbsp;43%</p>
+    </div>
+  </div>
+  <div class="strip-card size-m">
+    <img src="images/carousel-4-laptop.png" alt="Praca zespołowa" />
+  </div>
+  <div class="strip-card size-s">
+    <img src="images/carousel-5-emptyroom.png" alt="Sala konferencyjna" />
+  </div>
+  <div class="strip-card size-m">
+    <img src="images/carousel-6-workshop.png" alt="Warsztat facylitacyjny" />
+  </div>
+  <div class="strip-card size-s">
+    <img src="images/carousel-7-handshake.png" alt="Podpisanie umowy" />
+  </div>
+</div>
+
+<div class="strip-controls">
+  <button class="ctrl-btn" id="strip-pause" aria-label="Pauza">‖‖</button>
+  <button class="ctrl-btn" data-strip-dir="-1" aria-label="Poprzedni">‹</button>
+  <button class="ctrl-btn" data-strip-dir="1"  aria-label="Następny">›</button>
+</div>
+
+
+<!-- ============ FEATURE: 4change Pulse ============ -->
+<section class="feature-soft">
+  <div class="columns is-vcentered is-variable is-8">
+    <div class="column is-5">
+      <p class="eyebrow mb-5">Zanim zaczniemy zmieniać</p>
+      <h2 class="display">Najpierw sprawdzimy, gdzie naprawdę boli</h2>
+      <p>
+        Decyzje na podstawie przeczuć, bo aktualnych danych nie ma pod ręką.
+        Problemy, które wychodzą na jaw za późno. Działy, które nie rozmawiają
+        ze sobą. Zaczynamy od diagnozy — pokazujemy, gdzie tracisz czas, pieniądze
+        i&nbsp;kontrolę, zanim zaproponujemy jakąkolwiek zmianę.
+      </p>
+      <a href="strategia-rozwoju-organizacji.html" class="btn-accent mt-5">
+        Umów diagnozę
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+    <div class="column is-7">
+      <div class="feature-image">
+        <div class="answer-card">
+          <div class="answer-row">
+            <div class="answer-thumb">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l4-4 3 3 5-6"/><path d="M14 10h4v4"/><path d="M18 17c-1.5 1.5-3 .5-4.5 1.8"/></svg>
+            </div>
+            <div>
+              <p class="answer-kicker">Objaw</p>
+              <p class="answer-title">Firma rośnie… a&nbsp;chaos razem z&nbsp;nią?</p>
+            </div>
+          </div>
+          <div class="answer-row">
+            <div class="answer-thumb">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 9h18M3 14h18M9 4v16M15 4v16"/></svg>
+            </div>
+            <div>
+              <p class="answer-kicker">Objaw</p>
+              <p class="answer-title">Masz dane… czy tylko Excela pełnego chaosu?</p>
+            </div>
+          </div>
+          <div class="answer-row">
+            <div class="answer-thumb">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="11" height="13" rx="1.5"/><path d="M7 4h11a1.5 1.5 0 011.5 1.5V16"/></svg>
+            </div>
+            <div>
+              <p class="answer-kicker">Objaw</p>
+              <p class="answer-title">Pracownicy powielają tę samą pracę w&nbsp;3 działach, a&nbsp;spotkania przeciągają się w&nbsp;nieskończoność</p>
+            </div>
+          </div>
+          <div class="answer-row">
+            <div class="answer-thumb">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5.5"/><path d="M9 13.5L7.5 21l4.5-2.5L16.5 21 15 13.5"/><path d="M12 7v.01M10.8 8.2a1.2 1.2 0 111.7 1.2c-.4.3-.5.5-.5.9"/></svg>
+            </div>
+            <div>
+              <p class="answer-kicker">Objaw</p>
+              <p class="answer-title">Co naprawdę nagradza Twój system premiowy?</p>
+            </div>
+          </div>
+          <div class="answer-row">
+            <div class="answer-thumb">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 7v10M9.5 14.5c0 1.1 1.1 1.8 2.5 1.8s2.5-.6 2.5-1.7c0-2.4-4.8-1.4-4.8-3.8 0-1 1-1.7 2.3-1.7s2.3.6 2.3 1.6"/><path d="M19 5l2-2m0 0h-3m3 0v3"/></svg>
+            </div>
+            <div>
+              <p class="answer-kicker">Objaw</p>
+              <p class="answer-title">Rosnące koszty operacyjne bez jasnej przyczyny</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMPACT BANNER ============ -->
+<section>
+  <div class="impact-banner">
+    <div class="columns is-vcentered">
+      <div class="column is-6">
+        <h2 class="display">Zobacz, jak inni wyszli z&nbsp;tego chaosu</h2>
+      </div>
+      <div class="column is-6">
+        <p class="mb-5">
+          Firmy z branży produkcyjnej, technicznej, budowlanej czy finansowej —
+          w&nbsp;podobnym momencie wzrostu, z&nbsp;podobnymi problemami. Zobacz, co konkretnie
+          poukładaliśmy: systemy wynagrodzeń, struktury, procesy i&nbsp;działy HR
+          — oraz jaki to dało efekt.
+        </p>
+        <a href="case-studies.html" class="btn-accent">
+          Zobacz realizacje
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSIGHTS GRID ============ -->
+<section class="insights-section">
+  <p class="eyebrow muted mb-5">Z czym najczęściej do nas przychodzicie</p>
+  <div class="columns is-variable is-6">
+    <div class="column is-6">
+      <div class="insight-tile teal">
+        <span class="eyebrow on-dark">Strategia rozwoju organizacji</span>
+        <h3>Firma rośnie szybciej niż struktura, która miała ją udźwignąć</h3>
+        <a href="strategia-rozwoju-organizacji.html" class="insight-cta">Zobacz, jak to układamy
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="column is-6">
+      <div class="insight-tile dark">
+        <span class="eyebrow on-dark">Systemy wynagrodzeń</span>
+        <h3>Premie handlowców — motywacja czy koszt bez efektu?</h3>
+        <a href="system-wynagrodzen.html" class="insight-cta">Zobacz, jak to liczymy
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="columns is-variable is-6 mt-2">
+    <div class="column is-4">
+      <div class="insight-tile green">
+        <span class="eyebrow on-dark">Struktura i zakresy zadań</span>
+        <h3>Nikt nie wie, kto za co naprawdę odpowiada</h3>
+        <a href="#" class="insight-cta">Uporządkuj role
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="column is-4">
+      <div class="insight-tile dark">
+        <span class="eyebrow on-dark">Outsourcing HR</span>
+        <h3>HR pochłania Twój czas, a&nbsp;Ty wolisz prowadzić biznes</h3>
+        <a href="#" class="insight-cta">Oddaj to nam
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="column is-4">
+      <div class="insight-tile deep">
+        <span class="eyebrow on-dark">Audyt działu HR</span>
+        <h3>Czy Twój HR nadąża za tempem firmy?</h3>
+        <a href="audyt-hr.html" class="insight-cta">Sprawdź w audycie
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESS / JAK PRACUJEMY ============ -->
+<section class="process-section">
+  <div class="process-head">
+    <p class="eyebrow muted">Jak pracujemy</p>
+    <h2>Od rozmowy do trwałej zmiany — w&nbsp;czterech krokach</h2>
+    <p>Nie wdrażamy gotowych schematów. Każdy etap realizujemy z&nbsp;myślą o&nbsp;Twojej organizacji, jej tempie i&nbsp;realnych celach biznesowych.</p>
+  </div>
+
+  <div class="process-steps">
+
+    <div class="process-card">
+      <div class="pc-num">01</div>
+      <p class="pc-eyebrow">Rozmowa z ekspertem</p>
+      <h3>Poznajemy Twoje potrzeby i&nbsp;cele</h3>
+      <p>Zaczynamy od rozmowy o&nbsp;Twojej firmie — jej sytuacji, wyzwaniach i&nbsp;oczekiwaniach. Wspólnie określamy cele biznesowe i&nbsp;sprawdzamy, jakie działania będą najskuteczniejsze. Rozumiemy nie tylko problem, ale i&nbsp;kontekst oraz kierunek rozwoju.</p>
+      <div class="pc-effects">
+        <p class="pc-effects-label">Efekt etapu</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Poznanie potrzeb i&nbsp;oczekiwań</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Zrozumienie sytuacji firmy</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Wstępne określenie celów biznesowych</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Ocena potencjalnych kierunków działania</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="process-card">
+      <div class="pc-num">02</div>
+      <p class="pc-eyebrow">Plan działania i dobór narzędzi</p>
+      <h3>Projektujemy rozwiązania dopasowane do organizacji</h3>
+      <p>Na podstawie diagnozy przygotowujemy indywidualny plan działania. Dobieramy metody, narzędzia i&nbsp;zakres wsparcia pod założone cele. Każde rozwiązanie dostosowujemy do specyfiki firmy, jej możliwości i&nbsp;etapu rozwoju.</p>
+      <div class="pc-effects">
+        <p class="pc-effects-label">Efekt etapu</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Konkretny plan działania</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Określenie priorytetów</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Dobór narzędzi i&nbsp;metod pracy</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Harmonogram realizacji</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="process-card">
+      <div class="pc-num">03</div>
+      <p class="pc-eyebrow">Mapowanie sytuacji w firmie</p>
+      <h3>Analizujemy organizację w&nbsp;jej rzeczywistym środowisku</h3>
+      <p>Przyglądamy się firmie całościowo: procesom, strukturze, komunikacji, rolom, zasobom, kulturze i&nbsp;bieżącym wyzwaniom. Nie szukamy wyłącznie problemów — wskazujemy też mocne strony i&nbsp;potencjał, na którym można budować dalszy rozwój.</p>
+      <div class="pc-effects">
+        <p class="pc-effects-label">Efekt etapu</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Pełny obraz sytuacji organizacji</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Identyfikacja szans i&nbsp;obszarów wsparcia</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Określenie potencjału rozwojowego</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Rekomendacje dopasowane do firmy</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="process-card">
+      <div class="pc-num">04</div>
+      <p class="pc-eyebrow">Realizacja i wdrożenie</p>
+      <h3>Zamieniamy plan w&nbsp;konkretne działania</h3>
+      <p>Przechodzimy do realizacji i&nbsp;wspieramy organizację na każdym etapie wdrożenia. Monitorujemy postępy, reagujemy na wyzwania i&nbsp;dbamy o&nbsp;realną wartość. Tworzymy rozwiązania, które działają również w&nbsp;przyszłości.</p>
+      <div class="pc-effects">
+        <p class="pc-effects-label">Efekt etapu</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Wdrożone rozwiązania i&nbsp;usprawnienia</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Uporządkowane procesy</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Większa efektywność działania</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg>Mierzalne rezultaty biznesowe</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="process-approach">
+    <p class="pa-eyebrow">Nasze podejście</p>
+    <h3>Patrzymy na organizację jako całość — i&nbsp;respektujemy jej tempo</h3>
+    <p>Skuteczne wsparcie biznesu wymaga spojrzenia na firmę jako całość. Każdy etap realizujemy z&nbsp;uwzględnieniem wszystkich aspektów działania — od strategii, procesów i&nbsp;struktury, przez ludzi i&nbsp;komunikację, aż po kulturę organizacyjną i&nbsp;bieżące wyzwania rynkowe.</p>
+    <p>Jednocześnie respektujemy indywidualne tempo rozwoju organizacji. Dzięki temu rozwiązania są nie tylko skuteczne, ale też możliwe do wdrożenia i&nbsp;trwałego utrzymania w&nbsp;codziennym funkcjonowaniu firmy.</p>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="news-strip">
+  <div class="columns is-vcentered is-variable is-6">
+    <div class="column is-5">
+      <h3>Co kwartał jeden konkretny materiał o&nbsp;porządkowaniu rosnącej firmy.</h3>
+    </div>
+    <div class="column is-7">
+      <form class="news-form" onsubmit="event.preventDefault(); alert('Zapisano: ' + this.email.value);">
+        <input type="email" name="email" placeholder="Twój e-mail" required />
+        <button type="submit">Zapisz się</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="columns is-variable is-8">
+    <div class="column is-4">
+      <h4>Projektujemy zmianę dla tych, którzy chcą zmieniać świat.</h4>
+    </div>
+    <div class="column is-2">
+      <a href="zespol.html" class="footer-link">O nas</a>
+      <a href="strategia-rozwoju-organizacji.html" class="footer-link">Rozwiązania</a>
+      <a href="mentoring-c-level.html" class="footer-link">Rozwój</a>
+    </div>
+    <div class="column is-2">
+      <a href="blog.html" class="footer-link">Wiedza</a>
+      <a href="kontakt.html" class="footer-link">Kontakt</a>
+    </div>
+    <div class="column is-4 footer-help">
+      <h5>Jak możemy Ci pomóc?</h5>
+      <p>Cenimy każdą rozmowę. Napisz do nas — odpowiemy w 24h, a doświadczony konsultant zaproponuje pierwszy krok.</p>
+      <a href="#" class="btn-accent">Skontaktuj się
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-meta">
+    <div style="display:flex; align-items:center; gap:18px;">
+      <span class="brand-mark"><span class="num">4</span><span class="word">change</span></span>
+      <span style="color:#6b6b6b; font-size:0.8rem;">Transformation &amp; Strategy</span>
+    </div>
+    <div class="links">
+      <a href="#">Polityka prywatności</a>
+      <a href="#">Regulamin</a>
+      <a href="#">Sitemap</a>
+      <a href="#">Cookies</a>
+    </div>
+    <div class="socials" aria-label="Obserwuj nas">
+      <a href="#" aria-label="LinkedIn">in</a>
+      <a href="#" aria-label="Facebook">fb</a>
+      <a href="#" aria-label="Instagram">ig</a>
+    </div>
+  </div>
+
+  <p class="legal">
+    4change Sp. z o.o. jest pracodawcą równych szans. Wszyscy aplikujący kandydaci są rozpatrywani bez względu na płeć,
+    wiek, religię, orientację seksualną, tożsamość lub ekspresję płciową, pochodzenie narodowe ani inne cechy chronione
+    prawem krajowym.
+  </p>
+</footer>
+
+<!-- ============ SCSS sources (dla sass.js) ============ -->
+<script type="text/scss" id="scss-variables" data-name="variables.scss"></script>
+<script type="text/scss" id="scss-mixins"    data-name="mixins.scss"></script>
+<script type="text/scss" id="scss-layout"    data-name="layout.scss"></script>
+<script type="text/scss" id="scss-components" data-name="components.scss"></script>
+<script type="text/scss" id="scss-main"      data-name="main.scss"></script>
+
+<script>
+/* =====================================================================
+   1. Ładujemy SCSS partials z dysku przez fetch
+   2. Wrzucamy je do wirtualnego FS sass.js
+   3. Kompilujemy main.scss → CSS
+   4. Wstrzykujemy jako <style>
+   ===================================================================== */
+(async function compileScss() {
+  const status = document.getElementById('scss-status');
+  const partials = [
+    '_variables.scss',
+    '_mixins.scss',
+    '_layout.scss',
+    '_components.scss',
+    'main.scss',
+  ];
+
+  try {
+    const sources = {};
+    for (const name of partials) {
+      const res = await fetch('styles/' + name);
+      if (!res.ok) throw new Error('Nie udało się wczytać ' + name);
+      sources[name] = await res.text();
+    }
+
+    // Wgraj wszystkie pliki do wirtualnego FS sass.js
+    for (const [name, content] of Object.entries(sources)) {
+      Sass.writeFile(name, content);
+    }
+
+    Sass.compile(sources['main.scss'], function (result) {
+      if (result.status === 0) {
+        const style = document.createElement('style');
+        style.id = 'compiled-scss';
+        style.textContent = result.text;
+        document.head.appendChild(style);
+        status.remove();
+      } else {
+        status.style.color = '#c62828';
+        status.textContent = 'Błąd SCSS: ' + (result.formatted || result.message);
+        console.error(result);
+      }
+    });
+  } catch (err) {
+    status.style.color = '#c62828';
+    status.textContent = 'Błąd ładowania SCSS: ' + err.message;
+    console.error(err);
+  }
+})();
+
+/* Mobile menu (burger toggles fullscreen overlay) */
+const mobileBurger = document.getElementById('mobile-burger');
+const mobileMenu   = document.getElementById('mobile-menu');
+const mobileClose  = document.getElementById('mobile-close');
+function openMM()  { mobileMenu.classList.add('is-open');  mobileMenu.setAttribute('aria-hidden','false'); document.body.style.overflow = 'hidden'; }
+function closeMM() { mobileMenu.classList.remove('is-open'); mobileMenu.setAttribute('aria-hidden','true');  document.body.style.overflow = ''; }
+mobileBurger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMM() : openMM());
+mobileClose.addEventListener('click', closeMM);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMM(); });
+
+/* Sterowanie karuzelą */
+const strip = document.getElementById('strip');
+document.querySelectorAll('[data-strip-dir]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const dir = parseInt(btn.dataset.stripDir, 10);
+    strip.scrollBy({ left: dir * 340, behavior: 'smooth' });
+  });
+});
+
+let auto = setInterval(autoScroll, 4500);
+function autoScroll() {
+  if (!strip) return;
+  const max = strip.scrollWidth - strip.clientWidth;
+  if (strip.scrollLeft >= max - 4) strip.scrollTo({ left: 0, behavior: 'smooth' });
+  else strip.scrollBy({ left: 340, behavior: 'smooth' });
+}
+const pauseBtn = document.getElementById('strip-pause');
+let paused = false;
+pauseBtn.addEventListener('click', () => {
+  paused = !paused;
+  pauseBtn.textContent = paused ? '▶' : '‖‖';
+  if (paused) clearInterval(auto);
+  else auto = setInterval(autoScroll, 4500);
+});
+</script>
+
+<script src="contact-widget.js"></script>
+<script>
+(async () => {
+  if (!document.title || !document.title.trim()) document.title = "index";
+  // Prepend so page-supplied @page / break rules (deck-stage's margin:0,
+  // author CSS) keep source-order precedence over the baseline.
+  const baseCss = document.createElement('style');
+  baseCss.textContent = "@media print {\n  figure, table { break-inside: avoid; }\n  *, *::before, *::after {\n    print-color-adjust: exact; -webkit-print-color-adjust: exact;\n    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;\n    animation-delay: -99s !important; animation-duration: .001s !important;\n    animation-iteration-count: 1 !important; animation-fill-mode: both !important;\n    animation-play-state: running !important; transition-duration: 0s !important;\n  }\n}";
+  document.head.prepend(baseCss);
+  if (document.readyState === 'loading') {
+    await new Promise((r) => document.addEventListener('DOMContentLoaded', r, { once: true }));
+  }
+  let ds = document.querySelector('deck-stage');
+  // whenDefined never resolves when nothing registers the element, so only
+  // await it when a <deck-stage> tag exists (and race a timeout regardless).
+  if (ds && !customElements.get('deck-stage')) {
+    try {
+      await Promise.race([
+        customElements.whenDefined('deck-stage'),
+        new Promise((r) => setTimeout(r, 3000)),
+      ]);
+    } catch (e) {}
+    ds = document.querySelector('deck-stage');
+  }
+  // dc-runtime assigns window.DCLogic at init and mounts into #dc-root on
+  // DOMContentLoaded; settle on that subtree so React has rendered before
+  // print(). Non-DC pages fall through to weighing body.
+  const isDc = !ds && 'DCLogic' in window;
+  const settleRoot = ds || (isDc ? document.getElementById('dc-root') : null) || document.body;
+  if (settleRoot) {
+    // Weigh only content children — skip script/style/template so inline
+    // Babel/CSS doesn't register as stable "content" before the framework
+    // has mounted anything.
+    const MEDIA = 'img,svg,canvas,video,picture,iframe,embed,object';
+    const weigh = () => {
+      let text = 0, media = 0;
+      for (const c of settleRoot.children) {
+        const t = c.tagName;
+        if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+        text += (c.textContent || '').trim().length;
+        media += c.querySelectorAll(MEDIA).length + (c.matches(MEDIA) ? 1 : 0);
+      }
+      return text + media * 100;
+    };
+    // "Non-zero and stable" alone is not sufficient to mean rendered: generic
+    // body can carry a static shell while async main content is pending, and
+    // #dc-root can carry the root DC's static text while child refs are still
+    // .sc-placeholder boxes. Gate generic on readyState 'complete', and never
+    // accept stability while a dc-runtime placeholder is present.
+    const isGeneric = settleRoot === document.body;
+    const deadline = Date.now() + 15000;
+    let last = -1, stable = 0;
+    while (Date.now() < deadline) {
+      const n = weigh();
+      const ready =
+        (!isGeneric || document.readyState === 'complete') &&
+        !settleRoot.querySelector('.sc-placeholder');
+      if (n > 0 && n === last && ready) { if (++stable >= 2) break; } else { stable = 0; }
+      last = n;
+      await new Promise((r) => setTimeout(r, 250));
+    }
+  }
+  // Project support.js may predate runtime default-seeding; push via bridge.
+  if (isDc && window.__dcSetProps && window.__dcRootName) {
+    try {
+      const dpEl = document.querySelector('script[data-dc-script]');
+      const meta = JSON.parse((dpEl && dpEl.getAttribute('data-props')) || '{}');
+      const bag = {};
+      for (const k in meta)
+        if (k[0] !== '$' && meta[k] && meta[k].default !== undefined)
+          bag[k] = meta[k].default;
+      if (Object.keys(bag).length) {
+        window.__dcSetProps(window.__dcRootName(), bag);
+        await new Promise((r) => setTimeout(r, 50));
+      }
+    } catch (e) {}
+  }
+  // Reveal content gated on scroll or visibility before printing. Lazy <img>,
+  // IntersectionObserver fade-ins, and collapsed <details> don't render while
+  // off-screen, so a long page would print with them blank or closed. Open
+  // every <details>, force native-lazy images eager, and scroll the document
+  // through its full height to trip lazy-load + IO; then wait (bounded) for the
+  // newly-triggered images. Inert for deck-stage (slides aren't scroll-gated).
+  try {
+    for (const d of document.querySelectorAll('details')) d.open = true;
+    for (const img of document.querySelectorAll('img[loading="lazy"]'))
+      img.loading = 'eager';
+    const scroller = document.scrollingElement || document.documentElement;
+    const full = Math.max(scroller.scrollHeight, document.body.scrollHeight);
+    const step = window.innerHeight || 800;
+    for (let y = 0; y <= full; y += step) {
+      window.scrollTo(0, y);
+      await new Promise((r) => requestAnimationFrame(r));
+    }
+    window.scrollTo(0, 0);
+    await Promise.race([
+      Promise.all(
+        [...document.images].map((img) =>
+          img.complete
+            ? null
+            : new Promise((res) => {
+                img.addEventListener('load', res, { once: true });
+                img.addEventListener('error', res, { once: true });
+              })
+        )
+      ),
+      new Promise((r) => setTimeout(r, 4000)),
+    ]);
+  } catch (e) {}
+  try { await document.fonts.ready; } catch (e) {}
+  // Jump every animation to its end state so print() never captures a slide
+  // mid-entrance. Ordering matters: the 0s-transition style must be live
+  // BEFORE data-deck-active is set so attribute-keyed transitions don't
+  // start a (now-0s) run from the pre-active base.
+  const st = document.createElement('style');
+  st.textContent = '*,*::before,*::after{animation-delay:-99s !important;animation-duration:.001s !important;animation-iteration-count:1 !important;animation-fill-mode:both !important;animation-play-state:running !important;transition-duration:0s !important}';
+  document.head.appendChild(st);
+  for (const d of document.querySelectorAll('deck-stage')) {
+    for (const c of d.children) {
+      const t = c.tagName;
+      if (t === 'SCRIPT' || t === 'STYLE' || t === 'TEMPLATE') continue;
+      c.setAttribute('data-deck-active', '');
+    }
+  }
+  // Re-append deck-stage's @page last so no author @page can add a margin and
+  // spill each full-bleed slide onto two sheets. Backstop for old copies.
+  if (ds) {
+    let pg = document.getElementById('deck-stage-print-page');
+    if (!pg) {
+      pg = document.createElement('style');
+      pg.textContent = '@page{size:' + (+ds.getAttribute('width') || 1920) +
+        'px ' + (+ds.getAttribute('height') || 1080) + 'px;margin:0}';
+    }
+    document.body.appendChild(pg);
+  }
+  try {
+    const sweep = () => {
+      for (const a of document.getAnimations()) {
+        try { a.finish(); } catch (e) {
+          try { a.currentTime = (a.effect && a.effect.getComputedTiming().duration) || 0; a.pause(); } catch (e2) {}
+        }
+      }
+    };
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+    sweep();
+    await new Promise((r) => requestAnimationFrame(r));
+  } catch (e) {}
+  // Size the PDF page to the rendered design unless the file opted into
+  // standard paper via @page{size:letter|A4|…}. Decks own their own @page.
+  // Wrappers (body, …) lose padding+margin so the frame sits at (0,0); the
+  // frame itself loses only margin — its padding is INSIDE the measured
+  // rect and must stay, or content shifts and leaves a gap at bottom/right.
+  var __m = null;
+  try { __m = (() => {
+  var docEl = document.documentElement;
+  var doc = { width: docEl.scrollWidth, height: docEl.scrollHeight };
+
+  var ds = document.querySelector('deck-stage');
+  if (ds) {
+    var dw = Number(ds.getAttribute('width')) || 1920;
+    var dh = Number(ds.getAttribute('height')) || 1080;
+    var n = typeof ds.length === 'number' ? ds.length : ds.children.length;
+    var idx = typeof ds.index === 'number' ? ds.index : 0;
+    var frames = [];
+    for (var i = 0; i < n; i++) frames.push({ left: 0, top: 0, width: dw, height: dh });
+    return { kind: 'deck', doc: doc, frames: frames,
+      authored: frames.map(function(){return{width:true,height:true}}),
+      deck: { width: dw, height: dh, slideCount: n, index: idx },
+      signals: { paperPage: false, pxPage: false } };
+  }
+
+  var paperPage = false, pxPage = false;
+  var eachRule = function (fn) {
+    for (var s = 0; s < document.styleSheets.length; s++) {
+      var rs; try { rs = document.styleSheets[s].cssRules; } catch (e) { continue; }
+      for (var r = 0; r < rs.length; r++) {
+        fn(rs[r]);
+        if (rs[r].cssRules) for (var n = 0; n < rs[r].cssRules.length; n++) fn(rs[r].cssRules[n]);
+      }
+    }
+  };
+  eachRule(function (r) {
+    if (r.type !== 6) return;
+    var m = /\bsize\s*:\s*([^;}]+)/i.exec(r.cssText || '');
+    if (!m) return;
+    if (/\b(letter|a[3-5]|legal|ledger)\b/i.test(m[1])) paperPage = true;
+    if (/\d+(?:\.\d+)?px\b/i.test(m[1])) pxPage = true;
+  });
+  var signals = { paperPage: paperPage, pxPage: pxPage };
+
+  var pxVal = function (v) {
+    var m = /^(\d+(?:\.\d+)?)px$/.exec(v || ''); return m ? +m[1] : 0;
+  };
+  var authoredPx = function (el, prop) {
+    if (pxVal(el.style[prop])) return true;
+    var attr = el.getAttribute(prop);
+    if (attr && /^\d+$/.test(attr)) return true;
+    var hit = false;
+    eachRule(function (r) {
+      if (hit || r.type !== 1 || !r.style) return;
+      try { if (el.matches(r.selectorText) && pxVal(r.style[prop])) hit = true; } catch (e) {}
+    });
+    return hit;
+  };
+
+  var el = document.body, rootPxW = false;
+  for (;;) {
+    var kids = [];
+    for (var c = 0; c < el.children.length; c++) {
+      var t = el.children[c].tagName;
+      if (t !== 'SCRIPT' && t !== 'STYLE' && t !== 'TEMPLATE') kids.push(el.children[c]);
+    }
+    if (kids.length !== 1 || !(kids[0] instanceof HTMLElement)) break;
+    el.setAttribute('data-om-frame-wrap', '');
+    el = kids[0];
+    rootPxW = authoredPx(el, 'width');
+    if (rootPxW) break;
+  }
+  if (!rootPxW) rootPxW = authoredPx(el, 'width');
+
+  // @page{size:letter} alone is a flowing doc; with a px-width root it's a
+  // fixed sheet pretending to be paper — fall through and size to render.
+  if (paperPage && !rootPxW) {
+    return { kind: 'paper-doc', doc: doc, signals: signals,
+      frames: [{ left: 0, top: 0, width: doc.width, height: doc.height }],
+      authored: [{ width: false, height: false }] };
+  }
+
+  var sx = window.scrollX || 0, sy = window.scrollY || 0;
+  var rectOf = function (e) {
+    var r = e.getBoundingClientRect();
+    var oy; try { oy = getComputedStyle(e).overflowY; } catch (err) {}
+    var h = oy === 'visible' ? Math.max(r.height, e.scrollHeight || 0) : r.height;
+    return { left: r.left + sx, top: r.top + sy, width: r.width, height: h };
+  };
+
+  // Multi-frame: ≥2 visible non-fixed children, each with authored px width
+  // AND height, all within ±2px of each other. Off unless the page opts in
+  // via data-om-multi-frame on the stop element — guards against card grids
+  // and pricing tables that match the geometry but aren't separate canvases.
+  if (el.hasAttribute('data-om-multi-frame')) {
+    var cands = [];
+    for (var k = 0; k < el.children.length; k++) {
+      var ch = el.children[k];
+      var cs; try { cs = getComputedStyle(ch); } catch (e) { continue; }
+      if (cs.display === 'none' || cs.visibility === 'hidden' || cs.position === 'fixed') continue;
+      var rc = rectOf(ch);
+      if (rc.width < 2 || rc.height < 2) continue;
+      if (!authoredPx(ch, 'width') || !authoredPx(ch, 'height')) continue;
+      cands.push(rc);
+    }
+    if (cands.length >= 2) {
+      var w0 = cands[0].width, h0 = cands[0].height, ok = true;
+      for (var q = 1; q < cands.length; q++)
+        if (Math.abs(cands[q].width - w0) > 2 || Math.abs(cands[q].height - h0) > 2) ok = false;
+      if (ok) return { kind: 'multi-frame', doc: doc, signals: signals,
+        frames: cands, authored: cands.map(function(){return{width:true,height:true}}) };
+    }
+  }
+
+  el.setAttribute('data-om-frame', '');
+  return { kind: 'single-canvas', doc: doc, signals: signals,
+    frames: [rectOf(el)],
+    authored: [{ width: rootPxW, height: authoredPx(el, 'height') }] };
+})(); } catch (e) {}
+  var frame = null;
+  if (__m && __m.kind === 'single-canvas') {
+    var f = __m.frames && __m.frames[0];
+    if (f && f.width >= 200 && f.height >= 200) {
+      frame = f;
+      var fst = document.createElement('style');
+      fst.textContent = '@media print{@page{size:' + Math.ceil(f.width) + 'px ' +
+        Math.ceil(f.height) + 'px;margin:0}' +
+        'html,body,[data-om-frame-wrap]{padding:0!important;margin:0!important;background:none!important}' +
+        '[data-om-frame]{margin:0!important}}';
+      document.body.appendChild(fst);
+    }
+  }
+  // Relax break-inside on oversized elements. An element taller than a
+  // printable page can't honor break-inside: avoid — browsers either overflow
+  // it or push it whole to the next page, leaving a blank gap, then break it
+  // anyway at an arbitrary point. After the final layout (content revealed,
+  // animations jumped), find elements taller than a page that still compute
+  // break-inside: avoid and reset them to auto, so the browser breaks them at
+  // their children's boundaries instead (children keep their own avoid). PAGE_PX
+  // is a conservative portrait estimate at 96 CSS px/in — Letter/A4 usable
+  // height minus our 0.5in margins — so only clearly-oversized elements are
+  // touched and under-page elements still stay whole. Skipped for decks (slides
+  // are sized to the page) and for fixed-size canvases (frame set, or an author
+  // px-based @page) — runs as before for flowing docs on letter/A4.
+  try {
+    if (!ds && !frame && !(__m && __m.signals && __m.signals.pxPage)) {
+      const PAGE_PX = 1024;
+      // Our print defaults add a real @page margin only when the source has
+      // no @page of its own; computed style can't tell us (it reports screen
+      // media), so read the injected rule directly.
+      const defaults = document.querySelector('style[data-omelette-print-defaults]');
+      const pageInset = /@page\s*\{[^}]*margin/.test(defaults ? defaults.textContent || '' : '');
+      const SEL = 'section,article,figure,table,pre,blockquote,[class~="card" i],[class~="page" i],[class~="sheet" i]';
+      for (const el of document.body.querySelectorAll(SEL)) {
+        if (el instanceof HTMLElement && el.offsetHeight > PAGE_PX) {
+          el.setAttribute('data-om-oversized', '');
+          // Fake-paged docs simulate sheets with over-tall break-after:page
+          // boxes; honoring the break spills half-blank pages and ends a
+          // colored box mid-sheet. Flow them, and (only when we own the page
+          // inset) drop the redundant padding/background via the rule below.
+          const cs = getComputedStyle(el);
+          if (cs.breakAfter === 'page' || cs.pageBreakAfter === 'always') {
+            el.setAttribute('data-om-fakepage', '');
+          }
+        }
+      }
+      const ost = document.createElement('style');
+      ost.textContent = '@media print{' +
+        '[data-om-oversized]{break-inside:auto !important;page-break-inside:auto !important}' +
+        '[data-om-fakepage]{break-after:auto !important;page-break-after:auto !important}' +
+        (pageInset ? '[data-om-fakepage]{padding:0 !important;background:none !important}' : '') +
+        '}';
+      document.head.appendChild(ost);
+    }
+  } catch (e) {}
+  // macOS Preview renders Skia-PDF Luminosity soft-masks as opaque grey boxes;
+  // swap the CSS that triggers them for Preview-safe forms.
+  try {
+    for (const el of document.body.querySelectorAll('*')) {
+      const cs = getComputedStyle(el);
+
+      if (cs.boxShadow !== 'none' && cs.filter === 'none') {
+        const outs = [], kept = [];
+        for (const s of cs.boxShadow.split(/,(?![^(]*[)])/)) {
+          const t = s.trim();
+          const m = t.match(/^(rgba?[(][^)]+[)]) (-?[0-9.]+px) (-?[0-9.]+px) ([0-9.]+px) -?[0-9.]+px$/);
+          if (m && parseFloat(m[4]) > 0) outs.push('drop-shadow(' + m[2] + ' ' + m[3] + ' ' + m[4] + ' ' + m[1] + ')');
+          else kept.push(t);
+        }
+        if (outs.length) {
+          el.style.setProperty('filter', outs.join(' '), 'important');
+          el.style.setProperty('box-shadow', kept.join(', ') || 'none', 'important');
+        }
+      }
+
+      const mask = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : cs.webkitMaskImage;
+      if (mask && mask !== 'none' && cs.filter === 'none') el.style.setProperty('filter', 'opacity(1)', 'important');
+    }
+  } catch (e) {}
+  setTimeout(() => { try { window.print(); } catch (e) {} }, 200);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Blog — 4change</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/sass.js@0.11.1/dist/sass.sync.js"></script>
+
+<style>
+html, body { margin: 0; background: #fff; font-family: 'Inter', system-ui, sans-serif; }
+.scss-loading { padding: 80px 20px; text-align: center; color: #999; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+
+/* ── HERO ── */
+.cs-hero {
+  padding: 148px 4vw 0;
+  background: #111;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cs-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 900px 600px at 20% 120%, rgba(66,196,65,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 700px 500px at 80% -20%, rgba(52,71,211,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cs-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #42c441;
+  margin-bottom: 26px;
+}
+.cs-eyebrow-line { display: block; width: 28px; height: 1px; background: #42c441; }
+.cs-hero-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(3.2rem, 6.5vw, 5.6rem);
+  color: #fff;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 32px;
+}
+.cs-hero-title em { font-style: italic; color: #42c441; }
+.cs-hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.55);
+  max-width: 560px;
+  margin: 0 auto 72px;
+  line-height: 1.7;
+}
+
+/* ── STATS BAR ── */
+.cs-stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: #111;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.cs-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 36px 60px;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  position: relative;
+}
+.cs-stat:last-child { border-right: none; }
+.cs-stat-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #42c441;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.cs-stat-lbl {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ── TRANSITION ── */
+.cs-fade { height: 70px; background: linear-gradient(to bottom, #111 0%, #f6f6f4 100%); }
+
+/* ── MAIN AREA ── */
+.cs-main { background: #f6f6f4; padding-bottom: 0; }
+
+/* ── FILTERS ── */
+.cs-filters-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 44px 4vw 30px;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+.cs-filters-label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #aaa;
+  white-space: nowrap;
+}
+.cs-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.cs-chip {
+  background: #fff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 999px;
+  padding: 9px 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #555;
+  cursor: pointer;
+  transition: border-color 140ms, background 140ms, color 140ms, transform 100ms;
+  font-family: 'Inter', sans-serif;
+}
+.cs-chip:hover { border-color: #42c441; color: #00af11; background: #f0fbea; transform: translateY(-1px); }
+.cs-chip.is-active { background: #111; color: #fff; border-color: #111; }
+
+/* ── GRID ── */
+.cs-grid-wrap {
+  padding: 8px 4vw 90px;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+.cs-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 22px;
+}
+.cs-count span { color: #111; }
+
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* ── CARD ── */
+.cs-card {
+  background: #fff;
+  border: 1px solid #e4e4e0;
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  cursor: pointer;
+}
+.cs-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 52px rgba(0,0,0,0.1);
+  border-color: transparent;
+}
+.cs-card[hidden] { display: none !important; }
+
+/* Wide card (11) */
+.cs-card-wide {
+  grid-column: span 2;
+  flex-direction: row;
+}
+.cs-card-wide .cs-card-ph {
+  width: 42%;
+  min-height: 280px;
+  height: auto;
+  flex-shrink: 0;
+}
+.cs-card-wide .cs-card-body {
+  padding: 38px 44px;
+  justify-content: center;
+}
+
+/* ── CARD PLACEHOLDER ── */
+.cs-card-ph {
+  height: 168px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 16px 20px;
+  flex-shrink: 0;
+}
+.cs-card-ph-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 700;
+  font-size: 4.5rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  opacity: 0.22;
+  color: currentColor;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* placeholder color variants */
+.ph-green  { background: repeating-linear-gradient(-48deg,#e0f5cb 0,#e0f5cb 10px,#ceedb2 10px,#ceedb2 11px); color:#2a6a0c; }
+.ph-teal   { background: repeating-linear-gradient(-48deg,#d0f5ef 0,#d0f5ef 10px,#b2e9e1 10px,#b2e9e1 11px); color:#0a6357; }
+.ph-navy   { background: repeating-linear-gradient(-48deg,#dce5f4 0,#dce5f4 10px,#c5d4ec 10px,#c5d4ec 11px); color:#1e3870; }
+.ph-violet { background: repeating-linear-gradient(-48deg,#ede5f8 0,#ede5f8 10px,#dccef3 10px,#dccef3 11px); color:#52239a; }
+.ph-amber  { background: repeating-linear-gradient(-48deg,#fdf4d8 0,#fdf4d8 10px,#fae8b2 10px,#fae8b2 11px); color:#8a5208; }
+.ph-sky    { background: repeating-linear-gradient(-48deg,#dceefa 0,#dceefa 10px,#c0e1f6 10px,#c0e1f6 11px); color:#0f5080; }
+.ph-forest { background: repeating-linear-gradient(-48deg,#1c2e20 0,#1c2e20 10px,#253628 10px,#253628 11px); color:#42c441; }
+
+/* ── CARD BODY ── */
+.cs-card-body {
+  padding: 22px 24px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.cs-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cat, #42c441);
+  border: 1.5px solid var(--cat, #42c441);
+  border-radius: 999px;
+  padding: 5px 13px;
+  align-self: flex-start;
+  white-space: nowrap;
+}
+.cs-cat-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--cat, #42c441);
+  flex-shrink: 0;
+}
+.cs-card-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 600;
+  font-size: 1.08rem;
+  color: #111;
+  line-height: 1.28;
+  margin: 4px 0 0;
+  text-wrap: pretty;
+  flex: 1;
+}
+.cs-desc {
+  font-size: 0.85rem;
+  line-height: 1.62;
+  color: #666;
+  margin: 0;
+}
+.cs-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+}
+.cs-tag {
+  background: #f2f2ef;
+  border-radius: 5px;
+  padding: 4px 10px;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: #555;
+  letter-spacing: 0.03em;
+}
+.cs-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #111;
+  text-decoration: none;
+  align-self: flex-start;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #42c441;
+  transition: color 140ms, gap 180ms;
+  margin-top: 10px;
+}
+.cs-cta-link:hover { color: #42c441; gap: 13px; }
+
+/* ── BOTTOM CTA ── */
+.cs-bottom-cta {
+  background: #111;
+  color: #fff;
+  padding: 100px 4vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cs-bottom-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(ellipse 800px 500px at 50% 110%, rgba(66,196,65,0.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cs-bottom-cta h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+  color: #fff;
+  margin: 0 0 20px;
+  position: relative;
+}
+.cs-bottom-cta p {
+  color: rgba(255,255,255,0.55);
+  font-size: 1.05rem;
+  max-width: 500px;
+  margin: 0 auto 40px;
+  line-height: 1.65;
+  position: relative;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1020px) {
+  .cs-grid { grid-template-columns: repeat(2, 1fr); }
+  .cs-card-wide { grid-column: span 2; flex-direction: column; }
+  .cs-card-wide .cs-card-ph { width: 100%; height: 200px; min-height: 0; }
+  .cs-card-wide .cs-card-body { padding: 22px 24px 26px; }
+  .cs-stat { padding: 28px 36px; }
+}
+@media (max-width: 640px) {
+  .cs-grid { grid-template-columns: 1fr; }
+  .cs-card-wide { grid-column: span 1; }
+  .cs-stat { padding: 22px 26px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .cs-stat:last-child { border-bottom: none; }
+  .cs-hero-title { font-size: 2.8rem; }
+  .cs-filters-wrap { gap: 12px; }
+}
+.cs-desc { font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em; font-size: 0.78rem; }
+.cs-card-wide{grid-column:1/-1;flex-direction:row;align-items:flex-start;gap:32px;}
+.cs-card-wide .cs-card-ph{width:220px;flex-shrink:0;aspect-ratio:auto;height:220px;}
+.cs-post-body{margin-top:18px;max-width:680px;}
+.cs-post-body a{color:#00af11;text-decoration:underline;text-underline-offset:2px;font-weight:600;transition:color 140ms;}
+.cs-post-body a:hover{color:#42c441;}
+.cs-excerpt{font-size:0.95rem;line-height:1.66;color:#555;margin:14px 0 0;max-width:640px;}
+.cs-card:not(.is-open) .cs-post-body{display:none;}
+.cs-card.is-open .cs-excerpt{display:none;}
+.cs-toggle{align-self:flex-start;margin-top:16px;display:inline-flex;align-items:center;gap:8px;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:0.66rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:#111;padding:0 0 3px;border-bottom:2px solid #3447d3;transition:color 140ms,gap 180ms;}
+.cs-toggle:hover{color:#3447d3;gap:13px;}
+.cs-toggle svg{width:14px;height:14px;transition:transform 200ms;}
+.cs-card.is-open .cs-toggle svg{transform:rotate(180deg);}
+.cs-post-body p{font-size:0.98rem;line-height:1.72;color:#333;margin:0 0 16px;}
+.cs-post-body h4{font-family:'Fraunces',Georgia,serif;font-size:1.15rem;font-weight:600;margin:26px 0 10px;color:#111;}
+@media (max-width:760px){.cs-card-wide{flex-direction:column;}.cs-card-wide .cs-card-ph{width:100%;height:160px;}}
+</style>
+</head>
+<body>
+
+<div id="scss-status" class="scss-loading">Kompiluję SCSS…</div>
+
+<!-- ============ TOP NAV ============ -->
+<header class="top-bar">
+  <div class="pill">
+    <button class="burger" id="mobile-burger" aria-label="Menu"><span></span></button>
+    <a href="index.html" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+  </div>
+  <nav class="nav-pill" id="top-nav" aria-label="Główna nawigacja">
+    <div class="nav-item">
+      <a href="zespol.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span>O nas</span>
+      </a>
+    </div>
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Rozwiązania dla firm</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="strategia-rozwoju-organizacji.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h7v7"/></svg>Strategia rozwoju organizacji</a>
+        <a href="system-wynagrodzen.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Systemy wynagrodzeń</a>
+        <a href="struktura-organizacyjna.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M12 12H6v4M12 12h6v4"/></svg>Struktura organizacyjna i zakresy zadań</a>
+        <a href="audyt-sprzedazy.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Audyt działu sprzedaży</a>
+        <a href="audyt-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l2 3h2a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h2l2-3z"/><path d="M9 13l2 2 4-4"/></svg>Audyt działu HR</a>
+      </div>
+    </div>
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+        <span>Rozwój właścicieli i zarządów</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Mentoring dla C-level</a>
+        <a href="mentoring-managerski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 11l2 2 4-4"/><circle cx="9" cy="7" r="4"/><path d="M3 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Mentoring dla managerów</a>
+        <a href="mentoring-wlascicielski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l3-5 3 4 3-6 3 6 3-4 3 5v8a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>Mentoring dla właścicieli</a>
+        <a href="coaching.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Coaching</a>
+      </div>
+    </div>
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link is-active-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v16h13a3 3 0 003-3V7a3 3 0 00-3-3H4z"/><path d="M4 4v16"/><path d="M8 9h8M8 13h6"/></svg>
+        <span>Wiedza</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="blog.html" style="color:#42c441;background:#e8f7e0;"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3l7 7-11 11H3v-7L14 3z"/></svg>Blog</a>
+        <a href="case-studies.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>Case studies</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="kontakt.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <span>Kontakt</span>
+      </a>
+    </div>
+  </nav>
+  <div class="pill right-pill">
+    <button class="icon-btn" aria-label="Szukaj">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    </button>
+    <a href="#">Zaloguj</a>
+  </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <button class="mobile-close" id="mobile-close" aria-label="Zamknij">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="mm-inner">
+    <section class="mm-col"><h4>O nas</h4>
+      <a href="zespol.html">O nas</a></section>
+    <section class="mm-col"><h4>Rozwiązania dla firm</h4><a href="strategia-rozwoju-organizacji.html">Strategia rozwoju organizacji</a><a href="system-wynagrodzen.html">Systemy wynagrodzeń</a><a href="struktura-organizacyjna.html">Struktura organizacyjna</a><a href="audyt-sprzedazy.html">Audyt działu sprzedaży</a><a href="audyt-hr.html">Audyt działu HR</a></section>
+    <section class="mm-col"><h4>Rozwój właścicieli i zarządów</h4><a href="mentoring-c-level.html">Mentoring dla C-level</a><a href="mentoring-managerski.html">Mentoring dla managerów</a><a href="mentoring-wlascicielski.html">Mentoring dla właścicieli</a></section>
+    <section class="mm-col"><h4>Wiedza</h4><a href="blog.html">Blog</a><a href="case-studies.html">Case studies</a><h4 style="margin-top:28px;">Kontakt</h4><a href="mailto:kontakt@4change.pl">kontakt@4change.pl</a></section>
+  </div>
+</aside>
+
+<!-- ============ HERO ============ -->
+<section class="cs-hero">
+  <div class="cs-eyebrow"><span class="cs-eyebrow-line"></span>Blog<span class="cs-eyebrow-line"></span></div>
+  <h1 class="cs-hero-title">Praktyczne spojrzenie<br/><em>na zarządzanie ludźmi.</em></h1>
+  <p class="cs-hero-sub">Praktyczne narzędzia i informacje wspierające każdy zarząd w podejmowaniu lepszych decyzji. Bez względu na to, czy jesteś przed fuzją, czy chcesz zmienić kulturę pracy — sięgnij po nasze wpisy, aby się zainspirować.</p>
+</section>
+
+<div class="cs-fade"></div>
+
+<main class="cs-main">
+  <div class="cs-grid-wrap">
+    <p class="cs-count">Wyświetlam <span id="cs-visible-count">5</span> z 5 wpisów</p>
+    <div class="cs-grid" id="cs-grid">
+      <article class="cs-card cs-card-wide">
+        <div class="cs-card-ph ph-navy" style="background-image:url('images/office-boardroom-empty.jpg');background-size:cover;background-position:center;"><span class="cs-card-ph-num" style="opacity:0;">01</span></div>
+        <div class="cs-card-body">
+          <span class="cs-cat" style="--cat:#3447d3"><span class="cs-cat-dot"></span>Przywództwo</span>
+          <h3 class="cs-card-title">5 rzeczy, które właściciel firmy powinien przestać robić, aby firma mogła rosnąć</h3>
+          <p class="cs-desc">15 września 2026</p>
+          <p class="cs-excerpt">Firma rośnie, a Ty masz coraz mniej czasu. Sposób zarządzania, który działał przy kilkunastu osobach, przestaje wystarczać po kolejnych progach wzrostu. Co warto wtedy przestać robić?</p>
+          <div class="cs-post-body">
+            <p>Firma rośnie. Zatrudniasz kolejnych ludzi, pojawiają się menedżerowie, nowe działy, procesy i systemy. Teoretycznie powinieneś mieć coraz więcej przestrzeni na myślenie o rozwoju biznesu.</p>
+            <p>Tymczasem często dzieje się dokładnie odwrotnie.</p>
+            <p>Masz coraz więcej spotkań. Coraz więcej decyzji czeka na Twoją akceptację. Nadal zaglądasz do CRM-u, poprawiasz ofertę przed wysłaniem do ważnego klienta, wchodzisz w trudne negocjacje i przypominasz menedżerom o rzeczach, które powinny wydarzyć się bez Twojego udziału.</p>
+            <p>I w pewnym momencie pojawia się pytanie:</p>
+            <p style="padding-left:18px;border-left:3px solid #3447d3;color:#111;">Dlaczego, skoro firma jest większa, ja mam jeszcze mniej czasu niż kiedyś?</p>
+            <p>To częsty moment w rozwoju małych i średnich firm. Sposób zarządzania, który świetnie działał, kiedy organizacja liczyła kilkanaście czy kilkadziesiąt osób, przestaje wystarczać, kiedy firma przekracza kolejne progi wzrostu.</p>
+            <p>Właściciel nie może już być najlepszym handlowcem, głównym kontrolerem, osobą od trudnych klientów i centrum wszystkich decyzji.</p>
+            <p>Co warto wtedy przestać robić?</p>
+            <h4>1. Przestań mikrozarządzać</h4>
+            <p style="padding-left:18px;border-left:3px solid #3447d3;color:#111;">„Co dzisiaj masz zaplanowane?”<br/>„Jaki masz wynik?”<br/>„Pamiętaj o ofercie dla Y.”<br/>„Wyślij mi tego maila przed wysłaniem do klienta.”</p>
+            <p>Jeżeli takie rozmowy są codziennością, warto sprawdzić, czy zarządzanie nie zmieniło się w ciągłe kontrolowanie pracy zespołu.</p>
+            <p>Mikrozarządzanie daje poczucie bezpieczeństwa. Właściciel lub menedżer wie, co się dzieje, może szybko zareagować i poprawić błąd.</p>
+            <p>Problem pojawia się później.</p>
+            <p>Pracownicy uczą się, że ktoś i tak sprawdzi. Menedżerowie zamiast podejmować decyzje zaczynają pytać o zgodę. A właściciel coraz częściej ma poczucie, że „bez niego nic się nie wydarzy”.</p>
+            <p>Zamiast kontrolować każdą czynność, zbuduj rytm zarządzania.</p>
+            <p>Ustal cele, odpowiedzialności i kilka stałych punktów kontrolnych. Może to być tygodniowy przegląd wyników, krótkie spotkanie menedżerskie czy dashboard z najważniejszymi KPI.</p>
+            <p>Nie musisz wiedzieć codziennie, co robi każdy pracownik. Powinieneś wiedzieć, czy organizacja realizuje cele i gdzie potrzebna jest Twoja decyzja.</p>
+            <h4>2. Przestań robić wszystko sam</h4>
+            <p>Właściciele rozwijających się firm często są bardzo dobrzy w wielu rzeczach. I właśnie dlatego tak trudno im je oddać.</p>
+            <p style="padding-left:18px;border-left:3px solid #3447d3;color:#111;">Szybciej przygotujesz prezentację.<br/>Lepiej poprowadzisz rozmowę z ważnym klientem.<br/>Masz najlepsze relacje z partnerami.<br/>Wiesz, jak powinna wyglądać oferta.</p>
+            <p>Tylko że jeśli nadal robisz to wszystko sam, Twoja firma może rozwijać się wyłącznie tak szybko, jak pozwala na to Twój kalendarz.</p>
+            <p>Delegowanie nie oznacza tylko przekazania zadania.</p>
+            <p>Trzeba przekazać również odpowiedzialność i prawo do podejmowania decyzji.</p>
+            <p>I zaakceptować, że ktoś może wykonać zadanie inaczej niż Ty.</p>
+            <p>Nie pytaj więc tylko: <em>„Co mogę komuś oddać?”</em></p>
+            <p>Zapytaj: <strong>„Których decyzji naprawdę nie powinienem już podejmować osobiście?”</strong></p>
+            <p>To dużo ważniejsze pytanie dla właściciela rozwijającej się firmy.</p>
+            <h4>3. Przestań zbierać dane, których nie wykorzystujesz</h4>
+            <p>CRM. Excel. Dashboard. Raport tygodniowy. Raport miesięczny. Prognoza. Pipeline.</p>
+            <p>Danych jest coraz więcej.</p>
+            <p>Tylko czy dzięki nim podejmujecie lepsze decyzje?</p>
+            <p>Jeżeli podczas godzinnego spotkania analizujecie wyniki, ale na jego końcu nie wiadomo, co konkretnie ma wydarzyć się inaczej, samo raportowanie niewiele wnosi.</p>
+            <p>Dobry raport powinien prowadzić do działania.</p>
+            <p style="padding-left:18px;border-left:3px solid #3447d3;color:#111;">Sprzedaż spada — dlaczego?<br/>Konwersja jest niższa — na którym etapie?<br/>Handlowcy mają dużo spotkań, ale mało ofert — co z tym robimy?</p>
+            <p>Po analizie powinny pojawić się decyzja, osoba odpowiedzialna i termin.</p>
+            <p>Dane mają pomagać zarządzać firmą, a nie produkować kolejne dane.</p>
+            <p>Dlatego zamiast kilkudziesięciu wskaźników wybierz kilka, które naprawdę pokazują kondycję biznesu i pozwalają odpowiednio wcześnie reagować.</p>
+            <h4>4. Przestań ratować handlowców podczas każdej trudnej rozmowy</h4>
+            <p style="padding-left:18px;border-left:3px solid #3447d3;color:#111;">„Wejdź ze mną na spotkanie, bo klient jest ważny.”<br/>„Może Ty porozmawiasz z nim o cenie?”<br/>„Klient jest zdenerwowany. Możesz zadzwonić?”</p>
+            <p>Oczywiście są sytuacje, w których obecność właściciela czy dyrektora jest potrzebna.</p>
+            <p>Problem zaczyna się wtedy, gdy staje się standardem.</p>
+            <p>Za każdym razem, kiedy przejmujesz trudną rozmowę, rozwiązujesz problem tu i teraz. Ale jednocześnie odbierasz pracownikowi możliwość nauczenia się, jak poradzić sobie z podobną sytuacją następnym razem.</p>
+            <p>Zamiast ratować – przygotuj.</p>
+            <p>Stwórz standard rozmowy. Przećwicz negocjacje. Zbuduj playbook. Po spotkaniu przeanalizujcie, co zadziałało, a co warto zrobić inaczej.</p>
+            <p>Dobry lider nie jest osobą, która zawsze potrafi zrobić coś najlepiej.</p>
+            <p>Buduje ludzi, którzy z czasem przestają go potrzebować w każdej trudnej sytuacji.</p>
+            <h4>5. Przestań robić coś tylko dlatego, że „zawsze tak robiliśmy”</h4>
+            <p>Proces, który był dobry pięć lat temu, nie musi być dobry dzisiaj.</p>
+            <p>A jednak w firmach nadal ręcznie przepisuje się leady do CRM-u, tworzy te same raporty w Excelu, przekleja dane między systemami czy wysyła kolejne przypomnienia ręcznie.</p>
+            <p>Każda taka czynność zajmuje kilka minut.</p>
+            <p>Pomnożona przez liczbę pracowników i cały rok potrafi kosztować organizację setki godzin.</p>
+            <p>Dlatego warto regularnie zadawać trzy proste pytania:</p>
+            <p style="padding-left:18px;border-left:3px solid #3447d3;color:#111;">Czy nadal musimy to robić?<br/>Czy możemy zrobić to prościej?<br/>Czy możemy to zautomatyzować?</p>
+            <p>Technologia i AI dają dziś ogromne możliwości usprawnienia codziennej pracy. Ale automatyzacja nie oznacza automatyzowania wszystkiego.</p>
+            <p>Najpierw trzeba uprościć proces. Dopiero później warto go automatyzować.</p>
+            <h4>Firma rośnie wtedy, kiedy właściciel zmienia swoją rolę</h4>
+            <p>Najtrudniejszym etapem rozwoju firmy nie zawsze jest zdobycie kolejnych klientów czy zatrudnienie kolejnych pracowników.</p>
+            <p>Czasami największą zmianę musi wykonać sam właściciel.</p>
+            <p>To, co było jego przewagą na początku — osobiste zaangażowanie, kontrolowanie szczegółów, szybkie podejmowanie wszystkich decyzji — wraz ze wzrostem organizacji może stać się jej ograniczeniem.</p>
+            <p>Dlatego rozwój firmy wymaga stopniowego przejścia:</p>
+            <p style="padding-left:18px;border-left:3px solid #3447d3;color:#111;">od wykonywania → do zarządzania,<br/>od kontrolowania → do budowania odpowiedzialności,<br/>od podejmowania wszystkich decyzji → do budowania ludzi, którzy potrafią je podejmować.</p>
+            <p>Warto więc raz na jakiś czas spojrzeć na swój kalendarz i zadać sobie jedno pytanie:</p>
+            <p><strong>Które z rzeczy, które robię dzisiaj, naprawdę powinien nadal robić właściciel tej firmy?</strong></p>
+            <p>Odpowiedź może powiedzieć o gotowości firmy do dalszego wzrostu więcej niż niejeden raport.</p>
+            <p>Chcesz poukładać role, decyzje i rytm zarządzania w rosnącej firmie? <a href="kontakt.html">Zacznijmy od rozmowy</a>.</p>
+          </div>
+          <button class="cs-toggle" type="button">Czytaj więcej <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+        </div>
+      </article>
+      <article class="cs-card cs-card-wide">
+        <div class="cs-card-ph ph-navy" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Falcon%201%20Flight%204%20liftoff.jpg?width=900');background-size:cover;background-position:center;"><span class="cs-card-ph-num" style="opacity:0;">01</span></div>
+        <div class="cs-card-body">
+          <span class="cs-cat" style="--cat:#3447d3"><span class="cs-cat-dot"></span>Przywództwo</span>
+          <h3 class="cs-card-title">Lekcja od Elona Muska: strategia ponad mikrozarządzanie</h3>
+          <p class="cs-desc">30 lipca 2026</p>
+          <p class="cs-excerpt">Trzy starty Falcona 1 zakończyły się porażką — czwarty miał przesądzić o losie SpaceX. Musk nie naprawiał rakiet sam. Znać się na czymś nie znaczy robić wszystko samodzielnie.</p>
+          <div class="cs-post-body">
+            <p>W pierwszych latach działalności SpaceX trzy starty rakiety Falcon 1 zakończyły się niepowodzeniem. Czwarty miał być momentem prawdy: albo sukces, albo koniec firmy. Wtedy Elon Musk zrobił to, co robi prawdziwy lider — wkroczył do akcji w czasie kryzysu.</p>
+            <p>Musk sam nauczył się inżynierii rakietowej — czytał akademickie podręczniki, rozmawiał z ekspertami, spędzał długie godziny z zespołem inżynierów. Nie po to, by naprawiać rakiety samodzielnie, lecz by rozumieć, o czym decyduje.</p>
+            <p>Po trzecim nieudanym starcie to właśnie Musk, analizując dane, zidentyfikował problem z separacją stopni rakiety — zbyt wczesne odłączenie prowadziło do utraty stabilności. Wraz z zespołem wprowadził kluczowe zmiany — czwarty start zakończył się sukcesem.</p>
+            <p>Musk wielokrotnie podkreślał, że sukces SpaceX wynikał z umiejętności uczenia się na błędach i wyciągania wniosków z porażek.</p>
+            <h4>Klucz nie tkwił w mikrozarządzaniu</h4>
+            <p style="padding-left:18px;border-left:3px solid #3447d3;color:#111;">Zadawanie właściwych pytań odpowiednim osobom.<br/>Zrozumienie procesów i mechanizmów działania.<br/>Zaufanie do zespołu i wspólna analiza działań.<br/>Trzymanie się jasno określonej strategii.</p>
+            <p>Znać się na czymś nie znaczy robić wszystko samemu. Prawdziwy lider nie kontroluje wszystkiego — <strong>tworzy warunki do działania</strong>.</p>
+            <p>Chcesz zbudować zespół i strategię, które działają bez mikrozarządzania? <a href="kontakt.html">Zacznijmy od rozmowy</a>.</p>
+            <p style="font-size:0.72rem;color:#999;margin-top:22px;">fot. Start Falcon 1 (lot 4), SpaceX — domena publiczna, Wikimedia Commons</p>
+          </div>
+          <button class="cs-toggle" type="button">Czytaj więcej <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+        </div>
+      </article>
+      <article class="cs-card cs-card-wide">
+        <div class="cs-card-ph ph-navy" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Nokia%20Lumia%20920.jpg?width=900');background-size:cover;background-position:center;"><span class="cs-card-ph-num" style="opacity:0;">01</span></div>
+        <div class="cs-card-body">
+          <span class="cs-cat" style="--cat:#3447d3"><span class="cs-cat-dot"></span>Zmiana</span>
+          <h3 class="cs-card-title">„Nie zrobiliśmy nic złego… a jednak przegraliśmy”</h3>
+          <p class="cs-desc">30 lipca 2026</p>
+          <p class="cs-excerpt">Zdanie z konferencji Nokii w 2013 roku wraca dziś ze zdwojoną siłą. Coraz częściej nie przegrywają firmy, które robią coś źle — przegrywają te, które robią wszystko „jak zawsze”. Dziś rozwój to strategia przetrwania.</p>
+          <div class="cs-post-body">
+            <p>To zdanie padło podczas konferencji prasowej Nokii w 2013 roku, gdy ogłaszano sprzedaż firmy do Microsoftu. Ta historia wraca dziś ze zdwojoną siłą — bo rynek 2025 roku zmienia się szybciej niż kiedykolwiek wcześniej.</p>
+            <p>Nokia nie była źle zarządzana. Miała świetnych ludzi, technologię i zasoby. Problem był inny: zmiany przyszły szybciej, niż organizacja była gotowa je przyjąć.</p>
+            <h4>Dziś ten mechanizm działa jeszcze wyraźniej</h4>
+            <p style="padding-left:18px;border-left:3px solid #3447d3;color:#111;">Klienci zmieniają swoje oczekiwania szybko, czasami z miesiąca na miesiąc.<br/>Technologie — AI, automatyzacja, platformy — redefiniują modele biznesowe w tygodnie, nie w lata.<br/>„Sprawdzone sposoby” starzeją się szybciej, niż strategie zdążą trafić do prezentacji.</p>
+            <p>I coraz częściej nie przegrywają firmy, które robią coś źle. Przegrywają te, które robią wszystko „jak zawsze” — „bo tak zawsze robiliśmy”.</p>
+            <p>Zamiast adaptacji — stabilizacja. Zamiast uczenia się — opieranie przekonań na doświadczeniach z przeszłości. Zamiast testowania — perfekcyjne planowanie.</p>
+            <p>Efekt? Najpierw utrata tempa. Potem pozycji. Na końcu — sensu dalszego istnienia.</p>
+            <h4>Pod koniec 2025 roku wnioski są jeszcze wyraźniejsze</h4>
+            <p>Kto przestaje się uczyć — przegrywa z rynkiem i z konkurencją. Największym ryzykiem nie jest błąd. Największym ryzykiem jest przekonanie, że „to już działa”.</p>
+            <p><strong>Bo dziś rozwój to strategia przetrwania.</strong></p>
+            <p>Chcesz przygotować swoją organizację na tempo zmian, zamiast je nadrabiać? <a href="kontakt.html">Zacznijmy od rozmowy</a>.</p>
+            <p style="font-size:0.72rem;color:#999;margin-top:22px;">fot. Nokia Lumia — Wikimedia Commons</p>
+          </div>
+          <button class="cs-toggle" type="button">Czytaj więcej <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+        </div>
+      </article>
+      <article class="cs-card cs-card-wide">
+        <div class="cs-card-ph ph-navy" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/William%20Boyd.jpg?width=900');background-size:cover;background-position:center 22%;"><span class="cs-card-ph-num" style="opacity:0;">01</span></div>
+        <div class="cs-card-body">
+          <span class="cs-cat" style="--cat:#3447d3"><span class="cs-cat-dot"></span>Inspiracje</span>
+          <h3 class="cs-card-title">Inspiracje można znaleźć wszędzie — nawet u kowboja klasy B</h3>
+          <p class="cs-desc">30 lipca 2026</p>
+          <p class="cs-excerpt">William Boyd, aktor kowbojskich filmów klasy B, dwa razy zaczynał od zera i dwa razy wracał silniejszy — a jednak stał się inspiracją dla Disneya i Lucasa. Czego jego historia uczy nas o zmianie w czasach AI?</p>
+          <div class="cs-post-body">
+            <p>William Boyd nie był gwiazdą pierwszej ligi. Stracił karierę, gdy kino przeszło z niemego na dźwiękowe. Stracił reputację, gdy gazety pomyliły go z przestępcą. Zaryzykował pieniądze. Ranczo. Pozycję.</p>
+            <p>Dwa razy zaczynał od zera — i dwa razy wrócił silniejszy. A jednak to właśnie on stał się inspiracją dla Walta Disneya i George'a Lucasa.</p>
+            <h4>Dlaczego?</h4>
+            <p>Bo gdy rynek się zmieniał, nie próbował kurczowo trzymać się starego świata. Zrozumiał nowe medium — telewizję — szybciej niż inni. Postawił wszystko na prawa do własnych treści i zbudował pierwszy prawdziwy model biznesowy oparty na marce, wartościach i własności intelektualnej.</p>
+            <p>Stworzył bohatera dla dzieci — uczciwego, sprawiedliwego, odważnego bez okrucieństwa. Na rynku pojawiło się ponad 2000 produktów z podobizną Hopalong Cassidy — prawego kowboja, który zawsze postępował fair.</p>
+            <p>Ale w tej historii jest coś ważniejszego niż pieniądze. W czasach chaosu wybrał wartości. Zamiast narzekać — budował coś wartościowego. Zamiast uciekać przed zmianą — przywitał ją jako szansę.</p>
+            <h4>Dziś rynek znów przechodzi ogromną transformację</h4>
+            <p>AI zalewa świat treści. Tworzenie stało się łatwiejsze niż kiedykolwiek — ale łatwość produkcji nie zastąpi jakości. Szybkość nie zastąpi sensu. Algorytm nie zastąpi kręgosłupa.</p>
+            <p>Dlatego pytanie nie brzmi już: <em>„Jak nadążyć za technologią?”</em>. Tylko:</p>
+            <p style="padding-left:18px;border-left:3px solid #3447d3;color:#111;">Od kogo dziś warto się inspirować?<br/>Jakie wartości chcesz wzmacniać swoimi działaniami?<br/>Co zostanie, gdy moda na kolejne narzędzie minie?</p>
+            <p>Bo w świecie, w którym każdy może wszystko wygenerować — największą przewagą staje się to, kim jesteś i co reprezentujesz.</p>
+            <p>William Boyd nie tylko uratował swoją karierę. On zrozumiał zmianę wcześniej niż inni — i nadał jej kierunek. Może właśnie teraz jest moment, żeby zadać sobie pytanie: <strong>czy tworzysz tylko treści… czy budujesz coś, co przetrwa?</strong></p>
+            <p>Jeśli chcesz świadomie poukładać markę swojej firmy, wartości i strategię w czasach AI — <a href="kontakt.html">zacznijmy od rozmowy</a>.</p>
+            <p style="font-size:0.72rem;color:#999;margin-top:22px;">fot. William Boyd jako Hopalong Cassidy — domena publiczna, Wikimedia Commons</p>
+          </div>
+          <button class="cs-toggle" type="button">Czytaj więcej <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+        </div>
+      </article>
+      <article class="cs-card cs-card-wide">
+        <div class="cs-card-ph ph-green" style="background-image:url('images/team-notes-discussion.jpg');background-size:cover;background-position:center;"><span class="cs-card-ph-num" style="opacity:0;">01</span></div>
+        <div class="cs-card-body">
+          <span class="cs-cat" style="--cat:#42c441"><span class="cs-cat-dot"></span>Praca</span>
+          <h3 class="cs-card-title">Gigantyczny kryzys kompetencji</h3>
+          <p class="cs-desc">2 czerwca 2026</p>
+          <p class="cs-excerpt">Coraz trudniej znaleźć ludzi, którzy naprawdę potrafią to, co deklarują w CV. Skąd bierze się przepaść między wiedzą a praktyką — i co realnie z nią zrobić?</p>
+          <div class="cs-post-body">
+            <p>Coraz więcej firm mówi o tym samo: trudno znaleźć ludzi, którzy naprawdę potrafią to, co deklarują w CV. Nie chodzi o brak dyplomów czy certyfikatów — mamy ich więcej niż kiedykolwiek. Chodzi o przepaść między wiedzą teoretyczną a umiejętnością zastosowania jej w realnej pracy.</p>
+            <p>Ten kryzys nie pojawił się z dnia na dzień. Systemy edukacji uczą do testu, nie do praktyki. Rekrutacja premiuje ładne CV, nie rzeczywiste kompetencje. A tempo zmian technologicznych sprawia, że to, czego nauczono kogoś pięć lat temu, dziś jest już nieaktualne.</p>
+            <p>W praktyce oznacza to, że menedżerowie zatrudniają ludzi z odpowiednim tytułem na stanowisku, ale bez umiejętności radzenia sobie z prostymi, codziennymi problemami. Efekt? Więcej czasu na wdrożenie, więcej błędów, więcej frustracji po obu stronach — pracownika i przełożonego.</p>
+            <h4>Co z tym robić?</h4>
+            <p>Po pierwsze — zmienić sposób rekrutacji. Zamiast pytać o doświadczenie, sprawdzać realne umiejętności: przez zadania próbne, symulacje, rozmowy oparte na konkretnych sytuacjach z przeszłości.</p>
+            <p>Po drugie — inwestować w onboarding i mentoring, a nie zakładać, że nowa osoba „sama się nauczy". Kompetencje rozwija się w praktyce, z drugim człowiekiem, który wie więcej i chce się tym podzielić.</p>
+            <p>Po trzecie — traktować rozwój kompetencji jako proces ciągły, nie jednorazowe szkolenie. Świat się zmienia szybciej niż nasze CV — ci, którzy się rozwijają najszybciej, wygrywają.</p>
+            <p>Kryzys kompetencji nie zniknie sam. Ale firmy, które zrozumieją go jako problem systemowy — a nie kwestię „gorszych kandydatów" — zyskają realną przewagę nad konkurencją, która wciąż czeka na idealnego pracownika z rynku.</p>
+          </div>
+          <button class="cs-toggle" type="button">Czytaj więcej <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></button>
+        </div>
+      </article>
+    </div>
+  </div>
+</main>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="news-strip">
+  <div class="columns is-vcentered is-variable is-6">
+    <div class="column is-5">
+      <h3>Co kwartał jeden konkretny materiał o&nbsp;porządkowaniu rosnącej firmy.</h3>
+    </div>
+    <div class="column is-7">
+      <form class="news-form" onsubmit="event.preventDefault(); alert('Zapisano: ' + this.email.value);">
+        <input type="email" name="email" placeholder="Twój e-mail" required />
+        <button type="submit">Zapisz się</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="columns is-variable is-8">
+    <div class="column is-4">
+      <h4>Projektujemy zmianę dla tych, którzy chcą zmieniać świat.</h4>
+    </div>
+    <div class="column is-2">
+      <a href="zespol.html" class="footer-link">O nas</a>
+      <a href="strategia-rozwoju-organizacji.html" class="footer-link">Rozwiązania</a>
+      <a href="mentoring-c-level.html" class="footer-link">Rozwój</a>
+    </div>
+    <div class="column is-2">
+      <a href="blog.html" class="footer-link">Wiedza</a>
+      <a href="kontakt.html" class="footer-link">Kontakt</a>
+    </div>
+    <div class="column is-4 footer-help">
+      <h5>Jak możemy Ci pomóc?</h5>
+      <p>Cenimy każdą rozmowę. Napisz do nas — odpowiemy w 24h, a doświadczony konsultant zaproponuje pierwszy krok.</p>
+      <a href="kontakt.html" class="btn-accent">Skontaktuj się <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <div style="display:flex;align-items:center;gap:18px;">
+      <a href="index.html" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+      <span style="color:#6b6b6b;font-size:0.8rem;">Transformation &amp; Strategy</span>
+    </div>
+    <div class="links">
+      <a href="#">Polityka prywatności</a>
+      <a href="#">Regulamin</a>
+      <a href="#">Sitemap</a>
+      <a href="#">Cookies</a>
+    </div>
+    <div class="socials">
+      <a href="#" aria-label="LinkedIn">in</a>
+      <a href="#" aria-label="Facebook">fb</a>
+      <a href="#" aria-label="Instagram">ig</a>
+    </div>
+  </div>
+  <p class="legal">4change Sp. z o.o. jest pracodawcą równych szans. Wszyscy aplikujący kandydaci są rozpatrywani bez względu na płeć, wiek, religię, orientację seksualną, tożsamość lub ekspresję płciową, pochodzenie narodowe ani inne cechy chronione prawem krajowym.</p>
+</footer>
+
+<script>
+(async function() {
+  const status = document.getElementById('scss-status');
+  const partials = ['_variables.scss','_mixins.scss','_layout.scss','_components.scss','main.scss'];
+  try {
+    const sources = {};
+    for (const name of partials) {
+      const res = await fetch('styles/' + name);
+      if (!res.ok) throw new Error('Nie udało się wczytać ' + name);
+      sources[name] = await res.text();
+    }
+    for (const [name, content] of Object.entries(sources)) Sass.writeFile(name, content);
+    Sass.compile(sources['main.scss'], function(result) {
+      if (result.status === 0) {
+        const style = document.createElement('style');
+        style.id = 'compiled-scss';
+        style.textContent = result.text;
+        document.head.appendChild(style);
+        status.remove();
+      } else {
+        status.style.color = '#c62828';
+        status.textContent = 'Błąd SCSS: ' + (result.formatted || result.message);
+      }
+    });
+  } catch(err) {
+    status.style.color = '#c62828';
+    status.textContent = 'Błąd: ' + err.message;
+  }
+})();
+
+const mobileBurger = document.getElementById('mobile-burger');
+const mobileMenu = document.getElementById('mobile-menu');
+const mobileClose = document.getElementById('mobile-close');
+function openMM() { mobileMenu.classList.add('is-open'); mobileMenu.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+function closeMM() { mobileMenu.classList.remove('is-open'); mobileMenu.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+mobileBurger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMM() : openMM());
+mobileClose.addEventListener('click', closeMM);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMM(); });
+
+document.querySelectorAll('.cs-toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const card = btn.closest('.cs-card');
+    const open = card.classList.toggle('is-open');
+    btn.childNodes[0].nodeValue = open ? 'Zwiń ' : 'Czytaj więcej ';
+  });
+});
+</script>
+
+<script src="contact-widget.js"></script>
+<script src="diagnosis-popup.js"></script>
+</body>
+</html>

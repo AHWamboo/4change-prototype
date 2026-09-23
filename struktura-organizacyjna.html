@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Struktura organizacyjna i zakresy zadań — 4change</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/sass.js@0.11.1/dist/sass.sync.js"></script>
+
+<style>
+  html, body { margin: 0; background: #fff; font-family: 'Inter', system-ui, sans-serif; }
+  .scss-loading { padding: 80px 20px; text-align: center; color: #999; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+
+  .pay-intro { padding: 96px 4vw 20px; max-width: 1480px; margin: 0 auto; }
+  .pay-intro .columns { align-items: center; }
+  .pay-intro h2 {
+    font-family: 'Fraunces', Georgia, serif; font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.2rem); color: #111; line-height: 1.08;
+    letter-spacing: -0.02em; margin: 0 0 22px; text-wrap: balance;
+  }
+  .pay-intro p { font-size: 1.06rem; line-height: 1.7; color: #555; margin: 0 0 16px; }
+  .pay-cost-card { background: #111; border-radius: 18px; padding: 44px 42px; color: #fff; position: relative; overflow: hidden; }
+  .pay-cost-card::before { content: ""; position: absolute; top: -60px; right: -50px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, rgba(66,196,65,0.18) 0%, transparent 70%); }
+  .pay-cost-card .pcc-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #42c441; margin: 0 0 18px; }
+  .pay-cost-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.55rem; color: #fff; line-height: 1.25; margin: 0 0 24px; position: relative; }
+  .pay-cost-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; position: relative; }
+  .pay-cost-list li { display: flex; gap: 13px; align-items: flex-start; font-size: 0.96rem; line-height: 1.5; color: rgba(255,255,255,0.72); }
+  .pay-cost-list svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px; color: #42c441; }
+  /* funny org chart illustration */
+  .org-funny { padding: 20px 4vw 90px; max-width: 1200px; margin: 0 auto; text-align: center; }
+  .org-funny p.eyebrow { text-align: center; }
+  .org-funny h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: clamp(1.7rem, 3vw, 2.4rem); color: #111; margin: 10px 0 36px; }
+  .org-funny svg { width: 100%; height: auto; max-width: 900px; }
+  .org-funny .caption { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: #999; margin-top: 14px; }
+
+  /* org types */
+  .org-types { padding: 20px 4vw 90px; max-width: 1480px; margin: 0 auto; }
+  .org-types-head { max-width: 700px; margin-bottom: 40px; }
+  .org-types-head h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); color: #111; line-height: 1.1; letter-spacing: -0.02em; margin: 12px 0 0; }
+  .org-types-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+  .org-type-card { border: 1px solid #e4e4e0; border-radius: 16px; padding: 26px 22px; background: #fff; }
+  .org-type-card .ot-num { font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em; color: #42c441; margin-bottom: 12px; }
+  .org-type-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.05rem; color: #111; margin: 0 0 8px; line-height: 1.25; }
+  .org-type-card p { font-size: 0.86rem; line-height: 1.55; color: #666; margin: 0; }
+
+  /* factors + mistakes */
+  .org-factors { padding: 20px 4vw 30px; max-width: 1480px; margin: 0 auto; }
+  .org-factors .columns { align-items: flex-start; }
+  .org-factors h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: clamp(1.7rem, 3vw, 2.3rem); color: #111; line-height: 1.15; margin: 12px 0 24px; }
+  .org-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
+  .org-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.95rem; line-height: 1.55; color: #444; }
+  .org-list li strong { color: #111; }
+  .org-list.mistakes li::before { content: "✕"; color: #c0392b; font-weight: 700; flex-shrink: 0; }
+  .org-list.factors li::before { content: "✓"; color: #42c441; font-weight: 700; flex-shrink: 0; }
+  .org-table { width: 100%; border-collapse: collapse; }
+  .org-table td { font-size: 0.95rem; line-height: 1.55; color: #444; padding: 14px 0; border-bottom: 1px solid #e6e6e6; vertical-align: top; }
+  .org-table tr:first-child td { padding-top: 0; }
+  .org-table tr:last-child td { border-bottom: none; }
+  .org-table td:first-child { font-weight: 600; color: #111; width: 34%; padding-right: 20px; }
+
+  @media (max-width: 1100px) { .org-types-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 900px) { .org-types-grid { grid-template-columns: 1fr 1fr; } .org-factors .columns { flex-direction: column; } }
+  .scen-section { padding: 20px 4vw 100px; max-width: 1480px; margin: 0 auto; }
+  .gain-head { max-width: 680px; margin-bottom: 40px; }
+  .gain-head h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); color: #111; line-height: 1.1; letter-spacing: -0.02em; margin: 8px 0 0; }
+  .scen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 36px; }
+  .scen-card { border: 1px solid #e4e4e0; border-radius: 16px; padding: 34px 30px; background: #fff; }
+  .scen-card .sc-num { font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; color: #42c441; margin-bottom: 14px; }
+  .scen-card h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.25rem; color: #111; margin: 0 0 10px; line-height: 1.25; }
+  .scen-card p { font-size: 0.94rem; line-height: 1.6; color: #666; margin: 0; }
+  @media (max-width: 900px) { .scen-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div id="scss-status" class="scss-loading">Kompiluję SCSS…</div>
+
+<!-- ============ TOP NAV ============ -->
+<header class="top-bar">
+  <div class="pill">
+    <button class="burger" id="mobile-burger" aria-label="Menu"><span></span></button>
+    <a href="index.html" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+  </div>
+
+  <nav class="nav-pill" id="top-nav" aria-label="Główna nawigacja">
+    <div class="nav-item">
+      <a href="zespol.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span>O nas</span>
+      </a>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link is-active-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Rozwiązania dla firm</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="strategia-rozwoju-organizacji.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h7v7"/></svg>Strategia rozwoju organizacji</a>
+        <a href="outsourcing-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 14L21 3"/><path d="M21 3v6h-6"/><path d="M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h5"/></svg>Outsourcing HR</a>
+        <a href="system-wynagrodzen.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Systemy wynagrodzeń</a>
+        <a href="struktura-organizacyjna.html" style="color:#42c441; background:#e8f7e0;"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M12 12H6v4M12 12h6v4"/></svg>Struktura organizacyjna i zakresy zadań</a>
+        <a href="audyt-sprzedazy.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Audyt działu sprzedaży</a>
+        <a href="audyt-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l2 3h2a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h2l2-3z"/><path d="M9 13l2 2 4-4"/></svg>Audyt działu HR</a>
+      </div>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+        <span>Rozwój właścicieli i zarządów</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Mentoring dla C-level</a>
+        <a href="mentoring-managerski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 11l2 2 4-4"/><circle cx="9" cy="7" r="4"/><path d="M3 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Mentoring dla managerów</a>
+        <a href="mentoring-wlascicielski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l3-5 3 4 3-6 3 6 3-4 3 5v8a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>Mentoring dla właścicieli</a>
+        <a href="coaching.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Coaching</a>
+      </div>
+    </div>
+
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v16h13a3 3 0 003-3V7a3 3 0 00-3-3H4z"/><path d="M4 4v16"/><path d="M8 9h8M8 13h6"/></svg>
+        <span>Wiedza</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="blog.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3l7 7-11 11H3v-7L14 3z"/></svg>Blog</a>
+        <a href="case-studies.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>Case studies</a>
+      </div>
+    </div>
+
+    <div class="nav-item">
+      <a href="kontakt.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <span>Kontakt</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="pill right-pill">
+    <button class="icon-btn" aria-label="Szukaj">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    </button>
+    <a href="mentoring-c-level.html">Zaloguj</a>
+  </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <button class="mobile-close" id="mobile-close" aria-label="Zamknij">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="mm-inner">
+    <section class="mm-col">
+      <h4>O nas</h4>
+      <a href="zespol.html">O nas</a>
+    </section>
+    <section class="mm-col">
+      <h4>Rozwiązania dla firm</h4>
+      <a href="strategia-rozwoju-organizacji.html">Strategia rozwoju organizacji</a>
+      
+      <a href="outsourcing-hr.html">Outsourcing HR</a>
+      <a href="system-wynagrodzen.html">Systemy wynagrodzeń</a>
+      <a href="struktura-organizacyjna.html">Struktura organizacyjna i zakresy zadań</a>
+      <a href="audyt-sprzedazy.html">Audyt działu sprzedaży</a>
+      <a href="audyt-hr.html">Audyt działu HR</a>
+    </section>
+    <section class="mm-col">
+      <h4>Rozwój właścicieli i zarządów</h4>
+      
+      <a href="mentoring-c-level.html">Mentoring dla C-level</a>
+      <a href="mentoring-managerski.html">Mentoring dla managerów</a>
+      <a href="mentoring-wlascicielski.html">Mentoring dla właścicieli</a>
+      <a href="coaching.html">Coaching</a>
+    </section>
+    <section class="mm-col">
+      <h4>Wiedza</h4>
+      <a href="blog.html">Blog</a>
+      <a href="case-studies.html">Case studies</a>
+      <h4 style="margin-top: 28px;">Kontakt</h4>
+      <a href="mailto:hello@4change.pl">hello@4change.pl</a>
+    </section>
+  </div>
+</aside>
+
+<!-- ============ HERO ============ -->
+<section class="strategy-hero">
+  <div class="container">
+    <p class="eyebrow muted mb-4">Rozwiązania dla firm</p>
+    <h1 class="display strategy-hero-title">
+      Kto za co naprawdę<br/>odpowiada w&nbsp;Twojej firmie?
+    </h1>
+    <p class="strategy-hero-sub">
+      Gdy firma rośnie, role zaczynają się zazębiać — zadania spadają „na wszystkich i&nbsp;na nikogo",
+      decyzje się dublują, a&nbsp;część obowiązków wraca do właściciela. Projektujemy przejrzystą
+      strukturę i&nbsp;zakresy zadań, w&nbsp;których każdy wie, za co odpowiada — i&nbsp;przed kim.
+    </p>
+  </div>
+</section>
+
+<!-- ============ SERVICE TABS ============ -->
+<div class="service-tabs">
+  <a href="#zakres" class="stab is-active">Co robimy</a>
+  <a href="#kontakt-cta" class="stab">Zaprojektuj strukturę</a>
+</div>
+
+<!-- ============ INTRO / PROBLEM ============ -->
+<section class="pay-intro">
+  <div class="columns is-variable is-8">
+    <div class="column is-6">
+      <p class="eyebrow muted">Po co struktura</p>
+      <h2>Przejrzysta struktura to koniec chaosu odpowiedzialności</h2>
+      <p>
+        Struktura organizacyjna i&nbsp;zakresy zadań to fundament sprawnie działającej firmy.
+        Porządkują odpowiedzialność, ułatwiają komunikację między działami i&nbsp;pokazują,
+        jak praca jednych przekłada się na pracę innych.
+      </p>
+      <p>
+        Projektujemy strukturę dopasowaną do celów biznesowych i&nbsp;etapu rozwoju firmy —
+        tak, by wspierała wzrost, a&nbsp;nie blokowała go niejasnym podziałem ról i&nbsp;decyzji.
+      </p>
+    </div>
+    <div class="column is-6">
+      <div class="pay-cost-card">
+        <p class="pcc-eyebrow">Sygnały ostrzegawcze</p>
+        <h3>Kiedy warto uporządkować strukturę?</h3>
+        <ul class="pay-cost-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 4l6 6M20 4l-6 6M4 20l6-6M20 20l-6-6"/><rect x="7" y="9" width="10" height="8" rx="1.5"/></svg>Zadania spadają „na wszystkich i&nbsp;na nikogo"</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="4" width="12" height="14" rx="1.5"/><rect x="8" y="7" width="12" height="14" rx="1.5"/></svg>Decyzje się dublują albo nie zapada żadna</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="7" r="3"/><path d="M6 20c0-3 2.5-5.5 6-5.5M14 12a6 6 0 016 6"/><path d="M20 18l-3 2 1-3"/></svg>Część obowiązków ciągle wraca do właściciela</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 20c0-3.2 2.5-5.8 5.5-5.8s5.5 2.6 5.5 5.8"/><path d="M18.2 8.2a2 2 0 113 1.6c0 1.2-1.2 1.4-1.2 2.6"/><circle cx="20" cy="15.4" r="0.4" fill="currentColor"/></svg>Nowi pracownicy długo nie wiedzą, do kogo się zwrócić</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3 OBSZARY ============ -->
+<section id="zakres" class="strategy-overview" style="padding-top:80px;">
+  <div class="strategy-overview-inner" style="padding-left:4vw; padding-right:4vw;">
+    <p class="eyebrow muted" style="margin-bottom:14px;">Co robimy</p>
+    <h2 class="display overview-title">Od mapy organizacji do&nbsp;jasnych zakresów zadań</h2>
+    <div class="overview-grid">
+      <div class="overview-item">
+        <div class="oi-num">01</div>
+        <h3 class="oi-title">Analiza danych i&nbsp;przygotowanie projektu</h3>
+        <p class="oi-body">Zaczynamy od spotkania kick-off — ustalamy harmonogram, osoby kontaktowe, zasady komunikacji i&nbsp;dostęp do danych. Przeglądamy istniejącą dokumentację (opisy stanowisk, schematy organizacyjne, regulaminy, instrukcje) i&nbsp;ustalamy listę stanowisk lub obszarów objętych projektem.</p>
+      </div>
+      <div class="overview-item">
+        <div class="oi-num">02</div>
+        <h3 class="oi-title">Audyt w&nbsp;praktyce — analiza jakościowa</h3>
+        <p class="oi-body">Rozmawiamy z&nbsp;przełożonymi i&nbsp;osobami odpowiedzialnymi za organizację pracy oraz — tam, gdzie to możliwe — z&nbsp;przedstawicielami poszczególnych stanowisk. Obserwujemy pracę na miejscu (job shadowing) w&nbsp;obszarach kluczowych i&nbsp;analizujemy warunki pracy, zmianowość, odpowiedzialność oraz wymagane uprawnienia i&nbsp;kompetencje.</p>
+      </div>
+      <div class="overview-item">
+        <div class="oi-num">03</div>
+        <h3 class="oi-title">Struktura, zakresy zadań i&nbsp;rekomendacje</h3>
+        <p class="oi-body">Opisujemy aktualnie funkcjonujący układ ról — mapę stanowisk i&nbsp;różnic między nimi — ze wskazaniem obszarów krytycznych. Rekomendujemy zmiany (łączenie ról, doprecyzowanie odpowiedzialności, rozdzielenie zadań) i&nbsp;proponujemy jeden standard opisu stanowisk. Całość domyka raport końcowy, omawiany na spotkaniu podsumowującym.</p>
+      </div>
+    </div>
+nowisk i&nbsp;dostępności zespołu.</p>
+  </div>
+</section>
+
+<!-- ============ RODZAJE STRUKTUR ============ -->
+<section class="org-types">
+  <div class="org-types-head">
+    <p class="eyebrow muted">Zanim wybierzemy model</p>
+    <h2>Pięć podstawowych typów struktur — który pasuje do&nbsp;Twojej firmy?</h2>
+  </div>
+  <div class="org-types-grid">
+    <div class="org-type-card"><p class="ot-num">01</p><h3>Funkcjonalna</h3><p>Pracownicy grupowani według specjalizacji — sprzedaż, produkcja, finanse. Sprzyja specjalizacji i&nbsp;jest najczęściej stosowanym modelem.</p></div>
+    <div class="org-type-card"><p class="ot-num">02</p><h3>Macierzowa</h3><p>Łączy strukturę funkcjonalną z&nbsp;projektową — pracownik raportuje równocześnie do&nbsp;dwóch przełożonych. Dobra przy złożonych projektach.</p></div>
+    <div class="org-type-card"><p class="ot-num">03</p><h3>Projektowa</h3><p>Zespół tworzony na czas trwania konkretnego projektu, z&nbsp;osób z&nbsp;różnych działów. Typowa dla agencji i&nbsp;firm wdrożeniowych.</p></div>
+    <div class="org-type-card"><p class="ot-num">04</p><h3>Dywizjonalna</h3><p>Podział na mniejsze jednostki według produktów lub rynków — każda dywizja działa niemal jak osobna firma.</p></div>
+    <div class="org-type-card"><p class="ot-num">05</p><h3>Sieciowa</h3><p>Organizacja centralna współpracuje z&nbsp;niezależnymi jednostkami zewnętrznymi — największa elastyczność i&nbsp;szybkie reagowanie na zmiany.</p></div>
+  </div>
+</section>
+
+<!-- ============ CZYNNIKI I BŁĘDY ============ -->
+<section class="org-factors">
+  <div class="columns is-variable is-8">
+    <div class="column is-6">
+      <p class="eyebrow muted">Co bierzemy pod uwagę</p>
+      <h2>Dobra struktura wynika z&nbsp;analizy, nie z&nbsp;szablonu</h2>
+      <table class="org-table">
+        <tbody>
+          <tr><td>Cele i&nbsp;strategia firmy</td><td>struktura ma wspierać priorytety, nie istnieć obok nich.</td></tr>
+          <tr><td>Realne procesy biznesowe</td><td>sprawdzamy, jak praca faktycznie przepływa między działami, zanim narysujemy schemat.</td></tr>
+          <tr><td>Elastyczność</td><td>struktura musi pozwalać reagować na zmiany rynkowe i&nbsp;organizacyjne, nie je blokować.</td></tr>
+          <tr><td>Kultura organizacyjna</td><td>zgodność z&nbsp;wartościami firmy wzmacnia zaangażowanie, konflikt z&nbsp;nimi je niszczy.</td></tr>
+          <tr><td>Wielkość i&nbsp;złożoność firmy</td><td>dobra struktura jest tak prosta, jak to możliwe, i&nbsp;tak złożona, jak to konieczne.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="column is-6">
+      <p class="eyebrow muted">Czego unikamy</p>
+      <h2>Typowe błędy przy projektowaniu struktury</h2>
+      <ul class="org-list mistakes">
+        <li>Reorganizacja bez jasno określonego celu, który ma osiągnąć.</li>
+        <li>Projektowanie struktury pod konkretne osoby, a&nbsp;nie pod potrzeby organizacji.</li>
+        <li>Pominięcie analizy stanu obecnego — zmiana bez zrozumienia realnych problemów.</li>
+        <li>Nadmierna liczba szczebli i&nbsp;biurokracji, która spowalnia decyzje.</li>
+        <li>Zaniedbanie komunikacji zmiany — opór rośnie, gdy ludzie nie rozumieją „dlaczego”.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ZABAWNA ILUSTRACJA ============ -->
+<section class="org-funny">
+  <p class="eyebrow muted">Zanim zaprojektujemy Twoją</p>
+  <h2>Schemat na papierze a&nbsp;schemat w&nbsp;głowach ludzi</h2>
+  <svg viewBox="0 0 880 340" fill="none">
+    <text x="220" y="20" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="1" fill="#999">OFICJALNY SCHEMAT</text>
+    <text x="660" y="20" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" letter-spacing="1" fill="#42c441">JAK TO DZIAŁA NAPRAWDĘ</text>
+    <line x1="440" y1="10" x2="440" y2="330" stroke="#e4e4e0"/>
+    <g stroke="#ccc" stroke-width="1" fill="none"><path d="M220 70 V100"/><path d="M125 100 H315"/><path d="M125 100 V97"/><path d="M315 100 V97"/><path d="M125 123 V140.25"/><path d="M83.2 140.25 H166.8"/><path d="M83.2 140.25 V153.5"/><path d="M166.8 140.25 V153.5"/><path d="M315 123 V140.25"/><path d="M273.2 140.25 H356.8"/><path d="M273.2 140.25 V153.5"/><path d="M356.8 140.25 V153.5"/><path d="M83.2 176.5 V195.25"/><path d="M64.2 195.25 H102.2"/><path d="M64.2 195.25 V210"/><path d="M102.2 195.25 V210"/><path d="M166.8 176.5 V195.25"/><path d="M147.8 195.25 H185.8"/><path d="M147.8 195.25 V210"/><path d="M185.8 195.25 V210"/><path d="M273.2 176.5 V195.25"/><path d="M254.2 195.25 H292.2"/><path d="M254.2 195.25 V210"/><path d="M292.2 195.25 V210"/><path d="M356.8 176.5 V195.25"/><path d="M337.8 195.25 H375.8"/><path d="M337.8 195.25 V210"/><path d="M375.8 195.25 V210"/></g><g><circle cx="220" cy="55" r="15" fill="#fff" stroke="#111" stroke-width="1.5"/><circle cx="214.75" cy="50.8" r="1.2" fill="#111"/><circle cx="225.25" cy="50.8" r="1.2" fill="#111"/><path d="M212.5 57.25q7.5 8.25 15 0" stroke="#111" stroke-width="1.5" fill="none" stroke-linecap="round"/></g><g><circle cx="125" cy="110" r="13" fill="#fff" stroke="#111" stroke-width="1.35"/><circle cx="120.45" cy="106.36" r="1.04" fill="#111"/><circle cx="129.55" cy="106.36" r="1.04" fill="#111"/><path d="M118.5 111.95q6.5 7.15 13 0" stroke="#111" stroke-width="1.35" fill="none" stroke-linecap="round"/></g><g><circle cx="315" cy="110" r="13" fill="#fff" stroke="#111" stroke-width="1.35"/><circle cx="310.45" cy="106.36" r="1.04" fill="#111"/><circle cx="319.55" cy="106.36" r="1.04" fill="#111"/><path d="M308.5 111.95q6.5 7.15 13 0" stroke="#111" stroke-width="1.35" fill="none" stroke-linecap="round"/></g><g><circle cx="83.2" cy="165" r="11.5" fill="#fff" stroke="#111" stroke-width="1.2"/><circle cx="79.175" cy="161.78" r="0.92" fill="#111"/><circle cx="87.22500000000001" cy="161.78" r="0.92" fill="#111"/><path d="M77.45 166.725q5.75 6.325 11.5 0" stroke="#111" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><g><circle cx="166.8" cy="165" r="11.5" fill="#fff" stroke="#111" stroke-width="1.2"/><circle cx="162.775" cy="161.78" r="0.92" fill="#111"/><circle cx="170.82500000000002" cy="161.78" r="0.92" fill="#111"/><path d="M161.05 166.725q5.75 6.325 11.5 0" stroke="#111" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><g><circle cx="273.2" cy="165" r="11.5" fill="#fff" stroke="#111" stroke-width="1.2"/><circle cx="269.175" cy="161.78" r="0.92" fill="#111"/><circle cx="277.22499999999997" cy="161.78" r="0.92" fill="#111"/><path d="M267.45 166.725q5.75 6.325 11.5 0" stroke="#111" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><g><circle cx="356.8" cy="165" r="11.5" fill="#fff" stroke="#111" stroke-width="1.2"/><circle cx="352.77500000000003" cy="161.78" r="0.92" fill="#111"/><circle cx="360.825" cy="161.78" r="0.92" fill="#111"/><path d="M351.05 166.725q5.75 6.325 11.5 0" stroke="#111" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><g><circle cx="64.2" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="60.7" cy="217.2" r="0.9" fill="#111"/><circle cx="67.7" cy="217.2" r="0.9" fill="#111"/><path d="M59.2 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="102.2" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="98.7" cy="217.2" r="0.9" fill="#111"/><circle cx="105.7" cy="217.2" r="0.9" fill="#111"/><path d="M97.2 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="147.8" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="144.3" cy="217.2" r="0.9" fill="#111"/><circle cx="151.3" cy="217.2" r="0.9" fill="#111"/><path d="M142.8 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="185.8" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="182.3" cy="217.2" r="0.9" fill="#111"/><circle cx="189.3" cy="217.2" r="0.9" fill="#111"/><path d="M180.8 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="254.2" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="250.7" cy="217.2" r="0.9" fill="#111"/><circle cx="257.7" cy="217.2" r="0.9" fill="#111"/><path d="M249.2 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="292.2" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="288.7" cy="217.2" r="0.9" fill="#111"/><circle cx="295.7" cy="217.2" r="0.9" fill="#111"/><path d="M287.2 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="337.8" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="334.3" cy="217.2" r="0.9" fill="#111"/><circle cx="341.3" cy="217.2" r="0.9" fill="#111"/><path d="M332.8 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="375.8" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="372.3" cy="217.2" r="0.9" fill="#111"/><circle cx="379.3" cy="217.2" r="0.9" fill="#111"/><path d="M370.8 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g>
+    <g stroke="#ccc" stroke-width="1" fill="none"><path d="M660 70 V100"/><path d="M565 100 H755"/><path d="M565 100 V97"/><path d="M755 100 V97"/><path d="M565 123 V140.25"/><path d="M523.2 140.25 H606.8"/><path d="M523.2 140.25 V153.5"/><path d="M606.8 140.25 V153.5"/><path d="M755 123 V140.25"/><path d="M713.2 140.25 H796.8"/><path d="M713.2 140.25 V153.5"/><path d="M796.8 140.25 V153.5"/><path d="M523.2 176.5 V195.25"/><path d="M504.20000000000005 195.25 H542.2"/><path d="M504.20000000000005 195.25 V210"/><path d="M542.2 195.25 V210"/><path d="M606.8 176.5 V195.25"/><path d="M587.8 195.25 H625.8"/><path d="M587.8 195.25 V210"/><path d="M625.8 195.25 V210"/><path d="M713.2 176.5 V195.25"/><path d="M694.2 195.25 H732.2"/><path d="M694.2 195.25 V210"/><path d="M732.2 195.25 V210"/><path d="M796.8 176.5 V195.25"/><path d="M777.8 195.25 H815.8"/><path d="M777.8 195.25 V210"/><path d="M815.8 195.25 V210"/></g><g><circle cx="660" cy="55" r="15" fill="#fff" stroke="#111" stroke-width="1.5"/><circle cx="654.75" cy="50.8" r="1.2" fill="#111"/><circle cx="665.25" cy="50.8" r="1.2" fill="#111"/><line x1="652.5" y1="59.5" x2="667.5" y2="59.5" stroke="#111" stroke-width="1.5" stroke-linecap="round"/></g><g><circle cx="565" cy="110" r="13" fill="#fff" stroke="#111" stroke-width="1.35"/><circle cx="560.45" cy="106.36" r="1.04" fill="#111"/><circle cx="569.55" cy="106.36" r="1.04" fill="#111"/><path d="M558.5 111.95q6.5 7.15 13 0" stroke="#111" stroke-width="1.35" fill="none" stroke-linecap="round"/></g><g><circle cx="755" cy="110" r="13" fill="#fff" stroke="#111" stroke-width="1.35"/><circle cx="750.45" cy="106.36" r="1.04" fill="#111"/><circle cx="759.55" cy="106.36" r="1.04" fill="#111"/><path d="M748.5 116.5q6.5 -7.15 13 0" stroke="#111" stroke-width="1.35" fill="none" stroke-linecap="round"/></g><g><circle cx="523.2" cy="165" r="11.5" fill="#fff" stroke="#111" stroke-width="1.2"/><circle cx="519.1750000000001" cy="161.78" r="0.92" fill="#111"/><circle cx="527.225" cy="161.78" r="0.92" fill="#111"/><line x1="517.45" y1="168.45" x2="528.95" y2="168.45" stroke="#111" stroke-width="1.2" stroke-linecap="round"/></g><g><circle cx="606.8" cy="165" r="11.5" fill="#fff" stroke="#111" stroke-width="1.2"/><circle cx="602.775" cy="161.78" r="0.92" fill="#111"/><circle cx="610.8249999999999" cy="161.78" r="0.92" fill="#111"/><path d="M601.05 166.725q5.75 6.325 11.5 0" stroke="#111" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><g><circle cx="713.2" cy="165" r="11.5" fill="#fff" stroke="#111" stroke-width="1.2"/><circle cx="709.1750000000001" cy="161.78" r="0.92" fill="#111"/><circle cx="717.225" cy="161.78" r="0.92" fill="#111"/><path d="M707.45 170.75q5.75 -6.325 11.5 0" stroke="#111" stroke-width="1.2" fill="none" stroke-linecap="round"/></g><g><circle cx="796.8" cy="165" r="11.5" fill="#fff" stroke="#111" stroke-width="1.2"/><circle cx="792.775" cy="161.78" r="0.92" fill="#111"/><circle cx="800.8249999999999" cy="161.78" r="0.92" fill="#111"/><line x1="791.05" y1="168.45" x2="802.55" y2="168.45" stroke="#111" stroke-width="1.2" stroke-linecap="round"/></g><g><circle cx="504.20000000000005" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="500.70000000000005" cy="217.2" r="0.9" fill="#111"/><circle cx="507.70000000000005" cy="217.2" r="0.9" fill="#111"/><path d="M499.20000000000005 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="542.2" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="538.7" cy="217.2" r="0.9" fill="#111"/><circle cx="545.7" cy="217.2" r="0.9" fill="#111"/><path d="M537.2 225q5 -5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="587.8" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="584.3" cy="217.2" r="0.9" fill="#111"/><circle cx="591.3" cy="217.2" r="0.9" fill="#111"/><line x1="582.8" y1="223" x2="592.8" y2="223" stroke="#111" stroke-width="1.1" stroke-linecap="round"/></g><g><circle cx="625.8" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="622.3" cy="217.2" r="0.9" fill="#111"/><circle cx="629.3" cy="217.2" r="0.9" fill="#111"/><path d="M620.8 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="694.2" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="690.7" cy="217.2" r="0.9" fill="#111"/><circle cx="697.7" cy="217.2" r="0.9" fill="#111"/><path d="M689.2 225q5 -5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="732.2" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="728.7" cy="217.2" r="0.9" fill="#111"/><circle cx="735.7" cy="217.2" r="0.9" fill="#111"/><line x1="727.2" y1="223" x2="737.2" y2="223" stroke="#111" stroke-width="1.1" stroke-linecap="round"/></g><g><circle cx="777.8" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="774.3" cy="217.2" r="0.9" fill="#111"/><circle cx="781.3" cy="217.2" r="0.9" fill="#111"/><path d="M772.8 221.5q5 5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g><g><circle cx="815.8" cy="220" r="10" fill="#fff" stroke="#111" stroke-width="1.1"/><circle cx="812.3" cy="217.2" r="0.9" fill="#111"/><circle cx="819.3" cy="217.2" r="0.9" fill="#111"/><path d="M810.8 225q5 -5.5 10 0" stroke="#111" stroke-width="1.1" fill="none" stroke-linecap="round"/></g>
+    
+    <path d="M504.20000000000005 216 C 484.20000000000005 260, 605.8 260, 625.8 216" stroke="#42c441" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+    <path d="M732.2 216 C 742.2 275, 767.8 275, 777.8 216" stroke="#c25b8f" stroke-width="1.4" stroke-dasharray="3 3" fill="none"/>
+    <path d="M542.2 216 C 527.2 175, 830.8 175, 815.8 216" stroke="#e07a3f" stroke-width="1.3" stroke-dasharray="2 4" fill="none"/>
+
+    <text x="660" y="298" text-anchor="middle" font-size="10.5" fill="#42c441" font-weight="600">SOJUSZ PONAD PODZIAŁAMI</text>
+    <text x="660" y="316" text-anchor="middle" font-size="10.5" fill="#c25b8f">CICHY KONFLIKT</text>
+    <defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#42c441"/></marker></defs>
+  </svg>
+  <p class="caption">Więc może jednak warto to uporządkować na papierze też — zanim zrobi to za Ciebie chaos</p>
+</section>
+
+<!-- ============ 3 MODELE WSPÓŁPRACY ============ -->
+<section class="scen-section">
+  <div class="gain-head">
+    <p class="eyebrow muted">Współpracujemy tak, jak potrzebuje tego Twoja firma</p>
+    <h2>Każda organizacja jest na&nbsp;innym etapie</h2>
+    <p style="font-size:1rem;line-height:1.6;color:#555;margin:14px 0 0;max-width:640px;">Dlatego możesz wybrać model współpracy najlepiej dopasowany do&nbsp;swoich potrzeb i&nbsp;zasobów.</p>
+  </div>
+  <div class="scen-grid">
+    <div class="scen-card">
+      <p class="sc-num">MODEL 01</p>
+      <h3>Mentoring właścicielski</h3>
+      <p>Masz zespół, który zrealizuje projekt, ale potrzebujesz partnera do&nbsp;dyskusji i&nbsp;weryfikacji pomysłów. Spotykamy się regularnie, wspólnie analizujemy kolejne etapy projektu, pomagamy podejmować decyzje i&nbsp;konsultujemy rozwiązania. To model dla właścicieli i&nbsp;zarządów, które chcą samodzielnie zaprojektować strukturę organizacyjną, korzystając z&nbsp;doświadczenia eksperta.</p>
+    </div>
+    <div class="scen-card">
+      <p class="sc-num">MODEL 02</p>
+      <h3>Wsparcie projektowe</h3>
+      <p>Potrzebujesz pomocy w&nbsp;zaplanowaniu projektu i&nbsp;wsparcia w&nbsp;wybranych etapach jego realizacji. Razem określamy efekt końcowy, przygotowujemy harmonogram działań i&nbsp;wspieramy Cię tam, gdzie jest to potrzebne — np. podczas warsztatów, spotkań z&nbsp;menedżerami, badań pracowników, ankiet czy konsultacji rozwiązań.</p>
+    </div>
+    <div class="scen-card">
+      <p class="sc-num">MODEL 03</p>
+      <h3>Kompleksowe wdrożenie</h3>
+      <p>Chcesz, abyśmy wspólnie zaprojektowali i&nbsp;wdrożyli nową strukturę organizacyjną. Przejmujemy odpowiedzialność za&nbsp;przygotowanie projektu — od&nbsp;analizy obecnej sytuacji, przez opracowanie podziału ról i&nbsp;odpowiedzialności, aż po&nbsp;komunikację, wdrożenie i&nbsp;wsparcie menedżerów. Pracujemy z&nbsp;Twoim zespołem aż do&nbsp;osiągnięcia założonego efektu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEVELOPMENT CENTER ============ -->
+<style>
+#dc-section{background:#0f1a12;color:#fff;padding:96px 4vw;position:relative;overflow:hidden;}
+#dc-section::before{content:"";position:absolute;inset:0;background-image:radial-gradient(ellipse 900px 560px at 15% -10%,rgba(66,196,65,0.14) 0%,transparent 70%),radial-gradient(ellipse 700px 500px at 95% 110%,rgba(66,196,65,0.09) 0%,transparent 70%);pointer-events:none;}
+#dc-section>*{position:relative;}
+.dc-head{max-width:900px;}
+.dc-head .eyebrow{color:#42c441;}
+.dc-head h2{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.06;letter-spacing:-0.02em;color:#fff;margin:12px 0 0;text-wrap:pretty;}
+.dc-head h2 em{font-style:italic;color:#42c441;}
+.dc-intro{font-size:1.05rem;line-height:1.72;color:rgba(255,255,255,0.7);max-width:760px;margin:22px 0 0;}
+.dc-top{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:start;margin-top:54px;}
+.dc-obs-label{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#42c441;margin:0 0 18px;}
+.dc-obs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:0;}
+.dc-obs li{font-size:0.98rem;line-height:1.5;color:rgba(255,255,255,0.85);padding:15px 0 15px 30px;position:relative;border-top:1px solid rgba(255,255,255,0.09);}
+.dc-obs li:first-child{border-top:none;}
+.dc-obs li::before{content:"";position:absolute;left:0;top:20px;width:9px;height:9px;border-radius:50%;border:2px solid #42c441;}
+.dc-note{background:rgba(66,196,65,0.08);border:1px solid rgba(66,196,65,0.28);border-radius:16px;padding:26px 30px;}
+.dc-note h4{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.1rem;color:#fff;margin:0 0 10px;}
+.dc-note p{font-size:0.95rem;line-height:1.66;color:rgba(255,255,255,0.72);margin:0 0 14px;}
+.dc-note p:last-child{margin:0;}
+.dc-note .dc-highlight{margin:18px 0 0;padding:18px 20px;background:rgba(66,196,65,0.12);border-left:3px solid #42c441;border-radius:0 12px 12px 0;color:#fff;font-size:1rem;line-height:1.62;font-weight:500;}
+.dc-note .dc-highlight em{color:#47d861;font-style:normal;font-weight:700;}
+.dc-steps-label{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin:74px 0 26px;display:flex;align-items:center;gap:12px;}
+.dc-steps-label::after{content:"";flex:1;height:1px;background:rgba(255,255,255,0.12);}
+.dc-steps{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.dc-step{background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:30px 32px;transition:border-color 200ms,background 200ms;}
+.dc-step:hover{border-color:rgba(66,196,65,0.5);background:rgba(66,196,65,0.05);}
+.dc-step-top{display:flex;align-items:baseline;gap:14px;margin-bottom:6px;}
+.dc-step-num{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.5rem;color:#42c441;line-height:1;}
+.dc-step-kicker{font-family:'JetBrains Mono',monospace;font-size:0.64rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.45);}
+.dc-step h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.28rem;color:#fff;margin:0 0 14px;line-height:1.2;}
+.dc-step ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:9px;}
+.dc-step ul li{font-size:0.92rem;line-height:1.5;color:rgba(255,255,255,0.72);padding-left:20px;position:relative;}
+.dc-step ul li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:#42c441;}
+@media(max-width:900px){.dc-top{grid-template-columns:1fr;gap:36px;}.dc-steps{grid-template-columns:1fr;}}
+</style>
+<section id="dc-section">
+  <div class="dc-head">
+    <p class="eyebrow">Dodatkowo — Development Center</p>
+    <h2>Nie wiesz, kogo awansować? Chcesz podejmować decyzje <em>na podstawie zachowań</em>, a&nbsp;nie opinii?</h2>
+    <p class="dc-intro">Development Center pozwala zobaczyć, jak pracownicy radzą sobie w&nbsp;realistycznych sytuacjach biznesowych. Zamiast deklaracji obserwujemy ich sposób działania podczas symulacji, gier strategicznych i&nbsp;zadań zespołowych. Dzięki temu łatwiej wskazać osoby gotowe do objęcia nowych ról oraz zaplanować ich dalszy rozwój.</p>
+  </div>
+  <div class="dc-top">
+    <div>
+      <p class="dc-obs-label">Podczas Development Center obserwujemy m.in.</p>
+      <ul class="dc-obs">
+        <li>sposób podejmowania decyzji pod presją,</li>
+        <li>umiejętność współpracy i&nbsp;komunikacji,</li>
+        <li>inicjatywę oraz gotowość do przejmowania odpowiedzialności,</li>
+        <li>organizację pracy i&nbsp;realizację celów,</li>
+        <li>przywództwo i&nbsp;wpływ na zespół,</li>
+        <li>elastyczność oraz reakcję na zmieniające się warunki.</li>
+      </ul>
+    </div>
+    <div class="dc-note">
+      <h4>Efekt projektu</h4>
+      <p>Każdy uczestnik otrzymuje indywidualną informację zwrotną i&nbsp;kierunki rozwoju, a&nbsp;organizacja zyskuje rzetelną podstawę do podejmowania decyzji dotyczących awansów, sukcesji oraz planowania programów rozwojowych.</p>
+      <p class="dc-highlight">Największą wartość daje <em>obserwacja zachowań w&nbsp;działaniu</em>. Dlatego zamiast pytać „co byś zrobił?”, tworzymy realistyczne sytuacje zawodowe i&nbsp;sprawdzamy, jak uczestnicy faktycznie komunikują się, współpracują, podejmują decyzje i&nbsp;reagują pod presją.</p>
+    </div>
+  </div>
+</section>
+
+<style>.st-lead{padding:0 4vw 90px;max-width:1100px;margin:0 auto;}.st-lead-box{background:#f4f8f0;border:1px solid #d8ead0;border-radius:18px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}.st-lead-box h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.2rem;color:#111;margin:0 0 6px;}.st-lead-box p{font-size:0.93rem;color:#556;margin:0;max-width:480px;}</style>
+
+<!-- ============ LEAD MAGNET ============ -->
+<section class="st-lead">
+  <div class="st-lead-box">
+    <div><h3>Zanim umówisz pierwsze spotkanie</h3><p>Pobierz przykładowy profil stanowiska — gotowy szablon, który pomaga uporządkować zakres zadań w&nbsp;zespole.</p></div>
+    <a href="kontakt.html" class="btn-accent">Pobierz przykładowy profil stanowiska
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section>
+  <div class="impact-banner" id="kontakt-cta">
+    <div class="columns is-vcentered is-variable is-8">
+      <div class="column is-7">
+        <h2 class="display">Uporządkujmy odpowiedzialność w&nbsp;Twojej firmie</h2>
+      </div>
+      <div class="column is-5">
+        <p class="mb-5">
+          Zacznijmy od rozmowy. Przyjrzymy się obecnej strukturze i&nbsp;pokażemy, jak ją uporządkować —
+          z&nbsp;jasnymi rolami, zakresami zadań i&nbsp;ścieżkami decyzji.
+        </p>
+        <a href="kontakt.html" class="btn-accent">
+          Zaprojektuj strukturę
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="news-strip">
+  <div class="columns is-vcentered is-variable is-6">
+    <div class="column is-5">
+      <h3>Co kwartał jeden konkretny materiał o&nbsp;porządkowaniu rosnącej firmy.</h3>
+    </div>
+    <div class="column is-7">
+      <form class="news-form" onsubmit="event.preventDefault(); alert('Zapisano: ' + this.email.value);">
+        <input type="email" name="email" placeholder="Twój e-mail" required />
+        <button type="submit">Zapisz się</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="columns is-variable is-8">
+    <div class="column is-4">
+      <h4>Projektujemy zmianę dla tych, którzy chcą zmieniać świat.</h4>
+    </div>
+    <div class="column is-2">
+      <a href="zespol.html" class="footer-link">O nas</a>
+      <a href="strategia-rozwoju-organizacji.html" class="footer-link">Rozwiązania</a>
+      <a href="mentoring-c-level.html" class="footer-link">Rozwój</a>
+    </div>
+    <div class="column is-2">
+      <a href="blog.html" class="footer-link">Wiedza</a>
+      <a href="kontakt.html" class="footer-link">Kontakt</a>
+    </div>
+    <div class="column is-4 footer-help">
+      <h5>Jak możemy Ci pomóc?</h5>
+      <p>Cenimy każdą rozmowę. Napisz do nas — odpowiemy w 24h, a doświadczony konsultant zaproponuje pierwszy krok.</p>
+      <a href="kontakt.html" class="btn-accent">Skontaktuj się
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-meta">
+    <div style="display:flex; align-items:center; gap:18px;">
+      <a href="index.html" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+      <span style="color:#6b6b6b; font-size:0.8rem;">Transformation &amp; Strategy</span>
+    </div>
+    <div class="links">
+      <a href="#">Polityka prywatności</a>
+      <a href="#">Regulamin</a>
+      <a href="#">Sitemap</a>
+      <a href="#">Cookies</a>
+    </div>
+    <div class="socials" aria-label="Obserwuj nas">
+      <a href="#" aria-label="LinkedIn">in</a>
+      <a href="#" aria-label="Facebook">fb</a>
+      <a href="#" aria-label="Instagram">ig</a>
+    </div>
+  </div>
+
+  <p class="legal">
+    4change Sp. z o.o. jest pracodawcą równych szans. Wszyscy aplikujący kandydaci są rozpatrywani bez względu na płeć,
+    wiek, religię, orientację seksualną, tożsamość lub ekspresję płciową, pochodzenie narodowe ani inne cechy chronione
+    prawem krajowym.
+  </p>
+</footer>
+
+<!-- ============ SCSS ============ -->
+<script>
+(async function compileScss() {
+  const status = document.getElementById('scss-status');
+  const partials = ['_variables.scss','_mixins.scss','_layout.scss','_components.scss','main.scss'];
+  try {
+    const sources = {};
+    for (const name of partials) {
+      const res = await fetch('styles/' + name);
+      if (!res.ok) throw new Error('Nie udało się wczytać ' + name);
+      sources[name] = await res.text();
+    }
+    for (const [name, content] of Object.entries(sources)) Sass.writeFile(name, content);
+    Sass.compile(sources['main.scss'], function (result) {
+      if (result.status === 0) {
+        const style = document.createElement('style');
+        style.id = 'compiled-scss';
+        style.textContent = result.text;
+        document.head.appendChild(style);
+        status.remove();
+      } else {
+        status.style.color = '#c62828';
+        status.textContent = 'Błąd SCSS: ' + (result.formatted || result.message);
+      }
+    });
+  } catch (err) {
+    status.style.color = '#c62828';
+    status.textContent = 'Błąd ładowania SCSS: ' + err.message;
+  }
+})();
+
+const mobileBurger = document.getElementById('mobile-burger');
+const mobileMenu   = document.getElementById('mobile-menu');
+const mobileClose  = document.getElementById('mobile-close');
+function openMM()  { mobileMenu.classList.add('is-open'); mobileMenu.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+function closeMM() { mobileMenu.classList.remove('is-open'); mobileMenu.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+mobileBurger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMM() : openMM());
+mobileClose.addEventListener('click', closeMM);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMM(); });
+
+document.querySelectorAll('.stab[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if (target) {
+      const y = target.getBoundingClientRect().top + window.scrollY - 100;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+<script src="contact-widget.js"></script>
+<script src="diagnosis-popup.js"></script>
+</body>
+</html>

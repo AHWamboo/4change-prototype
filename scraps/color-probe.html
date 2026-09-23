@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Probe</title></head>
+<body style="font-family: monospace; padding: 20px;">
+<h3>Color probe</h3>
+<img id="logo" crossorigin="anonymous" src="https://4change.pl/wp-content/uploads/2021/01/logo_nowe-2020_4CHANGE-1.png" />
+<pre id="out">loading…</pre>
+<script>
+const img = document.getElementById('logo');
+const out = document.getElementById('out');
+img.onload = () => {
+  const cv = document.createElement('canvas');
+  cv.width = img.naturalWidth; cv.height = img.naturalHeight;
+  const ctx = cv.getContext('2d');
+  try {
+    ctx.drawImage(img, 0, 0);
+    const data = ctx.getImageData(0, 0, cv.width, cv.height).data;
+    const counts = new Map();
+    for (let i = 0; i < data.length; i += 4) {
+      if (data[i+3] < 200) continue;
+      const r = Math.round(data[i]/16)*16;
+      const g = Math.round(data[i+1]/16)*16;
+      const b = Math.round(data[i+2]/16)*16;
+      if (r > 230 && g > 230 && b > 230) continue;
+      if (r < 30 && g < 30 && b < 30) continue;
+      const key = r+','+g+','+b;
+      counts.set(key, (counts.get(key) || 0) + 1);
+    }
+    const top = [...counts.entries()].sort((a,b) => b[1]-a[1]).slice(0,15);
+    let txt = `Logo: ${cv.width}x${cv.height}\n\nTop colors:\n`;
+    for (const [k, v] of top) {
+      const [r,g,b] = k.split(',').map(Number);
+      const hex = '#' + [r,g,b].map(n=>n.toString(16).padStart(2,'0')).join('');
+      txt += `${hex}  rgb(${k})  ${v}px\n`;
+    }
+    out.textContent = txt;
+    window.__colors = top;
+  } catch(e) {
+    out.textContent = 'CORS error: ' + e.message;
+  }
+};
+img.onerror = () => out.textContent = 'image load failed';
+</script>
+</body></html>

@@ -1,0 +1,58 @@
+@import 'variables';
+
+// =========================================
+// 4change — Mixins
+// =========================================
+
+@mixin eyebrow($color: $brand-ink) {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: $fs-eyebrow;
+  font-weight: 600;
+  color: $color;
+}
+
+@mixin display-serif {
+  font-family: $font-serif;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+
+@mixin pill-button($bg, $fg) {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: $bg;
+  color: $fg;
+  border: none;
+  border-radius: 2px;
+  padding: 15px 28px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 140ms ease, gap 160ms ease;
+
+  &:hover { gap: 16px; }
+}
+
+@mixin striped-placeholder($base: #d8d3c8, $stripe: #ece6da, $angle: 135deg) {
+  background-image: repeating-linear-gradient(
+    $angle,
+    $base 0 2px,
+    $stripe 2px 14px
+  );
+}
+
+@mixin tablet-up   { @media (min-width: $bp-tablet)  { @content; } }
+@mixin desktop-up  { @media (min-width: $bp-desktop) { @content; } }
+@mixin tablet-down { @media (max-width: ($bp-tablet - 1)) { @content; } }
+
+@mixin card-shadow($size: md) {
+  @if $size == sm { box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+  @if $size == md { box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+  @if $size == lg { box-shadow: 0 10px 30px rgba(0,0,0,0.10); }
+}

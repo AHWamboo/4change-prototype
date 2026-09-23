@@ -1,0 +1,57 @@
+// =========================================
+// 4change — Design Tokens
+// =========================================
+
+// Brand palette — based on 4change.pl
+$brand-green:  #42c441;       // primary brand: vivid grass-green from logo "4"
+$brand-green-deep: #00af11;   // hover / pressed
+$brand-teal:   #3447d3;       // turquoise CTA accent (chat button on live site)
+$brand-teal-deep: #1d32a5;
+
+$brand-dark:   #222222;       // near-black text
+$brand-deep:   #111111;       // for dark sections
+$brand-accent: $brand-green;  // headline / numeric accent
+$brand-soft:   #e8f7e0;       // soft green wash
+$brand-cream:  #f4f4f4;       // very light neutral background
+$brand-ink:    #1a1a1a;
+$brand-muted:  #6b6b6b;
+$brand-line:   #e6e6e6;
+
+// Functional colors derived from brand
+$bg-dark:      $brand-deep;
+$bg-soft:      $brand-soft;
+$text-on-dark: #ffffff;
+$text-muted:   $brand-muted;
+
+// Typography
+$font-sans:    'Inter', system-ui, -apple-system, sans-serif;
+$font-serif:   'Fraunces', Georgia, serif;
+$font-mono:    'JetBrains Mono', ui-monospace, monospace;
+
+// Type scale
+$fs-eyebrow:    0.78rem;
+$fs-body:       1.05rem;
+$fs-h3:         clamp(2rem, 3.2vw, 3.2rem);
+$fs-h2:         clamp(2.4rem, 4.6vw, 3.8rem);
+$fs-display:    clamp(2.6rem, 5vw, 4.6rem);
+$fs-hero:       clamp(2.4rem, 5.2vw, 4.6rem);
+
+// Spacing scale
+$space-xs:  8px;
+$space-sm:  16px;
+$space-md:  28px;
+$space-lg:  48px;
+$space-xl:  80px;
+$space-xxl: 120px;
+
+// Layout
+$radius-sm:  2px;
+$radius-md:  2px;
+$radius-pill: 999px;
+
+$container-pad-x: 4vw;
+
+// Breakpoints
+$bp-tablet:  768px;
+$bp-desktop: 1024px;
+$bp-wide:    1280px;

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Zespół — 4change</title>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/sass.js@0.11.1/dist/sass.sync.js"></script>
+
+<style>
+  html, body { margin: 0; background: #fff; font-family: 'Inter', system-ui, sans-serif; }
+  .scss-loading { padding: 80px 20px; text-align: center; color: #999; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<div id="scss-status" class="scss-loading">Kompiluję SCSS…</div>
+
+<!-- ============ TOP NAV ============ -->
+<header class="top-bar">
+  <div class="pill">
+    <button class="burger" id="mobile-burger" aria-label="Menu"><span></span></button>
+    <a href="index.html" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+  </div>
+
+  <nav class="nav-pill" aria-label="Główna nawigacja">
+    <div class="nav-item">
+      <a href="zespol.html" class="nav-link is-active-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span>O nas</span>
+      </a>
+    </div>
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Rozwiązania dla firm</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="strategia-rozwoju-organizacji.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h7v7"/></svg>Strategia rozwoju organizacji</a>
+        <a href="outsourcing-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 14L21 3"/><path d="M21 3v6h-6"/><path d="M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h5"/></svg>Outsourcing HR</a>
+        <a href="system-wynagrodzen.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Systemy wynagrodzeń</a>
+        <a href="struktura-organizacyjna.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M12 12H6v4M12 12h6v4"/></svg>Struktura organizacyjna i zakresy zadań</a>
+        <a href="audyt-sprzedazy.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Audyt działu sprzedaży</a>
+        <a href="audyt-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l2 3h2a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h2l2-3z"/><path d="M9 13l2 2 4-4"/></svg>Audyt działu HR</a>
+      </div>
+    </div>
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+        <span>Rozwój właścicieli i zarządów</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Mentoring dla C-level</a>
+        <a href="mentoring-managerski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 11l2 2 4-4"/><circle cx="9" cy="7" r="4"/><path d="M3 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Mentoring dla managerów</a>
+        <a href="mentoring-wlascicielski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l3-5 3 4 3-6 3 6 3-4 3 5v8a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>Mentoring dla właścicieli</a>
+        <a href="coaching.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Coaching</a>
+      </div>
+    </div>
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v16h13a3 3 0 003-3V7a3 3 0 00-3-3H4z"/><path d="M4 4v16"/><path d="M8 9h8M8 13h6"/></svg>
+        <span>Wiedza</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="blog.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3l7 7-11 11H3v-7L14 3z"/></svg>Blog</a>
+        <a href="case-studies.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>Case studies</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="kontakt.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <span>Kontakt</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="pill right-pill">
+    <button class="icon-btn" aria-label="Szukaj">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    </button>
+    <a href="mentoring-c-level.html">Zaloguj</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="team-hero">
+  <div class="container">
+    <p class="eyebrow muted mb-3">Zespół 4change</p>
+    <h1 class="display team-hero-title">Pasjonaci zmiany,<br/>którzy znają biznes od podszewki</h1>
+    <p class="team-hero-sub">
+      Trenerzy, coachowie, mentorzy i konsultanci — łącznie ponad 100 lat doświadczenia w zarządzaniu,
+      sprzedaży, HR i rozwoju organizacji. Każdy wniesie do projektu coś swojego.
+    </p>
+    <div class="team-stats-row">
+      <div class="ts"><span class="num">14</span><span class="lbl">Konsultantów &amp; trenerów</span></div>
+      <div class="ts"><span class="num">400+</span><span class="lbl">Zrealizowanych projektów</span></div>
+      <div class="ts"><span class="num">4.8/5</span><span class="lbl">Średnia ocen klientów</span></div>
+      <div class="ts"><span class="num">17</span><span class="lbl">Lat na rynku</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FILTER CHIPS ============ -->
+<section class="team-filters">
+  <div class="filter-row">
+    <button class="chip is-active" data-filter="all">Wszyscy</button>
+    <button class="chip" data-filter="coaching">Coaching</button>
+    <button class="chip" data-filter="mentoring">Mentoring</button>
+    <button class="chip" data-filter="sprzedaz">Sprzedaż</button>
+    <button class="chip" data-filter="hr">HR</button>
+    <button class="chip" data-filter="management">Management</button>
+  </div>
+</section>
+
+<!-- ============ TEAM GRID ============ -->
+<section class="team-grid-section">
+  <div class="team-grid">
+
+    <!-- 1. Magdalena Kucharzewska — CEO (featured) -->
+    <article class="trainer-card is-featured" data-tags="management mentoring coaching">
+      <div class="trainer-photo">
+        <img src="images/team/magdalena-kucharzewska.png" alt="Magdalena Kucharzewska" />
+        <span class="role-tag">CEO</span>
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Magdalena Kucharzewska</h3>
+        <p class="trainer-role">Założycielka 4change · Business trainer</p>
+        <p class="trainer-bio">Trenerka biznesu, konsultantka i doświadczona managerka. Założycielka 4change. Pomaga liderom polskich i międzynarodowych firm projektować transformacje, które realnie się przyjmują w organizacjach.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- 2. Agata Rutkowska -->
+    <article class="trainer-card" data-tags="coaching management">
+      <div class="trainer-photo">
+        <img src="images/team/agata-rutkowska.png" alt="Agata Rutkowska" />
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Agata Rutkowska</h3>
+        <p class="trainer-role">Certyfikowana Trenerka Biznesu · Coaching</p>
+        <p class="trainer-bio">Trenerka biznesu z prawie 20-letnim doświadczeniem, coach, terapeutka Gestalt w procesie certyfikacji. Metodolożka, przedsiębiorczyni — z doświadczeniem na stanowisku wiceprezesa i prezesa zarządu.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- 3. Katarzyna Lewandowska -->
+    <article class="trainer-card" data-tags="coaching hr">
+      <div class="trainer-photo">
+        <img src="images/team/katarzyna-lewandowska.png" alt="Katarzyna Lewandowska" />
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Katarzyna Lewandowska</h3>
+        <p class="trainer-role">Coach ICF ACC · Trenerka Biznesu · HRBP</p>
+        <p class="trainer-bio">Certyfikowana trenerka narzędzia MTQ48 do badania odporności psychicznej oraz narzędzia diagnostycznego ILM72 Integrated Leadership Model dla liderów.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- 4. Blaise Olżewski -->
+    <article class="trainer-card" data-tags="management">
+      <div class="trainer-photo">
+        <img src="images/team/blaise-olzewski.png" alt="Blaise Olżewski" />
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Blaise Olżewski</h3>
+        <p class="trainer-role">Trener biznesu · Konsultant</p>
+        <p class="trainer-bio">Doświadczony trener biznesu i konsultant z 12 000 godzinami szkoleniowymi na koncie. Specjalizuje się w transformacjach zespołów sprzedażowych i rozwoju liderów średniego szczebla.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- 6. Aleksandra Lindner -->
+    <article class="trainer-card" data-tags="coaching hr">
+      <div class="trainer-photo">
+        <img src="images/team/aleksandra-lindner.png" alt="Aleksandra Lindner" />
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Aleksandra Lindner</h3>
+        <p class="trainer-role">Trenerka Biznesu · Coach ICF · FRIS®</p>
+        <p class="trainer-bio">Trenerka Biznesu, akredytowany Coach ICF, certyfikowana trenerka FRIS® oraz HRD BP. Specjalizuje się w rozwoju zespołów i budowaniu kultury feedbacku.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- 7. Marta Dębowiec -->
+    <article class="trainer-card" data-tags="coaching mentoring">
+      <div class="trainer-photo">
+        <img src="images/team/marta-debowiec.png" alt="Marta Dębowiec" />
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Marta Dębowiec</h3>
+        <p class="trainer-role">Doradczyni · Trenerka · Coach · Mediatorka</p>
+        <p class="trainer-bio">Aktywna sportowczyni z doświadczeniem doradczym w sektorach publicznym i prywatnym. Mediatorka w sytuacjach konfliktowych — od indywidualnych po zespołowe.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- 9. Maria Odrowąż-Petrykowska -->
+    <article class="trainer-card" data-tags="coaching hr">
+      <div class="trainer-photo">
+        <img src="images/team/maria-odrowaz-petrykowska.png" alt="Maria Odrowąż-Petrykowska" />
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Maria Odrowąż-Petrykowska</h3>
+        <p class="trainer-role">Trenerka · Konsultantka · Certyfikowany Coach</p>
+        <p class="trainer-bio">Trenerka, konsultantka i certyfikowany coach. Prowadzi indywidualne sesje rozwojowe z liderami średniego i wyższego szczebla oraz warsztaty zespołowe.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- 10. Monika Mucha -->
+    <article class="trainer-card" data-tags="management hr">
+      <div class="trainer-photo">
+        <img src="images/team/monika-mucha.png" alt="Monika Mucha" />
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Monika Mucha</h3>
+        <p class="trainer-role">Trenerka · Konsultantka · Managerka</p>
+        <p class="trainer-bio">Doświadczona trenerka, konsultantka i managerka z wieloletnim doświadczeniem w strukturach korporacyjnych. Pomaga organizacjom porządkować procesy i procedury.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Martyna Broda -->
+    <article class="trainer-card" data-tags="coaching mentoring management">
+      <div class="trainer-photo">
+        <image-slot id="team-martyna-broda" shape="rect" placeholder="Zdjęcie: Martyna Broda"></image-slot>
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Martyna Broda</h3>
+        <p class="trainer-role">Trenerka biznesu · Coach · Mentorka · Facylitatorka</p>
+        <p class="trainer-bio">Trenerka biznesu, coach, mentorka i facylitatorka procesów rozwojowych z ponad 20-letnim doświadczeniem w pracy z liderami, zespołami i organizacjami. Łączy wrażliwość i skuteczność, wspierając rozwój kompetencji przywódczych, komunikacyjnych oraz budowanie odpornych psychicznie zespołów.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Małgorzata Machniewicz -->
+    <article class="trainer-card" data-tags="coaching management hr">
+      <div class="trainer-photo">
+        <image-slot id="team-malgorzata-machniewicz" shape="rect" placeholder="Zdjęcie: Małgorzata Machniewicz"></image-slot>
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Małgorzata Machniewicz</h3>
+        <p class="trainer-role">Psycholog organizacji · Trener biznesu · Coach ICC · LEGO® Serious Play®</p>
+        <p class="trainer-bio">Psycholog organizacji, trener biznesu, coach ICC i certyfikowana facylitatorka LEGO® Serious Play® — jedna z nielicznych w Polsce. Łączy wiedzę psychologiczną z praktyką biznesową, specjalizując się w zarządzaniu zmianą, budowaniu zaangażowanych zespołów i skutecznej współpracy. Autorka podcastu „Pani od zmiany".</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Krzysztof Adamski -->
+    <article class="trainer-card" data-tags="sprzedaz management">
+      <div class="trainer-photo">
+        <image-slot id="team-krzysztof-adamski" shape="rect" placeholder="Zdjęcie: Krzysztof Adamski"></image-slot>
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Krzysztof Adamski</h3>
+        <p class="trainer-role">Trener biznesu · Sprzedaż · Negocjacje · Extended DISC®</p>
+        <p class="trainer-bio">Trener biznesu z ponad 20-letnim, praktycznym doświadczeniem w sprzedaży i zarządzaniu zespołami sprzedaży. Specjalizuje się w negocjacjach, przywództwie oraz organizacji i reorganizacji struktur sprzedaży — analizuje procesy, znajduje usprawnienia i pomaga je wdrożyć. Certyfikaty: Extended DISC®, ENSIZE® i Kirkpatrick Bronze Level.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Wojciech Strózik -->
+    <article class="trainer-card" data-tags="coaching management">
+      <div class="trainer-photo">
+        <image-slot id="team-wojciech-strozik" shape="rect" placeholder="Zdjęcie: Wojciech Strózik"></image-slot>
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Wojciech Strózik</h3>
+        <p class="trainer-role">Trener · Konsultant · Twórca podcastu</p>
+        <p class="trainer-bio">Trener i konsultant z 20-letnią karierą zawodową, który w projektach rozwojowych najwyżej ceni wzajemne zaufanie i relacje budowane z klientami. Od 2018 roku prowadzi blog i podcast „Rozwój Osobisty Dla Każdego", inspirując słuchaczy do przełamywania barier. Brał udział w słuchowiskach audio oraz użyczał głosu filmom instruktażowym i audiobookom.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- Paweł Krzywicki -->
+    <article class="trainer-card" data-tags="coaching management">
+      <div class="trainer-photo">
+        <image-slot id="team-pawel-krzywicki" shape="rect" placeholder="Zdjęcie: Paweł Krzywicki"></image-slot>
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Paweł Krzywicki</h3>
+        <p class="trainer-role">Trener biznesu · Coach ICF · CoachWise Essential® i Equipped®</p>
+        <p class="trainer-bio">Trener biznesu i certyfikowany coach ICF z ponad 18-letnim doświadczeniem, pasjonat innowacyjnych metod szkoleń. Prowadzi procesy rozwojowe dla organizacji z branż energetyki, IT, automotive, finansów i pharma, pracując w oparciu o experiential learning i licencjonowane gry szkoleniowe. Specjalizuje się w szkoleniach zespołowych, eventach team-buildingowych oraz rozwoju komunikacji i zaangażowania.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+    <!-- 11. Żaneta Mańka -->
+    <article class="trainer-card" data-tags="sprzedaz coaching">
+      <div class="trainer-photo">
+        <img src="images/team/zaneta-manka.png" alt="Żaneta Mańka" />
+      </div>
+      <div class="trainer-meta">
+        <h3 class="trainer-name">Żaneta Mańka</h3>
+        <p class="trainer-role">Trenerka sprzedaży · Coach · Managerka</p>
+        <p class="trainer-bio">Doświadczona trenerka sprzedaży, coach, managerka i handlowiec. Pomaga zespołom B2B i B2C zwiększać konwersję, budować długoterminowe relacje z klientami.</p>
+        <a href="#" class="trainer-link">Pełny profil
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ============ JOIN US CTA ============ -->
+<section class="join-section">
+  <div class="join-card">
+    <div class="columns is-vcentered">
+      <div class="column is-7">
+        <p class="eyebrow on-dark mb-3">Dołącz do nas</p>
+        <h2 class="display join-title">Szukamy trenerów,<br/>którzy łączą biznes z&nbsp;sercem.</h2>
+        <p class="join-lede">Jeśli prowadziłeś projekty rozwojowe dla średnich i dużych organizacji, czujesz misję uczenia innych i lubisz pracę zespołową — odezwij się.</p>
+      </div>
+      <div class="column is-5" style="text-align:right;">
+        <a href="kontakt.html" class="btn-accent">Aplikuj
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="columns is-variable is-8">
+    <div class="column is-4">
+      <h4>Projektujemy zmianę dla tych, którzy chcą zmieniać świat.</h4>
+    </div>
+    <div class="column is-2">
+      <a href="zespol.html" class="footer-link">O nas</a>
+      <a href="strategia-rozwoju-organizacji.html" class="footer-link">Rozwiązania</a>
+      <a href="mentoring-c-level.html" class="footer-link">Rozwój</a>
+    </div>
+    <div class="column is-2">
+      <a href="blog.html" class="footer-link">Wiedza</a>
+      <a href="kontakt.html" class="footer-link">Kontakt</a>
+    </div>
+    <div class="column is-4 footer-help">
+      <h5>Jak możemy Ci pomóc?</h5>
+      <p>Cenimy każdą rozmowę. Napisz do nas — odpowiemy w 24h.</p>
+      <a href="kontakt.html" class="btn-accent">Skontaktuj się
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <div style="display:flex; align-items:center; gap:18px;">
+      <span class="brand-mark"><span class="num">4</span><span class="word">change</span></span>
+      <span style="color:#6b6b6b; font-size:0.8rem;">Transformation &amp; Strategy</span>
+    </div>
+    <div class="links">
+      <a href="mentoring-c-level.html">Polityka prywatności</a>
+      <a href="mentoring-c-level.html">Regulamin</a>
+      <a href="mentoring-c-level.html">Sitemap</a>
+      <a href="mentoring-c-level.html">Cookies</a>
+    </div>
+    <div class="socials" aria-label="Obserwuj nas">
+      <a href="#" aria-label="LinkedIn">in</a>
+      <a href="#" aria-label="Facebook">fb</a>
+      <a href="#" aria-label="Instagram">ig</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MOBILE MENU ============ -->
+<aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <button class="mobile-close" id="mobile-close" aria-label="Zamknij">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="mm-inner">
+    <section class="mm-col">
+      <h4>O nas</h4>
+      <a href="zespol.html">O nas</a>
+    </section>
+    <section class="mm-col">
+      <h4>Rozwiązania dla firm</h4>
+      <a href="strategia-rozwoju-organizacji.html">Strategia rozwoju organizacji</a>
+      
+      <a href="outsourcing-hr.html">Outsourcing HR</a>
+      <a href="system-wynagrodzen.html">Systemy wynagrodzeń</a>
+      <a href="struktura-organizacyjna.html">Struktura organizacyjna i zakresy zadań</a>
+      <a href="audyt-sprzedazy.html">Audyt działu sprzedaży</a>
+      <a href="audyt-hr.html">Audyt działu HR</a>
+    </section>
+    <section class="mm-col">
+      <h4>Rozwój właścicieli i zarządów</h4>
+      
+      <a href="mentoring-c-level.html">Mentoring dla C-level</a>
+      <a href="mentoring-managerski.html">Mentoring dla managerów</a>
+      <a href="mentoring-wlascicielski.html">Mentoring dla właścicieli</a>
+      <a href="coaching.html">Coaching</a>
+    </section>
+    <section class="mm-col">
+      <h4>Wiedza i kontakt</h4>
+      <a href="blog.html">Blog</a>
+      <a href="case-studies.html">Case studies</a>
+      <a href="kontakt.html">Kontakt</a>
+    </section>
+  </div>
+</aside>
+
+<script>
+(async function () {
+  const status = document.getElementById('scss-status');
+  const partials = ['_variables.scss','_mixins.scss','_layout.scss','_components.scss','main.scss'];
+  try {
+    const sources = {};
+    for (const name of partials) {
+      const res = await fetch('styles/' + name);
+      sources[name] = await res.text();
+    }
+    for (const [name, c] of Object.entries(sources)) Sass.writeFile(name, c);
+    Sass.compile(sources['main.scss'], r => {
+      if (r.status === 0) {
+        const s = document.createElement('style');
+        s.textContent = r.text;
+        document.head.appendChild(s);
+        status.remove();
+      } else { status.textContent = 'Błąd SCSS: ' + (r.formatted || r.message); }
+    });
+  } catch (e) { status.textContent = 'Błąd: ' + e.message; }
+})();
+
+// Mobile menu
+const mb = document.getElementById('mobile-burger');
+const mm = document.getElementById('mobile-menu');
+const mc = document.getElementById('mobile-close');
+mb && mb.addEventListener('click', () => mm.classList.toggle('is-open'));
+mc && mc.addEventListener('click', () => mm.classList.remove('is-open'));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') mm.classList.remove('is-open'); });
+
+// Filter chips
+const chips = document.querySelectorAll('.chip');
+const cards = document.querySelectorAll('.trainer-card');
+chips.forEach(c => {
+  c.addEventListener('click', () => {
+    chips.forEach(x => x.classList.remove('is-active'));
+    c.classList.add('is-active');
+    const f = c.dataset.filter;
+    cards.forEach(card => {
+      const tags = (card.dataset.tags || '').split(' ');
+      const show = f === 'all' || tags.includes(f);
+      card.style.display = show ? '' : 'none';
+    });
+  });
+});
+</script>
+
+<script src="image-slot.js"></script>
+<script src="contact-widget.js"></script>
+<script src="diagnosis-popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case Studies — 4change</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/sass.js@0.11.1/dist/sass.sync.js"></script>
+<style>
+html, body { margin: 0; background: #fff; font-family: 'Inter', system-ui, sans-serif; }
+.scss-loading { padding: 80px 20px; text-align: center; color: #999; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; }
+
+/* ── HERO ── */
+.cs-hero {
+  padding: 148px 4vw 0;
+  background: #111;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cs-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 900px 600px at 20% 120%, rgba(66,196,65,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 700px 500px at 80% -20%, rgba(52,71,211,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cs-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #42c441;
+  margin-bottom: 26px;
+}
+.cs-eyebrow-line { display: block; width: 28px; height: 1px; background: #42c441; }
+.cs-hero-title {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 700;
+  font-size: clamp(3.2rem, 6.5vw, 5.6rem);
+  color: #fff;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 32px;
+}
+.cs-hero-title em { font-style: italic; color: #42c441; }
+.cs-hero-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.55);
+  max-width: 560px;
+  margin: 0 auto 72px;
+  line-height: 1.7;
+}
+
+/* ── STATS BAR ── */
+.cs-stats {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background: #111;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+.cs-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 36px 60px;
+  border-right: 1px solid rgba(255,255,255,0.07);
+  position: relative;
+}
+.cs-stat:last-child { border-right: none; }
+.cs-stat-num {
+  font-family: 'Fraunces', Georgia, serif;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #42c441;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.cs-stat-lbl {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+}
+
+/* ── TRANSITION ── */
+.cs-fade { height: 70px; background: linear-gradient(to bottom, #111 0%, #f6f6f4 100%); }
+
+/* ── MAIN AREA ── */
+.cs-main { background: #f6f6f4; padding-bottom: 0; }
+
+/* ── FILTERS ── */
+.cs-filters-wrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 44px 4vw 30px;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+.cs-filters-label {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #aaa;
+  white-space: nowrap;
+}
+.cs-filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.cs-chip {
+  background: #fff;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 999px;
+  padding: 9px 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #555;
+  cursor: pointer;
+  transition: border-color 140ms, background 140ms, color 140ms, transform 100ms;
+  font-family: 'Inter', sans-serif;
+}
+.cs-chip:hover { border-color: #42c441; color: #00af11; background: #f0fbea; transform: translateY(-1px); }
+.cs-chip.is-active { background: #111; color: #fff; border-color: #111; }
+
+/* ── GRID ── */
+.cs-grid-wrap {
+  padding: 8px 4vw 90px;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+.cs-count {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 22px;
+}
+.cs-count span { color: #111; }
+
+.cs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* ── CARD ── */
+/* ── CARD ── */
+.cs-card{background:#fff;border:1px solid #e6e6e2;border-radius:2px;overflow:hidden;display:flex;flex-direction:column;transition:transform 220ms ease,box-shadow 220ms ease,border-color 220ms ease;cursor:pointer;position:relative;}
+.cs-card::after{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--cat,#42c441);transform:scaleX(0);transform-origin:left;transition:transform 320ms ease;}
+.cs-card:hover{border-color:#111;}
+.cs-card:hover::after{transform:scaleX(1);}
+.cs-card[hidden]{display:none !important;}
+.cs-card-wide{grid-column:span 2;}
+.cs-card-wide .cs-card-body{padding:42px 46px;}
+.cs-card-wide .cs-card-title{font-size:1.6rem;}
+.cs-card-wide .cs-desc{font-size:0.95rem;max-width:660px;}
+
+/* ── CARD BODY ── */
+.cs-card-body{padding:28px 30px 26px;display:flex;flex-direction:column;flex:1;}
+.cs-card-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px;}
+.cs-client{font-family:'JetBrains Mono',monospace;font-size:0.72rem;font-weight:700;letter-spacing:0.01em;color:#111;line-height:1.3;}
+.cs-cat{display:inline-flex;align-items:center;gap:6px;font-size:0.57rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--cat,#42c441);white-space:nowrap;flex-shrink:0;}
+.cs-cat-dot{width:6px;height:6px;border-radius:50%;background:var(--cat,#42c441);flex-shrink:0;}
+.cs-card-title{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.16rem;color:#111;line-height:1.26;margin:0 0 10px;text-wrap:pretty;}
+.cs-desc{font-size:0.86rem;line-height:1.62;color:#666;margin:0;}
+.cs-foot{margin-top:auto;}
+.cs-metrics{display:flex;gap:30px;flex-wrap:wrap;padding-top:22px;margin-top:22px;border-top:1px solid #ededea;}
+.cs-metric{display:flex;flex-direction:column;gap:5px;}
+.cs-metric-n{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.75rem;line-height:1;color:var(--cat,#42c441);letter-spacing:-0.02em;}
+.cs-metric-l{font-size:0.66rem;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;color:#999;line-height:1.35;}
+.cs-foot .cs-cta-link{margin-top:22px;}
+.cs-tag{display:none;}
+.cs-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #111;
+  text-decoration: none;
+  align-self: flex-start;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #42c441;
+  transition: color 140ms, gap 180ms;
+  margin-top: 10px;
+}
+.cs-cta-link:hover { color: #42c441; gap: 13px; }
+
+/* ── BOTTOM CTA ── */
+.cs-bottom-cta {
+  background: #111;
+  color: #fff;
+  padding: 100px 4vw;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.cs-bottom-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(ellipse 800px 500px at 50% 110%, rgba(66,196,65,0.14) 0%, transparent 70%);
+  pointer-events: none;
+}
+.cs-bottom-cta h2 {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+  color: #fff;
+  margin: 0 0 20px;
+  position: relative;
+}
+.cs-bottom-cta p {
+  color: rgba(255,255,255,0.55);
+  font-size: 1.05rem;
+  max-width: 500px;
+  margin: 0 auto 40px;
+  line-height: 1.65;
+  position: relative;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1020px) {
+  .cs-grid { grid-template-columns: repeat(2, 1fr); }
+  .cs-card-wide { grid-column: span 2; flex-direction: column; }
+  .cs-card-wide .cs-card-ph { width: 100%; height: 200px; min-height: 0; }
+  .cs-card-wide .cs-card-body { padding: 22px 24px 26px; }
+  .cs-stat { padding: 28px 36px; }
+}
+@media (max-width: 640px) {
+  .cs-grid { grid-template-columns: 1fr; }
+  .cs-card-wide { grid-column: span 1; }
+  .cs-stat { padding: 22px 26px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .cs-stat:last-child { border-bottom: none; }
+  .cs-hero-title { font-size: 2.8rem; }
+  .cs-filters-wrap { gap: 12px; }
+}
+</style>
+
+<style id="cs-modal-css">
+  .cs-modal-backdrop{position:fixed;inset:0;background:rgba(10,10,10,0.55);display:none;align-items:flex-start;justify-content:center;z-index:9999;overflow-y:auto;padding:60px 20px;}
+  .cs-modal-backdrop.is-open{display:flex;}
+  .cs-modal{background:#fff;border-radius:20px;max-width:760px;width:100%;padding:48px 52px;position:relative;margin-bottom:60px;}
+  .cs-modal-close{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:50%;border:1px solid #e4e4e0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#333;}
+  .cs-modal-close:hover{background:#f4f4f2;}
+  .cs-modal-cat{font-family:'JetBrains Mono',monospace;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#42c441;margin:0 0 14px;}
+  .cs-modal-title{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:clamp(1.5rem,3vw,2rem);color:#111;line-height:1.2;margin:0 0 10px;}
+  .cs-modal-client{font-size:0.95rem;color:#777;margin:0 0 28px;}
+  .cs-modal h4{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;color:#111;margin:26px 0 10px;}
+  .cs-modal p{font-size:0.98rem;line-height:1.68;color:#444;margin:0;}
+  .cs-modal ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px;}
+  .cs-modal ul li{font-size:0.96rem;line-height:1.6;color:#444;padding-left:20px;position:relative;}
+  .cs-modal ul li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:6px;border-radius:50%;background:#42c441;}
+  .cs-modal-result{background:#f4f8f0;border:1px solid #d8ead0;border-radius:14px;padding:20px 24px;margin-top:8px;}
+  .cs-modal-stats{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;}
+  .cs-modal-stat{display:flex;flex-direction:column;}
+  .cs-modal-stat .n{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:1.6rem;color:#42c441;}
+  .cs-modal-stat .l{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;color:#888;}
+  @media (max-width:640px){.cs-modal{padding:34px 26px;}}
+</style>
+</head>
+<body>
+
+<div id="scss-status" class="scss-loading">Kompiluję SCSS…</div>
+
+<!-- ============ TOP NAV ============ -->
+<header class="top-bar">
+  <div class="pill">
+    <button class="burger" id="mobile-burger" aria-label="Menu"><span></span></button>
+    <a href="index.html" class="brand-mark"><span class="num">4</span><span class="word">change</span></a>
+  </div>
+  <nav class="nav-pill" id="top-nav" aria-label="Główna nawigacja">
+    <div class="nav-item">
+      <a href="zespol.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+        <span>O nas</span>
+      </a>
+    </div>
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Rozwiązania dla firm</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="strategia-rozwoju-organizacji.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h7v7"/></svg>Strategia rozwoju organizacji</a>
+        <a href="outsourcing-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 14L21 3"/><path d="M21 3v6h-6"/><path d="M21 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h5"/></svg>Outsourcing HR</a>
+        <a href="system-wynagrodzen.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>Systemy wynagrodzeń</a>
+        <a href="struktura-organizacyjna.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="3" y="16" width="6" height="5" rx="1"/><rect x="15" y="16" width="6" height="5" rx="1"/><path d="M12 8v4M12 12H6v4M12 12h6v4"/></svg>Struktura organizacyjna i zakresy zadań</a>
+        <a href="audyt-sprzedazy.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>Audyt działu sprzedaży</a>
+        <a href="audyt-hr.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 3h6l2 3h2a2 2 0 012 2v11a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h2l2-3z"/><path d="M9 13l2 2 4-4"/></svg>Audyt działu HR</a>
+      </div>
+    </div>
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg>
+        <span>Rozwój właścicieli i zarządów</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="mentoring-c-level.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 7H4a1 1 0 00-1 1v11a1 1 0 001 1h16a1 1 0 001-1V8a1 1 0 00-1-1z"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>Mentoring dla C-level</a>
+        <a href="mentoring-managerski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 11l2 2 4-4"/><circle cx="9" cy="7" r="4"/><path d="M3 21c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>Mentoring dla managerów</a>
+        <a href="mentoring-wlascicielski.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l3-5 3 4 3-6 3 6 3-4 3 5v8a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/></svg>Mentoring dla właścicieli</a>
+        <a href="coaching.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/></svg>Coaching</a>
+      </div>
+    </div>
+    <div class="nav-item has-dropdown">
+      <a href="#" class="nav-link is-active-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v16h13a3 3 0 003-3V7a3 3 0 00-3-3H4z"/><path d="M4 4v16"/><path d="M8 9h8M8 13h6"/></svg>
+        <span>Wiedza</span>
+        <svg class="caret" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 5l3 3 3-3"/></svg>
+      </a>
+      <div class="nav-dropdown">
+        <a href="blog.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 3l7 7-11 11H3v-7L14 3z"/></svg>Blog</a>
+        <a href="case-studies.html"><svg class="di" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>Case studies</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="kontakt.html" class="nav-link">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        <span>Kontakt</span>
+      </a>
+    </div>
+  </nav>
+  <div class="pill right-pill">
+    <button class="icon-btn" aria-label="Szukaj">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    </button>
+    <a href="mentoring-c-level.html">Zaloguj</a>
+  </div>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<aside class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <button class="mobile-close" id="mobile-close" aria-label="Zamknij">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <div class="mm-inner">
+    <section class="mm-col"><h4>O nas</h4>
+      <a href="zespol.html">O nas</a></section>
+    <section class="mm-col"><h4>Rozwiązania dla firm</h4><a href="strategia-rozwoju-organizacji.html">Strategia rozwoju organizacji</a><a href="outsourcing-hr.html">Outsourcing HR</a><a href="system-wynagrodzen.html">Systemy wynagrodzeń</a><a href="mentoring-c-level.html">Struktura organizacyjna</a><a href="audyt-sprzedazy.html">Audyt działu sprzedaży</a>
+      <a href="audyt-hr.html">Audyt działu HR</a></section>
+    <section class="mm-col"><h4>Rozwój właścicieli i zarządów</h4><a href="mentoring-c-level.html">Mentoring dla C-level</a><a href="mentoring-managerski.html">Mentoring dla managerów</a><a href="mentoring-wlascicielski.html">Mentoring dla właścicieli</a><a href="coaching.html">Coaching</a></section>
+    <section class="mm-col"><h4>Wiedza</h4><a href="blog.html">Blog</a><a href="case-studies.html">Case studies</a><h4 style="margin-top:28px;">Kontakt</h4><a href="mailto:hello@4change.pl">hello@4change.pl</a></section>
+  </div>
+</aside>
+
+<!-- ============ HERO ============ -->
+<section class="cs-hero">
+  <div class="cs-eyebrow"><span class="cs-eyebrow-line"></span>Case studies<span class="cs-eyebrow-line"></span></div>
+  <h1 class="cs-hero-title">Realizacje, które<br/><em>mówią same za siebie.</em></h1>
+  <p class="cs-hero-sub">Konkretne przykłady, jak pomogliśmy firmom uporządkować wynagrodzenia, strukturę i zespoły — z realnymi efektami.</p>
+</section>
+
+<div class="cs-fade"></div>
+
+<main class="cs-main">
+
+  <!-- FILTERS -->
+  <div class="cs-filters-wrap">
+    <span class="cs-filters-label">Filtruj</span>
+    <div class="cs-filters" role="group">
+      <button class="cs-chip is-active" data-filter="all">Wszystkie</button>
+      <button class="cs-chip" data-filter="systemy-wynagrodzen">Systemy wynagrodzeń</button>
+      <button class="cs-chip" data-filter="struktura">Struktura org.</button>
+      <button class="cs-chip" data-filter="integracja">Integracja spółek</button>
+      <button class="cs-chip" data-filter="stworzenie-hr">Stworzenie działu HR</button>
+      <button class="cs-chip" data-filter="prowadzenie-hr">Prowadzenie HR</button>
+      <button class="cs-chip" data-filter="audyt-hr">Audyt HR</button>
+      <button class="cs-chip" data-filter="facylitacja">Facylitacja</button>
+      <button class="cs-chip" data-filter="standardy-sprzedazy">Standardy sprzedaży</button>
+    </div>
+  </div>
+
+  <!-- CARDS -->
+  <div class="cs-grid-wrap">
+    <p class="cs-count">Wyświetlam <span id="cs-visible-count">22</span> z 22 realizacji</p>
+    <div class="cs-grid" id="cs-grid">
+      <article class="cs-card" data-category="systemy-wynagrodzen" style="--cat:#00af11"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Grupa spółek IT</span><span class="cs-cat"><span class="cs-cat-dot"></span>Systemy wynagrodzeń</span></div><h3 class="cs-card-title">System wynagrodzeń dla grupy spółek informatycznych</h3><p class="cs-desc">Gdy w jednej grupie kapitałowej ludzie są zatrudnieni na 3 różnych zasadach, trudno o poczucie sprawiedliwości.</p><div class="cs-foot"><div class="cs-metrics"><div class="cs-metric"><span class="cs-metric-n">3</span><span class="cs-metric-l">modele wynagrodzeń</span></div></div><a href="#" class="cs-cta-link" data-cs="1">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="systemy-wynagrodzen" style="--cat:#00af11"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Branża techniczna · Dział serwisu · Magazyn</span><span class="cs-cat"><span class="cs-cat-dot"></span>Systemy wynagrodzeń</span></div><h3 class="cs-card-title">System wynagrodzeń dla branży technicznej</h3><p class="cs-desc">Gdy jeden system wynagrodzeń próbuje objąć sprzedaż, serwis i magazyn naraz, nikogo nie motywuje dobrze.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="2">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="struktura" style="--cat:#1d32a5"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Fabb · Branża przemysłowa</span><span class="cs-cat"><span class="cs-cat-dot"></span>Struktura organizacyjna</span></div><h3 class="cs-card-title">Strategiczne zarządzanie ludźmi + struktura — Fabb</h3><p class="cs-desc">Firma produkcyjna rosła bez spisanej strategii personalnej i bez struktury, która nadążałaby za tym wzrostem.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="3">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="struktura" style="--cat:#1d32a5"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Dobry Dom · Branża budowlana</span><span class="cs-cat"><span class="cs-cat-dot"></span>Struktura organizacyjna</span></div><h3 class="cs-card-title">Struktura i zakres zadań — Dobry Dom</h3><p class="cs-desc">W firmie budowlanej nikt nie miał spisanego zakresu zadań — odpowiedzialność za wyniki rozmywała się między ludźmi.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="4">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="struktura" style="--cat:#1d32a5"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Dom dla Każdego · Branża budowlana</span><span class="cs-cat"><span class="cs-cat-dot"></span>Struktura organizacyjna</span></div><h3 class="cs-card-title">Struktura i zakres zadań — Dom dla Każdego</h3><p class="cs-desc">Podobnie jak w innych firmach budowlanych, brak jasnego podziału zadań utrudniał rozliczanie pracy zespołów.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="5">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="struktura" style="--cat:#1d32a5"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">ISP · Branża techniczna</span><span class="cs-cat"><span class="cs-cat-dot"></span>Struktura organizacyjna</span></div><h3 class="cs-card-title">Struktura i zakres zadań — ISP</h3><p class="cs-desc">Firma techniczna potrzebowała jasno opisanych stanowisk, żeby zespół przestał pytać, kto właściwie za to odpowiada.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="6">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="integracja" style="--cat:#2155b0"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Fortum · Energetyka</span><span class="cs-cat"><span class="cs-cat-dot"></span>Integracja spółek</span></div><h3 class="cs-card-title">Wsparcie procesu integracji spółek po zakupie</h3><p class="cs-desc">Po przejęciu spółki trzeba było połączyć dwa zespoły i dwa zestawy zasad HR — bez utraty ludzi po drodze.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="7">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="stworzenie-hr" style="--cat:#6d28d9"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Tax Care · Finanse</span><span class="cs-cat"><span class="cs-cat-dot"></span>Stworzenie działu HR</span></div><h3 class="cs-card-title">Stworzenie działu HR od podstaw — Tax Care</h3><p class="cs-desc">Firma rosła bez wyodrębnionej funkcji HR — rekrutacja i dokumentacja kadrowa były rozproszone między ludźmi.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="8">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="stworzenie-hr" style="--cat:#6d28d9"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Fortum · Energetyka</span><span class="cs-cat"><span class="cs-cat-dot"></span>Stworzenie działu HR</span></div><h3 class="cs-card-title">Stworzenie działu HR od podstaw — Fortum</h3><p class="cs-desc">Podobny problem pojawił się w Fortum — potrzebny był kompletny dział HR zbudowany od zera.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="9">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="prowadzenie-hr" style="--cat:#b45309"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Branża BHP</span><span class="cs-cat"><span class="cs-cat-dot"></span>Prowadzenie HR</span></div><h3 class="cs-card-title">Prowadzenie HR — branża BHP</h3><p class="cs-desc">Firma potrzebowała stałej obsługi kadrowej, ale nie chciała budować własnego, wewnętrznego działu HR.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="10">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="prowadzenie-hr" style="--cat:#b45309"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Branża finansowa</span><span class="cs-cat"><span class="cs-cat-dot"></span>Prowadzenie HR</span></div><h3 class="cs-card-title">Prowadzenie HR — branża finansowa</h3><p class="cs-desc">Organizacja z sektora finansowego potrzebowała kompleksowego prowadzenia HR przy zachowaniu wysokich standardów.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="11">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="audyt-hr" style="--cat:#0369a1"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Logistyczna · Techniczna · Finansowa</span><span class="cs-cat"><span class="cs-cat-dot"></span>Audyt HR</span></div><h3 class="cs-card-title">Audyt działu HR</h3><p class="cs-desc">Trzy organizacje chciały sprawdzić, czy ich funkcja HR nadąża za tempem rozwoju firmy, zanim pojawi się problem.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="12">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card cs-card-wide" data-category="facylitacja" style="--cat:#42c441"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Mapowanie procesów · Struktura organizacyjna · Strategia · Cross-branżowy</span><span class="cs-cat"><span class="cs-cat-dot"></span>Facylitacja</span></div><h3 class="cs-card-title">Facylitacja mapowania procesów, struktury i&nbsp;decyzji strategicznych</h3><p class="cs-desc">Zarządy i liderzy potrzebowali neutralnego moderatora, który pomoże wypracować wspólne stanowisko, zamiast narzucać gotowe rozwiązania z zewnątrz.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="13">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="facylitacja" style="--cat:#42c441"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Branża techniczna · Sprzedaż vs zakupy</span><span class="cs-cat"><span class="cs-cat-dot"></span>Facylitacja</span></div><h3 class="cs-card-title">Konflikty w&nbsp;zespole — spór między sprzedażą a&nbsp;zakupami</h3><p class="cs-desc">Handlowcy i dział zakupów przestali się dogadywać — a to zaczęło spowalniać codzienną pracę obu zespołów w firmie 150+ osób.</p><div class="cs-foot"><div class="cs-metrics"><div class="cs-metric"><span class="cs-metric-n">150+</span><span class="cs-metric-l">pracowników</span></div><div class="cs-metric"><span class="cs-metric-n">4</span><span class="cs-metric-l">miesiące</span></div></div><a href="#" class="cs-cta-link" data-cs="14">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="facylitacja" style="--cat:#42c441"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Mentoring managerski · Szkolenie zespołu · Konflikt manager–zespół</span><span class="cs-cat"><span class="cs-cat-dot"></span>Facylitacja</span></div><h3 class="cs-card-title">Mentoring managerski + szkolenie zespołu — konflikt manager–zespół</h3><p class="cs-desc">Manager, który awansował z szeregowego stanowiska, przestał dogadywać się z własnym zespołem — a to odbijało się na pracy całej grupy.</p><div class="cs-foot"><a href="#" class="cs-cta-link" data-cs="15">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="systemy-wynagrodzen" style="--cat:#00af11"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Marketing internetowy</span><span class="cs-cat"><span class="cs-cat-dot"></span>Systemy wynagrodzeń</span></div><h3 class="cs-card-title">Gdy system premiowy przestaje motywować</h3><p class="cs-desc">Handlowcy pytali, ile dostaną premii, zamiast pytać, jak zwiększyć sprzedaż — system prowizyjny rozrósł się tak, że przestał go rozumieć ktokolwiek.</p><div class="cs-foot"><div class="cs-metrics"><div class="cs-metric"><span class="cs-metric-n">150–230</span><span class="cs-metric-l">pracowników</span></div><div class="cs-metric"><span class="cs-metric-n">+12%</span><span class="cs-metric-l">sprzedaży</span></div></div><a href="#" class="cs-cta-link" data-cs="16">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="struktura" style="--cat:#1d32a5"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Sieć sklepów · Spożywcza</span><span class="cs-cat"><span class="cs-cat-dot"></span>Struktura organizacyjna</span></div><h3 class="cs-card-title">Gdy firma rośnie, ale zarządzanie nie nadąża</h3><p class="cs-desc">Sieć sklepów otwierała kolejne punkty, ale cała wiedza operacyjna zmieściła się w głowach dwóch osób — bez zastępstwa.</p><div class="cs-foot"><div class="cs-metrics"><div class="cs-metric"><span class="cs-metric-n">−50%</span><span class="cs-metric-l">czasu wdrożenia</span></div></div><a href="#" class="cs-cta-link" data-cs="17">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="standardy-sprzedazy" style="--cat:#b45309"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Sieć piekarni · Spożywcza</span><span class="cs-cat"><span class="cs-cat-dot"></span>Standardy sprzedaży</span></div><h3 class="cs-card-title">Kiedy obsługa klienta to tylko wydawanie towaru</h3><p class="cs-desc">Dobry produkt i miły personel to nie wszystko — bez standardów sprzedaży każdy sklep działał po swojemu.</p><div class="cs-foot"><div class="cs-metrics"><div class="cs-metric"><span class="cs-metric-n">+15%</span><span class="cs-metric-l">wartości koszyka</span></div></div><a href="#" class="cs-cta-link" data-cs="18">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="struktura" style="--cat:#1d32a5"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Branża medyczna · Centrum Obsługi Pacjenta</span><span class="cs-cat"><span class="cs-cat-dot"></span>Struktura organizacyjna</span></div><h3 class="cs-card-title">Gdy jakość obsługi pacjenta spada</h3><p class="cs-desc">Zespół był zaangażowany, ale bez jasnego podziału ról i procedur narastał chaos komunikacyjny i frustracja.</p><div class="cs-foot"><div class="cs-metrics"><div class="cs-metric"><span class="cs-metric-n">+24%</span><span class="cs-metric-l">ocen satysfakcji</span></div></div><a href="#" class="cs-cta-link" data-cs="19">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="stworzenie-hr" style="--cat:#6d28d9"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Branża IT</span><span class="cs-cat"><span class="cs-cat-dot"></span>Rekrutacja i onboarding</span></div><h3 class="cs-card-title">Gdy rekrutacja i onboarding żyją własnym życiem</h3><p class="cs-desc">Ręczny proces rekrutacji i wdrażania w firmie IT prowadził do wpadek — zapominano o zamówieniu sprzętu czy szkoleń, a kandydaci nie dostawali żadnego feedbacku.</p><div class="cs-foot"><div class="cs-metrics"><div class="cs-metric"><span class="cs-metric-n">~60</span><span class="cs-metric-l">pracowników</span></div><div class="cs-metric"><span class="cs-metric-n">+60%</span><span class="cs-metric-l">candidate experience</span></div></div><a href="#" class="cs-cta-link" data-cs="20">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="standardy-sprzedazy" style="--cat:#b45309"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Medycyna / Beauty</span><span class="cs-cat"><span class="cs-cat-dot"></span>Standardy sprzedaży</span></div><h3 class="cs-card-title">Gdy klient gubi się między działami</h3><p class="cs-desc">Świetni specjaliści, ale proces obsługi „pękał" na styku gabinetu i recepcji — klient wychodził bez umówionej kolejnej wizyty, a informacje o zaleceniach ginęły.</p><div class="cs-foot"><div class="cs-metrics"><div class="cs-metric"><span class="cs-metric-n">+18%</span><span class="cs-metric-l">retencji</span></div><div class="cs-metric"><span class="cs-metric-n">−40%</span><span class="cs-metric-l">błędów</span></div></div><a href="#" class="cs-cta-link" data-cs="21">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+
+      <article class="cs-card" data-category="facylitacja" style="--cat:#42c441"><div class="cs-card-body"><div class="cs-card-head"><span class="cs-client">Skalujące się MŚP · BHP</span><span class="cs-cat"><span class="cs-cat-dot"></span>Mentoring managerski</span></div><h3 class="cs-card-title">Od świetnego eksperta do zagubionego lidera</h3><p class="cs-desc">Najlepsi specjaliści awansowali na managera — ale bez kompetencji przywódczych gasili pożary i robili pracę za zespół zamiast delegować. Mentoring 1:1 pomógł im odzyskać kontrolę.</p><div class="cs-foot"><div class="cs-metrics"><div class="cs-metric"><span class="cs-metric-n">−25%</span><span class="cs-metric-l">rotacji</span></div></div><a href="#" class="cs-cta-link" data-cs="22">Czytaj więcej <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div></div></article>
+    </div><!-- /cs-grid -->
+  </div><!-- /cs-grid-wrap -->
+
+</main>
+
+<!-- ============ BOTTOM CTA ============ -->
+<section class="cs-bottom-cta">
+  <h2>Twoja organizacja potrzebuje zmiany?</h2>
+  <p>Porozmawiajmy o wyzwaniu, przed którym stoisz. Pomożemy zaprojektować rozwiązanie dopasowane do Twojej branży i skali.</p>
+  <a href="kontakt.html" class="btn-accent">Umów bezpłatną konsultację <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="columns is-variable is-8">
+    <div class="column is-4">
+      <h4>Projektujemy zmianę dla tych, którzy chcą zmieniać świat.</h4>
+    </div>
+    <div class="column is-2">
+      <a href="zespol.html" class="footer-link">O nas</a>
+      <a href="strategia-rozwoju-organizacji.html" class="footer-link">Rozwiązania</a>
+      <a href="mentoring-c-level.html" class="footer-link">Rozwój</a>
+    </div>
+    <div class="column is-2">
+      <a href="blog.html" class="footer-link">Wiedza</a>
+      <a href="kontakt.html" class="footer-link">Kontakt</a>
+    </div>
+    <div class="column is-4 footer-help">
+      <h5>Jak możemy Ci pomóc?</h5>
+      <p>Cenimy każdą rozmowę. Napisz do nas — odpowiemy w 24h, a doświadczony konsultant zaproponuje pierwszy krok.</p>
+      <a href="kontakt.html" class="btn-accent">Skontaktuj się <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+  <div class="footer-meta">
+    <div style="display:flex;align-items:center;gap:18px;">
+      <span class="brand-mark"><span class="num">4</span><span class="word">change</span></span>
+      <span style="color:#6b6b6b;font-size:0.8rem;">Transformation &amp; Strategy</span>
+    </div>
+    <div class="links">
+      <a href="#">Polityka prywatności</a>
+      <a href="#">Regulamin</a>
+      <a href="#">Sitemap</a>
+      <a href="#">Cookies</a>
+    </div>
+    <div class="socials">
+      <a href="#" aria-label="LinkedIn">in</a>
+      <a href="#" aria-label="Facebook">fb</a>
+      <a href="#" aria-label="Instagram">ig</a>
+    </div>
+  </div>
+  <p class="legal">4change Sp. z o.o. jest pracodawcą równych szans. Wszyscy aplikujący kandydaci są rozpatrywani bez względu na płeć, wiek, religię, orientację seksualną, tożsamość lub ekspresję płciową, pochodzenie narodowe ani inne cechy chronione prawem krajowym.</p>
+</footer>
+
+<!-- SCSS loader (identyczny jak index.html) -->
+<script type="text/scss" id="scss-variables" data-name="variables.scss"></script>
+<script type="text/scss" id="scss-mixins"    data-name="mixins.scss"></script>
+<script type="text/scss" id="scss-layout"    data-name="layout.scss"></script>
+<script type="text/scss" id="scss-components" data-name="components.scss"></script>
+<script type="text/scss" id="scss-main"      data-name="main.scss"></script>
+
+<script>
+/* SCSS compiler */
+(async function() {
+  const status = document.getElementById('scss-status');
+  const partials = ['_variables.scss','_mixins.scss','_layout.scss','_components.scss','main.scss'];
+  try {
+    const sources = {};
+    for (const name of partials) {
+      const res = await fetch('styles/' + name);
+      if (!res.ok) throw new Error('Nie udało się wczytać ' + name);
+      sources[name] = await res.text();
+    }
+    for (const [name, content] of Object.entries(sources)) Sass.writeFile(name, content);
+    Sass.compile(sources['main.scss'], function(result) {
+      if (result.status === 0) {
+        const style = document.createElement('style');
+        style.id = 'compiled-scss';
+        style.textContent = result.text;
+        document.head.appendChild(style);
+        status.remove();
+      } else {
+        status.style.color = '#c62828';
+        status.textContent = 'Błąd SCSS: ' + (result.formatted || result.message);
+      }
+    });
+  } catch(err) {
+    status.style.color = '#c62828';
+    status.textContent = 'Błąd: ' + err.message;
+  }
+})();
+
+/* Mobile menu */
+const mobileBurger = document.getElementById('mobile-burger');
+const mobileMenu   = document.getElementById('mobile-menu');
+const mobileClose  = document.getElementById('mobile-close');
+const openMM  = () => { mobileMenu.classList.add('is-open');    mobileMenu.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; };
+const closeMM = () => { mobileMenu.classList.remove('is-open'); mobileMenu.setAttribute('aria-hidden','true');  document.body.style.overflow=''; };
+mobileBurger.addEventListener('click', () => mobileMenu.classList.contains('is-open') ? closeMM() : openMM());
+mobileClose.addEventListener('click', closeMM);
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeMM(); });
+
+/* Filter logic */
+const chips   = document.querySelectorAll('.cs-chip');
+const cards   = document.querySelectorAll('.cs-card');
+const counter = document.getElementById('cs-visible-count');
+
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    chips.forEach(c => c.classList.remove('is-active'));
+    chip.classList.add('is-active');
+    const filter = chip.dataset.filter;
+    let visible = 0;
+    cards.forEach(card => {
+      const show = filter === 'all' || card.dataset.category === filter;
+      if (show) { card.removeAttribute('hidden'); visible++; }
+      else       { card.setAttribute('hidden',''); }
+    });
+    if (counter) counter.textContent = visible;
+  });
+});
+</script>
+
+<script src="contact-widget.js"></script>
+<script src="diagnosis-popup.js"></script>
+
+<div class="cs-modal-backdrop" id="cs-modal-backdrop">
+  <div class="cs-modal" role="dialog" aria-modal="true">
+    <button class="cs-modal-close" id="cs-modal-close" aria-label="Zamknij">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <div class="cs-modal-body" id="cs-modal-body"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const params = new URLSearchParams(location.search);
+  const preselect = params.get('case');
+  const CS_DATA = {"1":{"title":"System wynagrodzeń dla grupy spółek informatycznych","client":"Grupa spółek IT","challenge":"W jednej grupie kapitałowej ludzie pracowali na 3 różnych zasadach — B2B, umowa o pracę, kontrakt — co rodziło poczucie nierówności między spółkami.","approach":["Analiza porównawcza wynagrodzeń w trzech modelach zatrudnienia","Zaprojektowanie spójnej logiki wynagrodzeń, uwzględniającej różnice formalne","Warsztaty z zarządami spółek w celu uzgodnienia wspólnych zasad"],"result":"Grupa zyskała jeden, przejrzysty system, który uczciwie traktuje wszystkie formy zatrudnienia."},"2":{"title":"System wynagrodzeń dla branży technicznej","client":"Firma techniczna z działem serwisu i magazynem","challenge":"Sprzedaż, serwis i magazyn wymagały zupełnie innej logiki wynagradzania, a jeden wspólny system demotywował zespoły serwisowe i magazynowe.","approach":["Analiza specyfiki pracy każdego z działów","Zaprojektowanie oddzielnych ścieżek taryfikacji dla serwisu i magazynu","Połączenie wszystkich modeli w jeden spójny, czytelny system"],"result":"Każdy dział ma dziś system dopasowany do swojej pracy, a firma — jedną spójną politykę wynagrodzeń."},"3":{"title":"Strategiczne zarządzanie ludźmi + struktura","client":"Fabb — branża przemysłowa","challenge":"Firma produkcyjna rosła, ale nie miała spisanej strategii personalnej ani struktury organizacyjnej, która nadążałaby za tym wzrostem.","approach":["Diagnoza sytuacji kadrowej i struktury organizacyjnej","Zaprojektowanie strategii zarządzania ludźmi dopasowanej do celów firmy","Zaprojektowanie nowej struktury organizacyjnej"],"result":"Firma zyskała fundamenty do świadomego zarządzania ludźmi — strategię personalną i strukturę wspierające dalszy wzrost."},"4":{"title":"Struktura i zakres zadań — Dobry Dom","client":"Dobry Dom — branża budowlana","challenge":"W firmie budowlanej nikt nie miał spisanego zakresu zadań — trudno było rozliczać wyniki, gdy odpowiedzialność rozmywała się między ludźmi.","approach":["Analiza struktury i przepływu pracy w organizacji","Opracowanie opisów stanowisk i zakresów odpowiedzialności","Wdrożenie i komunikacja nowych zasad w zespole"],"result":"Firma zyskała jasny podział zadań — mniej pytań o to, kto za co odpowiada, więcej samodzielności zespołu."},"5":{"title":"Struktura i zakres zadań — Dom dla Każdego","client":"Dom dla Każdego — branża budowlana","challenge":"Podobnie jak w innych firmach budowlanych, brak jasnego podziału zadań utrudniał codzienną pracę i rozliczanie wyników zespołów.","approach":["Analiza struktury i przepływu pracy w organizacji","Opracowanie opisów stanowisk i zakresów odpowiedzialności","Wdrożenie i komunikacja nowych zasad w zespole"],"result":"Zespół zyskał jasny podział zadań i odpowiedzialności — dopasowany do specyfiki pracy budowlanej."},"6":{"title":"Struktura i zakres zadań — ISP","client":"ISP — branża techniczna","challenge":"Firma techniczna potrzebowała jasno opisanych stanowisk, żeby zespół przestał pytać, kto właściwie odpowiada za dane zgłoszenie.","approach":["Analiza struktury i przepływu pracy w organizacji","Opracowanie opisów stanowisk i zakresów odpowiedzialności","Wdrożenie i komunikacja nowych zasad w zespole"],"result":"Firma zyskała jasny podział zadań, który usunął większość codziennych pytań o odpowiedzialność."},"7":{"title":"Wsparcie procesu integracji spółek po zakupie","client":"Fortum — energetyka","challenge":"Po przejęciu spółki trzeba było połączyć dwa zespoły, dwie kultury pracy i dwa zestawy procesów HR — bez utraty ludzi i zaangażowania.","approach":["Mapowanie ról i struktur obu organizacji","Harmonizacja procesów HR i zasad zatrudnienia","Zaplanowanie komunikacji zmiany dla pracowników obu firm"],"result":"Integracja przebiegła bez chaosu organizacyjnego — pracownicy obu spółek otrzymali jasne zasady i spójną strukturę."},"8":{"title":"Stworzenie działu HR od podstaw — Tax Care","client":"Tax Care — branża finansowa","challenge":"Firma rosła bez wyodrębnionej funkcji HR — rekrutacja, dokumentacja i polityki kadrowe były rozproszone i niesformalizowane.","approach":["Zaprojektowanie polityk i procesów HR od zera","Budowa dokumentacji kadrowej i zasad rekrutacji","Wdrożenie pierwszego zespołu HR w organizacji"],"result":"Firma zyskała w pełni działającą funkcję HR — od rekrutacji po dokumentację — tam, gdzie wcześniej jej nie było."},"9":{"title":"Stworzenie działu HR od podstaw — Fortum","client":"Fortum — energetyka","challenge":"Podobny problem pojawił się w Fortum — organizacja potrzebowała kompletnej funkcji HR zbudowanej od zera, dopasowanej do specyfiki branży energetycznej.","approach":["Zaprojektowanie polityk i procesów HR od zera","Budowa dokumentacji kadrowej i zasad rekrutacji","Wdrożenie pierwszego zespołu HR w organizacji"],"result":"Fortum zyskało w pełni działającą funkcję HR, dopasowaną do specyfiki branży energetycznej."},"10":{"title":"Prowadzenie HR — branża BHP","client":"Branża BHP","challenge":"Firma potrzebowała stałej obsługi kadrowej, ale nie chciała budować własnego, wewnętrznego działu HR.","approach":["Przejęcie pełnej, bieżącej obsługi kadrowej firmy","Prowadzenie rekrutacji, dokumentacji i polityk personalnych","Stałe wsparcie doradcze dla zarządu w sprawach pracowniczych"],"result":"Firma ma w pełni obsłużoną funkcję HR bez konieczności zatrudniania własnego zespołu kadrowego."},"11":{"title":"Prowadzenie HR — branża finansowa","client":"Branża finansowa","challenge":"Organizacja z sektora finansowego potrzebowała kompleksowego prowadzenia funkcji personalnej przy zachowaniu wysokich standardów zgodności.","approach":["Przejęcie bieżącego prowadzenia procesów HR","Nadzór nad dokumentacją i zgodnością z wymogami branży","Stałe doradztwo personalne dla zarządu"],"result":"Firma zyskała w pełni prowadzoną funkcję HR, dopasowaną do specyfiki i wymogów branży finansowej."},"12":{"title":"Audyt działu HR","client":"Branża logistyczna, techniczna i finansowa","challenge":"Trzy organizacje z różnych branż chciały sprawdzić, czy ich funkcja HR nadąża za tempem rozwoju firmy, zanim ukryte ryzyko stanie się realnym problemem.","approach":["Audyt procesów, dokumentacji i struktury HR w każdej organizacji","Identyfikacja luk i obszarów ryzyka","Rekomendacje naprawcze dopasowane do specyfiki każdej branży"],"result":"Każda firma otrzymała konkretną mapę luk w HR i plan naprawczy — zamiast zgadywania, gdzie leży problem."},"13":{"title":"Facylitacja mapowania procesów, struktury i decyzji strategicznych","client":"Zarządy i liderzy — projekt cross-branżowy","challenge":"Zespoły zarządzające potrzebowały neutralnego moderatora, który pomoże wypracować wspólne stanowisko, zamiast narzucać gotowe rozwiązania z zewnątrz.","approach":["Facylitacja warsztatów mapowania procesów","Wspólne projektowanie struktury organizacyjnej z udziałem zespołu","Moderowanie decyzji strategicznych i wyznaczanie kierunków rozwoju"],"result":"Zarządy wypracowały wspólne, uzgodnione decyzje strategiczne — z pełnym zaangażowaniem uczestników procesu."},"14":{"title":"Konflikty w zespole — spór między sprzedażą a zakupami","client":"Firma techniczna 150+ osób — sprzedaż maszyn i urządzeń","challenge":"Dział sprzedaży i dział zakupów przestały się dogadywać — wzajemne pretensje zaczęły spowalniać codzienną, operacyjną pracę obu zespołów.","approach":["Ustalenie źródeł konfliktu poprzez rozmowy z obiema stronami","Wypracowanie rozwiązania łączącego interesy sprzedaży i zakupów","Uzgodnienie i opisanie struktury oraz poprawa 2 głównych procesów międzydziałowych"],"result":"Po 4 miesiącach pracy konflikt został rozwiązany — jasno opisana struktura i poprawione procesy usunęły źródło sporu.","stats":[{"n":"4","l":"miesiące pracy"},{"n":"2","l":"poprawione procesy"},{"n":"150+","l":"pracowników firmy"}]},"15":{"title":"Mentoring managerski + szkolenie zespołu — konflikt manager–zespół","client":"Zespół operacyjny, kierownik wywodzący się z zespołu","challenge":"Manager, który awansował z szeregowego stanowiska, przestał dogadywać się z własnym zespołem — a napięcia odbijały się na operacyjnej pracy całej grupy.","approach":["Mentoring managerski dla kierownika — praca nad rolą i relacją z zespołem","Równoległe szkolenie dla całego zespołu","Wspólne wypracowanie nowych zasad współpracy manager–zespół"],"result":"Manager i zespół zaczęli się dogadywać — operacyjna praca wróciła do normalnego rytmu, bez ciągłych napięć."},"16":{"title":"Gdy system premiowy przestaje motywować","client":"Marketing internetowy (SEO/SEM), 150–230 pracowników","challenge":"System prowizyjny rozrastał się latami, aż stał się niezrozumiały. Handlowcy pytali, ile dostaną premii, zamiast pytać, jak zwiększyć sprzedaż, a menedżerowie tracili godziny na wyjaśnianie zasad.","approach":["Analiza obecnego modelu wynagrodzeń i benchmarking rynkowy","Zaprojektowanie prostego modelu, przewidywalnego kosztowo i zgodnego ze strategią sprzedaży","Wdrożenie regulaminu, kalkulatora premii i dokumentacji dla zarządu i HR"],"result":"Sprzedaż wzrosła o 12% w 12 miesięcy, rotacja w dziale handlowym spadła o 18%, a czas na wyjaśnianie zasad premiowania spadł o połowę — bez zwiększania budżetu.","stats":[{"n":"+12%","l":"wzrost sprzedaży"},{"n":"−18%","l":"spadek rotacji"},{"n":"−50%","l":"czasu na wyjaśnienia"}]},"17":{"title":"Gdy firma rośnie, ale zarządzanie nie nadąża","client":"Sieć sklepów spożywczych","challenge":"Sieć sklepów otwierała kolejne punkty, ale struktura zarządcza została na etapie małego, rodzinnego biznesu. Cała wiedza operacyjna była w głowach dwóch osób, bez zastępstwa.","approach":["Audyt przepływu informacji między sklepami a centralą i mapa ryzyk","Nowa struktura zarządzania, stanowisko Lidera Sieci Sklepów i zasada jednego przełożonego","Zaprojektowanie zastępowalności kluczowych ról, onboarding i Karty Stanowisk Pracy"],"result":"Czas pełnego wdrożenia nowej ekspedientki skrócił się o połowę, a 100% pracowników ma dziś jednego, jasnego przełożonego.","stats":[{"n":"−50%","l":"czasu onboardingu"},{"n":"4","l":"procesy z zastępowalnością"},{"n":"100%","l":"jasny przełożony"}]},"18":{"title":"Kiedy obsługa klienta to tylko wydawanie towaru","client":"Sieć piekarni, kilkanaście punktów sprzedaży","challenge":"Sieć piekarni miała dobry produkt i miły personel, ale sprzedaż w sklepach nie wykorzystywała potencjału — każdy punkt działał według własnych, niepisanych zasad.","approach":["Audyt operacyjny metodą Tajemniczego Klienta i obserwacja stanowisk","Opracowanie jednolitych Standardów Sprzedaży i Obsługi Klienta oraz zasad ekspozycji","Warsztaty i praktyczne szkolenia z technik dosprzedaży w sklepach"],"result":"Średnia wartość koszyka wzrosła o 15%, a udział sprzedaży produktów impulsowych o 22% — dzięki jednolitym standardom we wszystkich punktach.","stats":[{"n":"+15%","l":"wartość koszyka"},{"n":"+22%","l":"sprzedaż impulsowa"}]},"19":{"title":"Gdy jakość obsługi pacjenta spada","client":"Placówka medyczna — Centrum Obsługi Pacjenta","challenge":"Długoletni, zaangażowany zespół dobrze znał swoją pracę, ale mimo to pojawiały się skargi pacjentów. Brakowało zastępowalności, zadania trafiały do różnych osób bez jasnej zasady, a standard obsługi zależał od tego, kto akurat odbierał telefon.","approach":["Wywiad z każdym pracownikiem (kilkadziesiąt osób)","Praca nad księgą standardów obsługi pacjenta z uwzględnieniem dotychczasowych procedur medycznych","Ustalenie grafików pracy, zastępowalności i urlopów","Karty stanowisk pracy ze zestandaryzowanym zakresem obowiązków i wyznaczeniem odpowiedzialności","Wdrożenie, warsztaty i szkolenia dla kadry zarządzającej i specjalistów"],"result":"Oceny satysfakcji pacjentów wzrosły o 24% w 2 miesiące, a zespół zyskał jednolite standardy rozmów i spadek poziomu stresu — mimo trudnego, emocjonalnego charakteru pracy z rodzinami pacjentów.","stats":[{"n":"+24%","l":"ocen satysfakcji"},{"n":"100%","l":"standard rozmów"}]},"20":{"title":"Gdy rekrutacja i onboarding żyją własnym życiem","client":"Firma z branży IT, ok. 60 pracowników","challenge":"Rekrutacja i wdrażanie nowych pracowników odbywały się całkowicie ręcznie, bez jednego spisanego procesu. Zdarzały się wpadki: zapominano zamówić sprzęt na czas, umówić wymagane szkolenia, a kandydaci po rozmowach często nie otrzymywali żadnego feedbacku — nawet gdy nie przechodzili dalej.","approach":["Zmapowanie całej ścieżki od aplikacji kandydata do pierwszych tygodni pracy, z profilami kompetencji dla kluczowych ról","Zaprojektowanie standardowego procesu rekrutacji z punktami kontrolnymi i obowiązkowym feedbackiem na każdym etapie","Checklisty onboardingowe z jasno przypisaną odpowiedzialnością — sprzęt, dostępy, szkolenia, opiekun wdrożeniowy","Wdrożenie i przeszkolenie zespołu rekrutacyjnego oraz managerów odpowiedzialnych za onboarding"],"result":"Candidate experience — mierzony ankietą po procesie rekrutacyjnym — wzrósł o 60%, a liczba błędów na etapie onboardingu (braki w sprzęcie, nieumówione szkolenia) spadła o 50%.","stats":[{"n":"+60%","l":"candidate experience"},{"n":"−50%","l":"błędów onboardingu"}]},"21":{"title":"Gdy klient gubi się między działami","client":"Placówka specjalistyczna — medycyna / beauty","challenge":"Firma dysponowała świetnymi specjalistami, ale proces obsługi „pękał\" na styku działów. Klient wychodzący z gabinetu nie był odpowiednio przejmowany przez recepcję — informacje o zaleceniach ginęły, kolejne wizyty nie były umawiane, a działy przerzucały się odpowiedzialnością.","approach":["Mapowanie ścieżki klienta od wejścia do wyjścia i identyfikacja punktów styku, w których ginęły informacje","Zaprojektowanie jednolitego „przekazania pałeczki\" na linii gabinet–recepcja wraz ze standardem komunikacji","Warsztaty dla specjalistów i obsługi oraz monitorowanie wdrożenia w pierwszych tygodniach"],"result":"Zamiast pytać „co specjalista zalecił temu klientowi?\", recepcja z góry umawia kolejną wizytę zgodnie z zaleceniem. Jakość usługi to nie tylko wiedza eksperta — to płynne doświadczenie klienta od wejścia do wyjścia.","stats":[{"n":"+18%","l":"retencji (kolejne wizyty)"},{"n":"−40%","l":"błędów w dokumentacji"}]},"22":{"title":"Od świetnego eksperta do zagubionego lidera","client":"Skalujące się MŚP — branża BHP","challenge":"Firma dynamicznie rosła, a najlepsi specjaliści awansowali na stanowiska managerskie — bez kompetencji przywódczych i wsparcia. Zamiast zarządzać, gasili pożary i wykonywali pracę za podwładnych. Efektem była frustracja managerów, brak jasnej struktury podległości oraz spadek motywacji i wzrost rotacji w zespołach.","approach":["Diagnoza kompetencji: indywidualne wywiady z nowymi managerami i ocena aktualnych wyzwań w zarządzaniu zespołem","Cykliczny mentoring managerski 1:1 z doświadczonym mentorem z zewnątrz, oparty na codziennych case studies managera","Uporządkowanie struktury: opisanie i zakomunikowanie struktury firmy oraz wdrożenie narzędzi do delegowania i egzekwowania celów"],"result":"Awansowanie najlepszego specjalisty na managera nie wystarczy — trzeba jeszcze dać mu narzędzia, by stał się liderem. Managerowie zostali odciążeni z pracy operacyjnej, a zmiany wdrażane są szybciej i skuteczniej.","stats":[{"n":"100%","l":"liderów z planem rozwoju"},{"n":"−25%","l":"rotacji w zespołach"}]}};
+  const backdrop = document.getElementById('cs-modal-backdrop');
+  const body = document.getElementById('cs-modal-body');
+  document.querySelectorAll('.cs-cta-link[data-cs]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      const d = CS_DATA[a.getAttribute('data-cs')];
+      if (!d) return;
+      let statsHtml = '';
+      if (d.stats) statsHtml = '<div class="cs-modal-stats">' + d.stats.map(function(s){return '<div class="cs-modal-stat"><span class="n">'+s.n+'</span><span class="l">'+s.l+'</span></div>';}).join('') + '</div>';
+      body.innerHTML =
+        '<p class="cs-modal-cat">Case study</p>' +
+        '<h2 class="cs-modal-title">' + d.title + '</h2>' +
+        '<p class="cs-modal-client">' + d.client + '</p>' +
+        '<h4>Wyzwanie</h4><p>' + d.challenge + '</p>' +
+        '<h4>Jak to rozwiązaliśmy</h4><ul>' + d.approach.map(function(s){return '<li>'+s+'</li>';}).join('') + '</ul>' +
+        '<h4>Efekt</h4><div class="cs-modal-result"><p>' + d.result + '</p></div>' +
+        statsHtml;
+      backdrop.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  document.getElementById('cs-modal-close').addEventListener('click', close);
+  backdrop.addEventListener('click', function(e){ if (e.target === backdrop) close(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+  function close(){ backdrop.classList.remove('is-open'); document.body.style.overflow=''; }
+  if (preselect) {
+    const link = document.querySelector('.cs-cta-link[data-cs="' + preselect + '"]');
+    if (link) link.click();
+  }
+})();
+</script>
+</body>
+</html>
